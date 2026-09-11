@@ -1,10 +1,10 @@
-# AURA ERP — College Fees Management System (Phase 1)
+# AURA ERP — College Management System (Phase 2)
 
-A production-ready, full-stack College Fees Management System with a modern glassmorphic interface, built for enterprise institutional finance operations.
+A production-grade, full-stack College ERP with a modern glassmorphic interface, unifying Student Admissions, Academic Attendance, and Enterprise Fees Operations into a single relational architecture.
 
 ---
 
-## 💎 Design System & Glassmorphism Aesthetics
+## 💎 Design System & Glassmorphic Aesthetics
 
 - **Frosted-Glass Architecture**: Semi-transparent layered cards (`rgba(255,255,255,0.7)` light / `rgba(15,23,42,0.65)` dark), `backdrop-filter: blur(18px)`, subtle 1px low-opacity borders, and soft layered ambient shadows.
 - **Ambient Mesh Canvas**: Radial gradients with muted blues, purples, and teals that make the backdrop-filter blur visibly shimmer behind panels.
@@ -20,26 +20,40 @@ Pre-seeded institutional accounts for live client demonstrations:
 
 | Portal | Role | Email | Password | Access Scope |
 | :--- | :--- | :--- | :--- | :--- |
-| **Admin** | `ADMIN` | `admin@college.edu` | `Admin@123` | Full CRUD for fee heads, student registry, cashier accounts, financial reports, ledger reversals |
+| **Admin** | `ADMIN` | `admin@college.edu` | `Admin@123` | Full ERP control: Admissions CRUD, Faculty management, Attendance audits & CSV export, Fee structures, Cashiers, Financial reports |
+| **Faculty / Teacher** | `TEACHER` | `teacher.sunita@college.edu` | `Teacher@123` | Assigned classes only: Daily attendance marking (`PRESENT`, `ABSENT`, `LATE`), roster audits, remarks, session history |
 | **Cashier / Clerk** | `CLERK` | `clerk.raj@college.edu` | `Clerk@123` | Live student search, fee collection, instant PDF receipts, payment history, pending dues list |
-| **Student** | `STUDENT` | `student.aarav@college.edu` | `Student@123` | Real-time fee breakdown by head, outstanding dues, downloadable receipts, "Pay Now" counter instructions |
+| **Student** | `STUDENT` | `student.aarav@college.edu` | `Student@123` | Unified Profile: Admissions dossier, real-time fee breakdown by head, outstanding dues, attendance percentage & session timeline |
 
-*(Additional cashier: `clerk.anita@college.edu` / `Clerk@123`)*
+### Additional Seeded Accounts:
+- **Teachers**:
+  - `teacher.rajesh@college.edu` / `Teacher@123` (CS-Year 1 Sec A, MECH-Year 2 Sec A)
+  - `teacher.ananya@college.edu` / `Teacher@123` (ECE-Year 3 Sec A, CS-Year 4 Sec A)
+  - `teacher.vikram@college.edu` / `Teacher@123` (CIVIL-Year 1 Sec A, EEE-Year 2 Sec A)
+- **Clerks**: `clerk.anita@college.edu` / `Clerk@123`
+- **Students**: 10 fully enrolled students with admission dossiers, fee assignments, transaction ledgers, and 3 weeks of attendance history.
 
 ---
 
 ## ⚙️ Core Engineering Invariants
 
-1. **Single Shared Calculation Engine (`calculationService.ts`)**:
-   - All financial math (assigned amount, verified paid amount, pending dues, overdue status) is executed by a single source of truth in the backend.
-   - Dashboard KPI metrics, receipt voucher figures, clerk collection balances, and reports always match to the exact rupee.
-2. **Immutable Financial Ledger**:
-   - Strictly **NO** `UPDATE`, `PUT`, `PATCH`, or `DELETE` endpoints exist for the `Transaction` resource.
-   - Adjustments or dishonored cheques are modeled as new `REVERSED` compensating transactions referencing the original transaction ID with mandatory audit reasons.
-3. **Atomic Execution**:
-   - All transactions, receipt sequence increments, and reversal links execute inside isolated `prisma.$transaction` calls.
-4. **Dual-Layer Validation**:
-   - Strictly prevents negative amounts, overpayment beyond outstanding balance (unless explicitly confirmed via override), and missing references on both client and server independently.
+1. **Single Source of Truth (`Student` Model)**:
+   - Admissions, Fees, and Attendance reference the **exact same** `Student` record (`id`, `rollNumber`, `admissionNumber`).
+   - No parallel student tables or duplicated records exist.
+2. **Strict Server-Side RBAC**:
+   - Teachers can **only** mark attendance for classes explicitly listed in their `classesAssigned` JSON matrix (`requireTeacherClassAccess` middleware).
+   - Clerks are strictly locked out (HTTP 403) from attendance endpoints.
+   - Students can only view their own attendance records and profile.
+3. **Compound Unique Constraints & Idempotency**:
+   - `AttendanceSession`: Unique on `[class, section, date]` ensures zero duplicate sessions per day.
+   - `AttendanceRecord`: Unique on `[attendanceSessionId, studentId]` ensures idempotent re-marking without inflating statistics.
+   - `FeeAssignment`: Unique on `[studentId, feeStructureId]` prevents duplicate fee obligations.
+4. **Single Shared Calculation Engine (`calculationService.ts`)**:
+   - All financial math (assigned, collected, pending dues, overdue status) is executed by a single backend service.
+   - Reused inside the Unified Student Profile (`GET /api/students/:id/profile`).
+5. **Immutable Financial Ledger**:
+   - Strictly **NO** `UPDATE` or `DELETE` endpoints exist for the `Transaction` table.
+   - Adjustments or bounces use audited compensating `REVERSED` entries.
 
 ---
 
@@ -49,8 +63,7 @@ Pre-seeded institutional accounts for live client demonstrations:
 - Node.js (v18+ or v22+)
 - PostgreSQL (Local or Cloud instance like Neon, Supabase, or Railway)
 
-### 1. Clone & Configure Environment
-Clone the repository and copy the environment configuration:
+### 1. Configure Environment
 ```bash
 # Backend Environment
 cp backend/.env.example backend/.env
@@ -59,7 +72,7 @@ cp backend/.env.example backend/.env
 cp frontend/.env.example frontend/.env
 ```
 
-Edit `backend/.env` to configure your PostgreSQL connection string:
+Configure your PostgreSQL connection string in `backend/.env`:
 ```env
 PORT=5000
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/college_erp?schema=public"
@@ -69,26 +82,16 @@ NODE_ENV="development"
 CORS_ORIGIN="http://localhost:5173"
 ```
 
-### 2. Install Dependencies
+### 2. Initialize Database Schema & Seed Data
 ```bash
-npm run install:all
-```
-*Or individually:*
-```bash
-cd backend && npm install
-cd ../frontend && npm install
-```
-
-### 3. Initialize Database Schema & Seed Realistic Demo Data
-```bash
-# Push Prisma schema to PostgreSQL
+# Apply schema to PostgreSQL
 npm --prefix backend run prisma:push
 
-# Populate realistic students, fee structures, payments, and reversal audit records
+# Seed faculty, students, admissions dossiers, fee structures, and 3 weeks of attendance sessions
 npm --prefix backend run seed
 ```
 
-### 4. Run Development Servers
+### 3. Run Development Servers
 ```bash
 npm run dev
 ```
@@ -96,62 +99,55 @@ npm run dev
 - **Backend API**: `http://localhost:5000`
 - **Health Check**: `http://localhost:5000/api/health`
 
----
-
-## 🌐 Production Deployment Guide
-
-### Option A: Render (Turnkey Blueprint)
-This repository includes a `render.yaml` blueprint:
-1. Connect your GitHub repository to Render.
-2. Choose **New > Blueprint**.
-3. Render automatically provisions:
-   - A managed PostgreSQL database (`college-fees-db`)
-   - A Node.js web service for the backend (`college-fees-backend`)
-   - Configures `DATABASE_URL`, builds Prisma schema, and launches the server.
-
-### Option B: Vercel (Frontend)
-1. Import the repository into Vercel.
-2. Root Directory: `frontend`
-3. Framework Preset: `Vite`
-4. Environment Variables:
-   - `VITE_API_URL`: Your deployed backend API URL (e.g. `https://college-fees-backend.onrender.com/api`)
-5. Deploy.
+### 4. Run Automated Test Suite
+```bash
+npm --prefix backend run test
+```
+*(Executes 43 tests across 6 suites covering financial logic, concurrency, access control, raw SQL reconciliation, input validation, admissions, and attendance)*
 
 ---
 
 ## 📡 REST API Reference
 
 ### Authentication
-- `POST /api/auth/login`: Authenticates user, returns JWT and user profile.
+- `POST /api/auth/login`: Authenticates user, returns JWT and user profile (including teacher assignment metadata).
 - `GET /api/auth/me`: Validates session and returns current user details.
 
-### Fee Structures (`ADMIN` only for mutations)
-- `GET /api/fee-structures`: List fee heads (filter by class, batch, academicYear).
-- `POST /api/fee-structures`: Create fee head structure.
-- `PUT /api/fee-structures/:id`: Update fee head.
-- `DELETE /api/fee-structures/:id`: Delete fee head (protected against assigned heads).
-
-### Students
-- `GET /api/students`: List students with real-time dues summary (`ADMIN`, `CLERK`).
-- `GET /api/students/:id`: Get student account & fee breakdown (`ADMIN`, `CLERK`).
-- `POST /api/students`: Register student and auto-assign fee structures (`ADMIN`).
-- `PUT /api/students/:id`: Update student record (`ADMIN`).
+### Student Admissions & Records (`ADMIN`, `CLERK`, `STUDENT`)
+- `GET /api/students`: List and search students with class, section, and status filters.
+- `GET /api/students/:id`: Get basic student account details and fee summary.
+- `GET /api/students/:id/profile`: **Unified Student Profile** (Admissions dossier + live Fees calculation + Attendance turnout).
+- `GET /api/students/me/profile`: Logged-in student's unified profile view.
+- `GET /api/students/me`: Logged-in student's live dues and payment ledger.
+- `POST /api/students`: Create new student admission with guardian info and documents (`ADMIN`).
+- `PUT /api/students/:id`: Update student admission dossier (`ADMIN`).
+- `PATCH /api/students/:id/status`: Soft activate/deactivate student (`ADMIN`).
 - `POST /api/students/:id/assignments`: Assign fee heads (`ADMIN`).
-- `GET /api/students/me`: Logged-in student's live dues and payment ledger (`STUDENT`).
 
-### Cashier & Staff Management (`ADMIN`)
-- `GET /api/clerks`: List all cashier accounts and recorded transaction totals.
-- `POST /api/clerks`: Create cashier account.
-- `PATCH /api/clerks/:id/toggle`: Activate or deactivate clerk account.
-- `POST /api/clerks/:id/reset-password`: Reset cashier credentials.
+### Teacher Management (`ADMIN`, `TEACHER`)
+- `GET /api/teachers`: List faculty with employee ID, subjects, and assigned classes (`ADMIN`).
+- `POST /api/teachers`: Create faculty account with login credentials and class matrix (`ADMIN`).
+- `GET /api/teachers/:id`: View teacher profile (`ADMIN`).
+- `PUT /api/teachers/:id`: Update teacher details and class section assignments (`ADMIN`).
+- `PATCH /api/teachers/:id/status`: Activate or deactivate teacher account (`ADMIN`).
+- `POST /api/teachers/:id/reset-password`: Reset teacher password (`ADMIN`).
+- `GET /api/teachers/me/assignments`: Fetch logged-in teacher's assigned classes (`TEACHER`).
 
-### Transactions & Ledger
+### Attendance Module (`TEACHER`, `ADMIN`, `STUDENT`)
+- `GET /api/attendance/roster`: Fetch student roster for a class/section with existing marks (`TEACHER`).
+- `POST /api/attendance/mark`: Atomically record daily attendance (`TEACHER` assigned to class).
+- `GET /api/attendance/sessions`: List past attendance sessions with filters (`TEACHER`, `ADMIN`).
+- `GET /api/attendance/sessions/:id`: Get detailed session marks for editing (`TEACHER`).
+- `PUT /api/attendance/sessions/:id`: Update session marks and remarks (`TEACHER`).
+- `GET /api/attendance/reports`: Institutional attendance reports with per-student percentage (`ADMIN`).
+- `GET /api/attendance/reports/export`: Export attendance report as RFC4180 CSV (`ADMIN`).
+- `GET /api/attendance/my-attendance`: Student personal attendance history and examination clearance status (`STUDENT`).
+
+### Fee Structures & Financial Ledger
+- `GET /api/fee-structures`: List fee heads with filters (`ADMIN`).
+- `POST /api/fee-structures`: Create fee head (`ADMIN`).
 - `POST /api/transactions`: Record fee deposit inside atomic transaction (`ADMIN`, `CLERK`).
 - `GET /api/transactions`: Query transaction ledger with filters (`ADMIN`, `CLERK`, `STUDENT`).
-- `GET /api/transactions/:id/receipt`: Stream official vector PDF receipt (`ADMIN`, `CLERK`, `STUDENT`).
+- `GET /api/transactions/:id/receipt`: Stream vector PDF receipt (`ADMIN`, `CLERK`, `STUDENT`).
 - `POST /api/transactions/:id/reverse`: Issue an audited compensating reversal entry (`ADMIN`, `CLERK`).
-
-### Financial Reports
-- `GET /api/reports/overview`: Real-time KPI summaries and Recharts data.
-- `GET /api/reports/dues`: Real-time list of students with outstanding dues.
-- `GET /api/reports/export-csv`: Stream RFC4180-compliant CSV report.
+- `GET /api/reports/overview`: Real-time KPI summaries and Recharts data (`ADMIN`).

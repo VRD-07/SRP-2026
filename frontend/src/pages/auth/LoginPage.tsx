@@ -37,6 +37,8 @@ export const LoginPage: React.FC = () => {
         // Redirect to role-specific dashboard
         if (res.data.user.role === 'ADMIN') {
           navigate('/admin');
+        } else if (res.data.user.role === 'TEACHER') {
+          navigate('/teacher/mark');
         } else if (res.data.user.role === 'CLERK') {
           navigate('/clerk');
         } else if (res.data.user.role === 'STUDENT') {
@@ -73,7 +75,7 @@ export const LoginPage: React.FC = () => {
             AURA <span className="bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-300 bg-clip-text text-transparent">ERP</span>
           </h1>
           <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-            College Fees & Revenue Bursar Suite
+            College Academic & Revenue Bursar Suite
           </p>
         </div>
 
@@ -132,19 +134,27 @@ export const LoginPage: React.FC = () => {
               <Sparkles className="w-3.5 h-3.5 text-amber-500" />
               Quick Demo Access (1-Click Fill):
             </p>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               <button
                 type="button"
                 onClick={() => handleQuickLogin('admin@college.edu', 'Admin@123')}
-                className="px-2.5 py-2 rounded-xl text-xs font-semibold bg-purple-500/10 hover:bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/20 transition-all flex flex-col items-center gap-1"
+                className="px-2 py-2 rounded-xl text-xs font-semibold bg-purple-500/10 hover:bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/20 transition-all flex flex-col items-center gap-1"
               >
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>Admin</span>
               </button>
               <button
                 type="button"
+                onClick={() => handleQuickLogin('teacher.sunita@college.edu', 'Teacher@123')}
+                className="px-2 py-2 rounded-xl text-xs font-semibold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 transition-all flex flex-col items-center gap-1"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Teacher</span>
+              </button>
+              <button
+                type="button"
                 onClick={() => handleQuickLogin('clerk.raj@college.edu', 'Clerk@123')}
-                className="px-2.5 py-2 rounded-xl text-xs font-semibold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20 transition-all flex flex-col items-center gap-1"
+                className="px-2 py-2 rounded-xl text-xs font-semibold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20 transition-all flex flex-col items-center gap-1"
               >
                 <UserCheck className="w-3.5 h-3.5" />
                 <span>Clerk</span>
@@ -152,7 +162,7 @@ export const LoginPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleQuickLogin('student.aarav@college.edu', 'Student@123')}
-                className="px-2.5 py-2 rounded-xl text-xs font-semibold bg-blue-500/10 hover:bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-500/20 transition-all flex flex-col items-center gap-1"
+                className="px-2 py-2 rounded-xl text-xs font-semibold bg-blue-500/10 hover:bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-500/20 transition-all flex flex-col items-center gap-1"
               >
                 <GraduationCap className="w-3.5 h-3.5" />
                 <span>Student</span>

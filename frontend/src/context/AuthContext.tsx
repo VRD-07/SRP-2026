@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { apiRequest } from '../services/api';
 
-export type UserRole = 'ADMIN' | 'CLERK' | 'STUDENT';
+export type UserRole = 'ADMIN' | 'CLERK' | 'STUDENT' | 'TEACHER';
 
 export interface AuthUser {
   id: string;
@@ -10,6 +10,10 @@ export interface AuthUser {
   role: UserRole;
   studentId?: string | null;
   studentRollNumber?: string | null;
+  teacherId?: string | null;
+  employeeId?: string | null;
+  classesAssigned?: Array<{ class: string; section: string }> | null;
+  subjectsTaught?: string[] | null;
 }
 
 interface AuthContextType {
@@ -62,6 +66,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           role: u.role,
           studentId: u.student?.id || null,
           studentRollNumber: u.student?.rollNumber || null,
+          teacherId: u.teacher?.id || null,
+          employeeId: u.teacher?.employeeId || null,
+          classesAssigned: u.teacher?.classesAssigned || null,
+          subjectsTaught: u.teacher?.subjectsTaught || null,
         };
         setUser(mappedUser);
         localStorage.setItem('aura_erp_user', JSON.stringify(mappedUser));

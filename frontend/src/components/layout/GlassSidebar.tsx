@@ -14,6 +14,11 @@ import {
   GraduationCap,
   ShieldCheck,
   ReceiptText,
+  CalendarCheck,
+  UserSquare2,
+  FileSpreadsheet,
+  UserCheck2,
+  BookOpen,
 } from 'lucide-react';
 import clsx from 'clsx';
 import { useAuth } from '../../context/AuthContext';
@@ -35,33 +40,54 @@ export const GlassSidebar: React.FC<GlassSidebarProps> = ({ className, onNavigat
 
   const adminLinks = [
     { to: '/admin', label: 'Overview', icon: LayoutDashboard },
+    { to: '/admin/students', label: 'Student Records', icon: Users },
+    { to: '/admin/teachers', label: 'Teachers', icon: UserSquare2 },
+    { to: '/admin/attendance-reports', label: 'Attendance Reports', icon: FileSpreadsheet },
+    { to: '/admin/library', label: 'Library & Books', icon: BookOpen },
     { to: '/admin/fee-structures', label: 'Fee Structure', icon: Layers },
-    { to: '/admin/students', label: 'Students', icon: Users },
     { to: '/admin/clerks', label: 'Clerks', icon: UserCheck },
     { to: '/admin/reports', label: 'Reports & Analytics', icon: BarChart3 },
     { to: '/admin/settings', label: 'Settings', icon: Settings },
   ];
 
+  const teacherLinks = [
+    { to: '/teacher', label: 'Overview', icon: LayoutDashboard },
+    { to: '/teacher/mark', label: 'Mark Attendance', icon: CalendarCheck },
+    { to: '/teacher/history', label: 'Attendance History', icon: History },
+  ];
+
   const clerkLinks = [
     { to: '/clerk', label: 'Overview', icon: LayoutDashboard },
     { to: '/clerk/collect', label: 'Collect Fees', icon: CreditCard },
+    { to: '/clerk/library', label: 'Library Desk', icon: BookOpen },
     { to: '/clerk/history', label: 'Payment History', icon: History },
     { to: '/clerk/pending', label: 'Pending Dues', icon: Clock },
   ];
 
   const studentLinks = [
     { to: '/student', label: 'My Fees & Dues', icon: ReceiptText },
+    { to: '/student/attendance', label: 'My Attendance', icon: CalendarCheck },
+    { to: '/student/library', label: 'My Library', icon: BookOpen },
+    { to: '/student/profile', label: 'My Profile', icon: UserCheck2 },
   ];
 
   const links =
     user?.role === 'ADMIN'
       ? adminLinks
+      : user?.role === 'TEACHER'
+      ? teacherLinks
       : user?.role === 'CLERK'
       ? clerkLinks
       : studentLinks;
 
-  const roleVariant =
-    user?.role === 'ADMIN' ? 'purple' : user?.role === 'CLERK' ? 'cyan' : 'info';
+  const roleVariant: any =
+    user?.role === 'ADMIN'
+      ? 'purple'
+      : user?.role === 'TEACHER'
+      ? 'success'
+      : user?.role === 'CLERK'
+      ? 'cyan'
+      : 'info';
 
   return (
     <aside
@@ -94,7 +120,7 @@ export const GlassSidebar: React.FC<GlassSidebarProps> = ({ className, onNavigat
               <NavLink
                 key={link.to}
                 to={link.to}
-                end={link.to === '/admin' || link.to === '/clerk' || link.to === '/student'}
+                end={link.to === '/admin' || link.to === '/clerk' || link.to === '/student' || link.to === '/teacher'}
                 onClick={onNavigate}
                 className={({ isActive }) =>
                   clsx(

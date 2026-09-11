@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { X, LayoutDashboard, CreditCard, Clock, History, ReceiptText, Layers, Users, BarChart3 } from 'lucide-react';
+import { X, LayoutDashboard, CreditCard, Clock, History, ReceiptText, Layers, Users, BarChart3, CalendarCheck, UserCheck2 } from 'lucide-react';
 import clsx from 'clsx';
 import { useAuth } from '../../context/AuthContext';
 import { GlassSidebar } from './GlassSidebar';
@@ -39,6 +39,11 @@ export const MobileBottomNav: React.FC = () => {
     { to: '/admin/reports', label: 'Reports', icon: BarChart3 },
   ];
 
+  const teacherLinks = [
+    { to: '/teacher/mark', label: 'Mark', icon: CalendarCheck },
+    { to: '/teacher/history', label: 'History', icon: History },
+  ];
+
   const clerkLinks = [
     { to: '/clerk', label: 'Overview', icon: LayoutDashboard },
     { to: '/clerk/collect', label: 'Collect', icon: CreditCard },
@@ -48,11 +53,15 @@ export const MobileBottomNav: React.FC = () => {
 
   const studentLinks = [
     { to: '/student', label: 'My Fees', icon: ReceiptText },
+    { to: '/student/attendance', label: 'Attendance', icon: CalendarCheck },
+    { to: '/student/profile', label: 'Profile', icon: UserCheck2 },
   ];
 
   const links =
     user?.role === 'ADMIN'
       ? adminLinks
+      : user?.role === 'TEACHER'
+      ? teacherLinks
       : user?.role === 'CLERK'
       ? clerkLinks
       : studentLinks;

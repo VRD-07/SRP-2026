@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_API_URL || '/api';
+const BASE_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
 
 interface RequestOptions extends RequestInit {
   params?: Record<string, string | number | boolean | undefined>;
@@ -37,15 +37,6 @@ export async function apiRequest<T = any>(endpoint: string, options: RequestOpti
     ...rest,
   });
 
-  if (response.status === 401) {
-    // Only redirect if not already on /login
-    if (!window.location.pathname.includes('/login')) {
-      localStorage.removeItem('aura_erp_token');
-      localStorage.removeItem('aura_erp_user');
-      window.location.href = '/login';
-    }
-  }
-
   // Handle binary downloads (e.g. PDF or CSV)
   const contentType = response.headers.get('content-type');
   if (contentType && (contentType.includes('application/pdf') || contentType.includes('text/csv'))) {
@@ -60,6 +51,18 @@ export async function apiRequest<T = any>(endpoint: string, options: RequestOpti
     data = await response.json();
   } catch (err) {
     data = { success: false, message: response.statusText || 'Server error' };
+  }
+
+  // Handle unauthenticated or expired token redirection to login
+  if (
+    response.status === 401 ||
+    (response.status === 403 && typeof data?.message === 'string' && data.message.toLowerCase().includes('token'))
+  ) {
+    if (!window.location.pathname.includes('/login')) {
+      localStorage.removeItem('aura_erp_token');
+      localStorage.removeItem('aura_erp_user');
+      window.location.href = '/login';
+    }
   }
 
   if (!response.ok) {

@@ -5,8 +5,9 @@ import { ENV } from '../config/env';
 export interface AuthPayload {
   userId: string;
   email: string;
-  role: 'ADMIN' | 'CLERK' | 'STUDENT';
+  role: 'ADMIN' | 'CLERK' | 'STUDENT' | 'TEACHER';
   name: string;
+  teacherId?: string;
 }
 
 declare global {

@@ -11,21 +11,46 @@ import studentRoutes from './routes/studentRoutes';
 import clerkRoutes from './routes/clerkRoutes';
 import transactionRoutes from './routes/transactionRoutes';
 import reportRoutes from './routes/reportRoutes';
+import teacherRoutes from './routes/teacherRoutes';
+import attendanceRoutes from './routes/attendanceRoutes';
+import libraryRoutes from './routes/libraryRoutes';
 
 const app = express();
 
-// Middleware
+// CORS configuration
+const allowedOrigins = ENV.CORS_ORIGIN
+  ? ENV.CORS_ORIGIN.split(',').map((o: string) => o.trim().replace(/\/$/, ''))
+  : ['http://localhost:5173'];
+
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow localhost, local network, and production origins
-      callback(null, true);
+      // Allow requests with no origin (curl, mobile apps, UptimeRobot, server-to-server)
+      if (!origin) return callback(null, true);
+
+      // Allow all in development mode
+      if (ENV.NODE_ENV === 'development') {
+        return callback(null, true);
+      }
+
+      // In production, verify against configured allowed origins
+      const isAllowed = allowedOrigins.some((allowed: string) => {
+        return allowed === '*' || allowed === origin;
+      });
+
+      if (isAllowed) {
+        return callback(null, true);
+      } else {
+        return callback(new Error(`CORS error: Origin ${origin} not allowed by Access-Control-Allow-Origin.`));
+      }
     },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   })
 );
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 if (ENV.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -33,22 +58,30 @@ if (ENV.NODE_ENV === 'development') {
   app.use(morgan('combined'));
 }
 
-// Health check
-app.get('/api/health', (req, res) => {
+// Health check endpoints (supports both /api/health and /health)
+const healthCheckHandler = (req: express.Request, res: express.Response) => {
   res.status(200).json({
-    status: 'online',
+    status: 'ok',
     timestamp: new Date().toISOString(),
     service: 'College Fees Management ERP - API',
+    environment: ENV.NODE_ENV,
+    uptime: Math.floor(process.uptime()),
   });
-});
+};
+
+app.get('/api/health', healthCheckHandler);
+app.get('/health', healthCheckHandler);
 
 // Mount Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/fee-structures', feeStructureRoutes);
 app.use('/api/students', studentRoutes);
+app.use('/api/teachers', teacherRoutes);
+app.use('/api/attendance', attendanceRoutes);
 app.use('/api/clerks', clerkRoutes);
 app.use('/api/transactions', transactionRoutes);
 app.use('/api/reports', reportRoutes);
+app.use('/api/library', libraryRoutes);
 
 // 404 handler
 app.use((req, res) => {

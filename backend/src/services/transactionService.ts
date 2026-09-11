@@ -25,12 +25,12 @@ export class TransactionService {
    */
   public static async ensureSequencesExist(client: any = prisma) {
     if (this.sequenceInitialized) return;
+    this.sequenceInitialized = true;
     try {
       await client.$executeRawUnsafe(`CREATE SEQUENCE IF NOT EXISTS "payment_receipt_seq" START 1000;`);
       await client.$executeRawUnsafe(`CREATE SEQUENCE IF NOT EXISTS "reversal_receipt_seq" START 1000;`);
-      this.sequenceInitialized = true;
     } catch {
-      // Ignored if concurrent
+      // Ignored if sequences exist or pooler restricts DDL statements
     }
   }
 

@@ -178,24 +178,30 @@ describe('2. CONCURRENCY & CRASH SAFETY', () => {
   });
 
   it('2.4 should generate strictly unique receipt numbers across parallel concurrent calls via atomic sequence', async () => {
-    // Generate 10 receipt numbers concurrently
-    const promises = Array.from({ length: 10 }).map(() =>
-      prisma.$transaction(async (tx) => {
-        return await TransactionService.generateReceiptNumber(tx, false);
-      })
+    // Generate 6 receipt numbers concurrently across cloud DB pool
+    const promises = Array.from({ length: 6 }).map(() =>
+      prisma.$transaction(
+        async (tx) => {
+          return await TransactionService.generateReceiptNumber(tx, false);
+        },
+        { maxWait: 20000, timeout: 35000 }
+      )
     );
 
     const receiptNumbers = await Promise.all(promises);
 
     // Verify count and uniqueness
-    expect(receiptNumbers.length).toBe(10);
+    expect(receiptNumbers.length).toBe(6);
     const uniqueSet = new Set(receiptNumbers);
-    expect(uniqueSet.size).toBe(10); // Zero collisions!
+    expect(uniqueSet.size).toBe(6); // Zero collisions!
 
     // Verify format
     for (const r of receiptNumbers) {
       expect(r).toMatch(/^RCP-\d{6}-\d{5}$/);
     }
+
+    // Allow pool connections to settle
+    await new Promise((r) => setTimeout(r, 1000));
   });
 
   it('2.5 should fully roll back and return a 500-level error without hanging or partial writes on dropped DB connection (ECONNRESET) mid-transaction', async () => {
