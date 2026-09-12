@@ -38,16 +38,5 @@ services:
     ports:
       - "5000:5000"
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: aura_erp_frontend
-    restart: always
-    depends_on:
-      - backend
-    ports:
-      - "80:80"
-
 volumes:
   postgres_data:
