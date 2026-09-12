@@ -59,9 +59,19 @@ if (ENV.NODE_ENV === 'development') {
 }
 
 // Health check endpoints (supports both /api/health and /health)
-const healthCheckHandler = (req: express.Request, res: express.Response) => {
-  res.status(200).json({
-    status: 'ok',
+const healthCheckHandler = async (req: express.Request, res: express.Response) => {
+  let dbStatus = 'connected';
+  try {
+    const { prisma } = await import('./config/db');
+    await prisma.$queryRaw`SELECT 1`;
+  } catch (err: any) {
+    dbStatus = `disconnected (${err?.message || 'unknown error'})`;
+  }
+
+  const isHealthy = dbStatus === 'connected';
+  res.status(isHealthy ? 200 : 503).json({
+    status: isHealthy ? 'ok' : 'degraded',
+    database: dbStatus,
     timestamp: new Date().toISOString(),
     service: 'College Fees Management ERP - API',
     environment: ENV.NODE_ENV,

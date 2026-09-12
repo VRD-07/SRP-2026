@@ -1,7 +1,10 @@
-# Multi-stage Dockerfile for Backend Production
-FROM node:22-alpine AS builder
+# Multi-stage Dockerfile for Backend Production (Debian-based glibc with OpenSSL 3.0)
+FROM node:20-slim AS builder
 
 WORKDIR /app
+
+# Install OpenSSL and CA certificates for Prisma engines and SSL connections
+RUN apt-get update -y && apt-get install -y openssl ca-certificates && rm -rf /var/lib/apt/lists/*
 
 COPY package*.json ./
 COPY prisma ./prisma/
@@ -13,9 +16,12 @@ COPY . .
 RUN npm run build
 
 # Production Runner
-FROM node:22-alpine AS runner
+FROM node:20-slim AS runner
 
 WORKDIR /app
+
+# Ensure OpenSSL runtime libraries are installed in the production runner
+RUN apt-get update -y && apt-get install -y openssl ca-certificates && rm -rf /var/lib/apt/lists/*
 
 ENV NODE_ENV=production
 ENV PORT=5000
