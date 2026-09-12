@@ -58,29 +58,30 @@ if (ENV.NODE_ENV === 'development') {
   app.use(morgan('combined'));
 }
 
-// Health check endpoints (supports both /api/health and /health)
-const healthCheckHandler = async (req: express.Request, res: express.Response) => {
-  let dbStatus = 'connected';
-  try {
-    const { prisma } = await import('./config/db');
-    await prisma.$queryRaw`SELECT 1`;
-  } catch (err: any) {
-    dbStatus = `disconnected (${err?.message || 'unknown error'})`;
-  }
-
-  const isHealthy = dbStatus === 'connected';
-  res.status(isHealthy ? 200 : 503).json({
-    status: isHealthy ? 'ok' : 'degraded',
-    database: dbStatus,
-    timestamp: new Date().toISOString(),
+// Health check endpoints (lightweight and decoupled from database for container probes)
+const healthCheckHandler = (req: express.Request, res: express.Response) => {
+  res.status(200).json({
+    status: 'ok',
     service: 'College Fees Management ERP - API',
     environment: ENV.NODE_ENV,
     uptime: Math.floor(process.uptime()),
+    timestamp: new Date().toISOString(),
   });
 };
 
 app.get('/api/health', healthCheckHandler);
 app.get('/health', healthCheckHandler);
+
+// Optional deep database health check
+app.get('/api/health/db', async (req: express.Request, res: express.Response) => {
+  try {
+    const { prisma } = await import('./config/db');
+    await prisma.$queryRaw`SELECT 1`;
+    res.status(200).json({ status: 'ok', database: 'connected' });
+  } catch (err: any) {
+    res.status(503).json({ status: 'degraded', database: 'disconnected', error: err?.message || 'Database unavailable' });
+  }
+});
 
 // Mount Routes
 app.use('/api/auth', authRoutes);
