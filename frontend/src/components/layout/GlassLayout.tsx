@@ -36,7 +36,7 @@ export const GlassLayout: React.FC<GlassLayoutProps> = ({ title }) => {
   };
 
   return (
-    <div className="min-h-screen flex text-slate-900 dark:text-slate-100 relative selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen flex text-charcoal relative selection:bg-olive-600 selection:text-white">
       {/* Ambient Animated Mesh Background */}
       <div className="ambient-mesh-bg" />
 

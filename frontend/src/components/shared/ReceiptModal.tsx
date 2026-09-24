@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Download, FileText, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Download, FileText } from 'lucide-react';
 import { GlassModal } from '../ui/GlassModal';
 import { GlassButton } from '../ui/GlassButton';
 import { GlassBadge } from '../ui/GlassBadge';
@@ -39,14 +39,14 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ transaction, isOpen,
     >
       <div className="space-y-4">
         {/* Banner */}
-        <div className="p-4 rounded-2xl bg-white/60 dark:bg-slate-800/60 border border-slate-200/60 dark:border-white/10 flex items-center justify-between">
+        <div className="p-4 rounded-2xl bg-white/70 border border-olive-500/15 flex items-center justify-between shadow-xs">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-olive-500/10 text-olive-700 flex items-center justify-center">
               <FileText className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Total Amount</p>
-              <h4 className="text-xl font-bold text-slate-900 dark:text-white">
+              <p className="text-xs text-muted font-medium">Total Amount</p>
+              <h4 className="text-xl font-bold text-charcoal">
                 ₹ {transaction.amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
               </h4>
             </div>
@@ -58,50 +58,50 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ transaction, isOpen,
 
         {/* Details Grid */}
         <div className="grid grid-cols-2 gap-3 text-xs">
-          <div className="p-3 rounded-xl bg-white/40 dark:bg-slate-800/40 border border-slate-200/40 dark:border-white/5">
-            <span className="text-slate-500 dark:text-slate-400 block font-medium">Student</span>
-            <span className="font-bold text-slate-800 dark:text-slate-200">
+          <div className="p-3 rounded-xl bg-white/55 border border-olive-500/15">
+            <span className="text-muted block font-medium">Student</span>
+            <span className="font-bold text-charcoal">
               {transaction.student.name} ({transaction.student.rollNumber})
             </span>
-            <span className="block text-[11px] text-slate-500">
+            <span className="block text-[11px] text-muted mt-0.5">
               {transaction.student.class} • {transaction.student.batch}
             </span>
           </div>
 
-          <div className="p-3 rounded-xl bg-white/40 dark:bg-slate-800/40 border border-slate-200/40 dark:border-white/5">
-            <span className="text-slate-500 dark:text-slate-400 block font-medium">Fee Particulars</span>
-            <span className="font-bold text-slate-800 dark:text-slate-200">
+          <div className="p-3 rounded-xl bg-white/55 border border-olive-500/15">
+            <span className="text-muted block font-medium">Fee Particulars</span>
+            <span className="font-bold text-charcoal">
               {transaction.feeAssignment.feeStructure.feeHead} Fee
             </span>
-            <span className="block text-[11px] text-slate-500">
+            <span className="block text-[11px] text-muted mt-0.5">
               AY {transaction.feeAssignment.feeStructure.academicYear}
             </span>
           </div>
 
-          <div className="p-3 rounded-xl bg-white/40 dark:bg-slate-800/40 border border-slate-200/40 dark:border-white/5">
-            <span className="text-slate-500 dark:text-slate-400 block font-medium">Payment Mode</span>
-            <span className="font-bold text-slate-800 dark:text-slate-200">{transaction.paymentMode}</span>
-            <span className="block text-[11px] text-slate-500">Ref: {transaction.referenceNumber}</span>
+          <div className="p-3 rounded-xl bg-white/55 border border-olive-500/15">
+            <span className="text-muted block font-medium">Payment Mode</span>
+            <span className="font-bold text-charcoal">{transaction.paymentMode}</span>
+            <span className="block text-[11px] text-muted mt-0.5">Ref: {transaction.referenceNumber}</span>
           </div>
 
-          <div className="p-3 rounded-xl bg-white/40 dark:bg-slate-800/40 border border-slate-200/40 dark:border-white/5">
-            <span className="text-slate-500 dark:text-slate-400 block font-medium">Cashier / Clerk</span>
-            <span className="font-bold text-slate-800 dark:text-slate-200">
+          <div className="p-3 rounded-xl bg-white/55 border border-olive-500/15">
+            <span className="text-muted block font-medium">Cashier / Clerk</span>
+            <span className="font-bold text-charcoal">
               {transaction.recordedByClerk.name}
             </span>
-            <span className="block text-[11px] text-slate-500">{transaction.recordedByClerk.email}</span>
+            <span className="block text-[11px] text-muted mt-0.5">{transaction.recordedByClerk.email}</span>
           </div>
         </div>
 
         {transaction.reversalReason && (
-          <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-700 dark:text-rose-300">
+          <div className="p-3 rounded-xl bg-terracotta/10 border border-terracotta/20 text-xs text-terracotta-700">
             <span className="font-bold block mb-0.5">Reversal Audit Note:</span>
             {transaction.reversalReason}
           </div>
         )}
 
         {/* Actions */}
-        <div className="pt-3 border-t border-slate-200/50 dark:border-white/10 flex items-center justify-end gap-2">
+        <div className="pt-3 border-t border-olive-500/15 flex items-center justify-end gap-2">
           <GlassButton variant="secondary" onClick={onClose}>
             Close
           </GlassButton>

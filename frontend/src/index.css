@@ -4,97 +4,76 @@
 
 @layer base {
   :root {
-    --bg-mesh-1: #3b82f6;
-    --bg-mesh-2: #8b5cf6;
-    --bg-mesh-3: #06b6d4;
-    --bg-mesh-4: #ec4899;
-  }
-
-  .dark {
-    --bg-mesh-1: #1e1b4b;
-    --bg-mesh-2: #311042;
-    --bg-mesh-3: #082f49;
-    --bg-mesh-4: #172554;
+    --bg-base: #FAF9F5;
+    --text-primary: #2E2C28;
+    --text-secondary: #6B675E;
+    --olive-primary: #6B7A4F;
+    --olive-deep: #5F6F3F;
+    --olive-subtle: #A8B58C;
   }
 
   body {
-    font-family: 'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Manrope', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #2E2C28;
+    background-color: #FAF9F5;
     min-height: 100vh;
     background-attachment: fixed;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.018em;
+    font-weight: 700;
+    color: #2E2C28;
   }
 }
 
-/* Ambient Animated Mesh Background */
+/* Ambient Animated Mesh Background (Curated Light Off-White + Olive Mesh) */
 .ambient-mesh-bg {
   position: fixed;
   inset: 0;
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
+  background: radial-gradient(circle at 10% 12%, rgba(107, 122, 79, 0.09) 0%, transparent 45%),
+              radial-gradient(circle at 88% 14%, rgba(194, 142, 46, 0.06) 0%, transparent 40%),
+              radial-gradient(circle at 45% 82%, rgba(90, 115, 125, 0.06) 0%, transparent 50%),
+              radial-gradient(circle at 82% 80%, rgba(178, 83, 62, 0.04) 0%, transparent 45%),
+              linear-gradient(135deg, #FAF9F5 0%, #F5F2EA 50%, #ECE6D8 100%);
 }
 
-.light .ambient-mesh-bg {
-  background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.18) 0%, transparent 45%),
-              radial-gradient(circle at 90% 10%, rgba(236, 72, 153, 0.15) 0%, transparent 40%),
-              radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.18) 0%, transparent 50%),
-              radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.16) 0%, transparent 45%),
-              linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
-}
-
-.dark .ambient-mesh-bg {
-  background: radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.25) 0%, transparent 45%),
-              radial-gradient(circle at 85% 20%, rgba(168, 85, 247, 0.22) 0%, transparent 45%),
-              radial-gradient(circle at 45% 85%, rgba(14, 165, 233, 0.20) 0%, transparent 50%),
-              radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.18) 0%, transparent 45%),
-              linear-gradient(135deg, #090d16 0%, #0d1322 50%, #070a10 100%);
-}
-
-/* Glass Surface Tokens */
+/* Glass Surface Tokens (Light Mode Glassmorphism) */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+  background: rgba(250, 249, 245, 0.68);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 4px 6px -1px rgba(46, 44, 40, 0.03), 0 10px 25px -3px rgba(46, 44, 40, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
-.dark .glass-panel {
-  background: rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+.glass-panel-elevated {
+  background: rgba(252, 251, 248, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.90);
+  box-shadow: 0 16px 36px -4px rgba(46, 44, 40, 0.08), 0 6px 16px -2px rgba(46, 44, 40, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 .glass-panel-subtle {
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-.dark .glass-panel-subtle {
-  background: rgba(30, 41, 59, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(245, 243, 237, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(107, 122, 79, 0.15);
+  box-shadow: inset 0 1px 2px rgba(46, 44, 40, 0.03);
 }
 
 .glass-dropdown {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(252, 251, 248, 0.94);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.15);
-}
-
-.dark .glass-dropdown {
-  background: rgba(15, 23, 42, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 12px 32px 0 rgba(46, 44, 40, 0.08);
 }
 
 /* Custom modern scrollbars */
@@ -108,10 +87,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(156, 163, 175, 0.3);
+  background: rgba(107, 122, 79, 0.22);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(156, 163, 175, 0.5);
+  background: rgba(107, 122, 79, 0.40);
 }

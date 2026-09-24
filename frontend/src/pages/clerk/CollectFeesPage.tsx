@@ -168,17 +168,17 @@ export const CollectFeesPage: React.FC = () => {
     <div className="space-y-6">
       {/* Page Title */}
       <div>
-        <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        <h1 className="text-2xl font-extrabold text-charcoal  tracking-tight">
           Collect Fee & Issue Receipt
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm text-muted  mt-1">
           Search student by roll number or name, review live fee breakdown, record deposit, and generate verified PDF voucher.
         </p>
       </div>
 
       {/* Student Live Search Bar */}
       <GlassCard variant="default" className="p-4 space-y-3">
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+        <label className="block text-xs font-bold uppercase tracking-wider text-charcoal ">
           Find Student (Live Search by Roll No. or Name)
         </label>
         <div className="relative">
@@ -191,7 +191,7 @@ export const CollectFeesPage: React.FC = () => {
 
           {/* Autocomplete Dropdown */}
           {searchResults.length > 0 && (
-            <div className="absolute top-full left-0 right-0 mt-1.5 z-30 rounded-2xl glass-dropdown divide-y divide-slate-200/50 dark:divide-white/10 max-h-64 overflow-y-auto shadow-2xl">
+            <div className="absolute top-full left-0 right-0 mt-1.5 z-30 rounded-2xl glass-dropdown divide-y divide-olive-500/10  max-h-64 overflow-y-auto shadow-2xl">
               {searchResults.map((s) => (
                 <div
                   key={s.id}
@@ -200,17 +200,17 @@ export const CollectFeesPage: React.FC = () => {
                     setSearchResults([]);
                     setSearchQuery(`${s.name} (${s.rollNumber})`);
                   }}
-                  className="p-3.5 hover:bg-indigo-500/10 dark:hover:bg-indigo-500/20 cursor-pointer flex items-center justify-between transition-colors"
+                  className="p-3.5 hover:bg-olive-500/15  cursor-pointer flex items-center justify-between transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-xs">
+                    <div className="w-8 h-8 rounded-xl bg-olive-500/15 text-olive-700  flex items-center justify-center font-bold text-xs">
                       {s.name.charAt(0)}
                     </div>
                     <div>
-                      <span className="font-bold text-xs text-slate-900 dark:text-white block">
+                      <span className="font-bold text-xs text-charcoal  block">
                         {s.name}
                       </span>
-                      <span className="text-[11px] text-slate-500 font-mono">
+                      <span className="text-[11px] text-muted font-mono">
                         {s.rollNumber} • {s.class}
                       </span>
                     </div>
@@ -220,8 +220,8 @@ export const CollectFeesPage: React.FC = () => {
                     <span
                       className={`text-xs font-bold block ${
                         s.totalPending > 0
-                          ? 'text-amber-600 dark:text-amber-400'
-                          : 'text-emerald-600 dark:text-emerald-400'
+                          ? 'text-gold-700 '
+                          : 'text-olive-800 '
                       }`}
                     >
                       Dues: ₹ {s.totalPending.toLocaleString('en-IN')}
@@ -247,30 +247,30 @@ export const CollectFeesPage: React.FC = () => {
           <div className="lg:col-span-2 space-y-6">
             {/* Student Profile Snapshot */}
             <GlassCard variant="default" className="p-5">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200/60 dark:border-white/10">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-olive-500/15 ">
                 <div className="flex items-center gap-3.5">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-lg font-bold shadow-md">
                     {selectedStudent.student.name.charAt(0)}
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                    <h3 className="text-lg font-bold text-charcoal ">
                       {selectedStudent.student.name}
                     </h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+                    <p className="text-xs text-muted  font-mono">
                       Roll: {selectedStudent.student.rollNumber} • {selectedStudent.student.class} (Batch {selectedStudent.student.batch})
                     </p>
                   </div>
                 </div>
 
                 <div className="text-left sm:text-right">
-                  <span className="text-[10px] uppercase font-bold text-slate-500 block">
+                  <span className="text-[10px] uppercase font-bold text-muted block">
                     Total Student Due Balance
                   </span>
                   <span
                     className={`text-xl font-extrabold ${
                       selectedStudent.summary.totalPending > 0
-                        ? 'text-amber-600 dark:text-amber-400'
-                        : 'text-emerald-600 dark:text-emerald-400'
+                        ? 'text-gold-700 '
+                        : 'text-olive-800 '
                     }`}
                   >
                     ₹ {selectedStudent.summary.totalPending.toLocaleString('en-IN')}
@@ -281,19 +281,19 @@ export const CollectFeesPage: React.FC = () => {
               {/* Dues breakdown pills */}
               <div className="grid grid-cols-3 gap-3 pt-3 text-center text-xs">
                 <div>
-                  <span className="text-slate-500 block">Total Billed</span>
-                  <span className="font-bold text-slate-900 dark:text-white">
+                  <span className="text-muted block">Total Billed</span>
+                  <span className="font-bold text-charcoal ">
                     ₹ {selectedStudent.summary.totalAssigned.toLocaleString('en-IN')}
                   </span>
                 </div>
                 <div>
-                  <span className="text-emerald-600 dark:text-emerald-400 block">Total Remitted</span>
-                  <span className="font-bold text-emerald-600 dark:text-emerald-400">
+                  <span className="text-olive-800  block">Total Remitted</span>
+                  <span className="font-bold text-olive-800 ">
                     ₹ {selectedStudent.summary.totalPaid.toLocaleString('en-IN')}
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block">Reversed Amount</span>
+                  <span className="text-muted block">Reversed Amount</span>
                   <span className="font-bold text-rose-500">
                     ₹ {selectedStudent.summary.totalReversals.toLocaleString('en-IN')}
                   </span>
@@ -304,10 +304,10 @@ export const CollectFeesPage: React.FC = () => {
             {/* Fee Heads Selection List */}
             <GlassCard variant="default" className="p-5 space-y-3">
               <div className="flex items-center justify-between">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-charcoal ">
                   Select Fee Head to Deposit
                 </h4>
-                <span className="text-[11px] text-slate-500">
+                <span className="text-[11px] text-muted">
                   Click a fee head to load deposit amount
                 </span>
               </div>
@@ -322,7 +322,7 @@ export const CollectFeesPage: React.FC = () => {
                       className={`p-3.5 rounded-2xl border cursor-pointer transition-all flex items-center justify-between ${
                         isSelected
                           ? 'bg-indigo-500/15 border-indigo-500 ring-2 ring-indigo-500/20 shadow-md'
-                          : 'bg-white/40 dark:bg-slate-800/40 border-slate-200/50 dark:border-white/5 hover:bg-white/60 dark:hover:bg-slate-800/60'
+                          : 'bg-white/60  border-olive-500/15  hover:bg-white/60 '
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -330,14 +330,14 @@ export const CollectFeesPage: React.FC = () => {
                           className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-xs ${
                             isSelected
                               ? 'bg-indigo-600 text-white shadow-sm'
-                              : 'bg-slate-200/60 dark:bg-slate-700/60 text-slate-700 dark:text-slate-300'
+                              : 'bg-slate-200/60  text-charcoal '
                           }`}
                         >
                           {head.feeHead.substring(0, 2).toUpperCase()}
                         </div>
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="font-bold text-sm text-slate-900 dark:text-white">
+                            <span className="font-bold text-sm text-charcoal ">
                               {head.feeHead} Fee
                             </span>
                             <GlassBadge
@@ -355,7 +355,7 @@ export const CollectFeesPage: React.FC = () => {
                               {head.status}
                             </GlassBadge>
                           </div>
-                          <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                          <p className="text-[11px] text-muted ">
                             Due:{' '}
                             {new Date(head.dueDate).toLocaleDateString('en-IN', {
                               dateStyle: 'medium',
@@ -366,12 +366,12 @@ export const CollectFeesPage: React.FC = () => {
                       </div>
 
                       <div className="text-right">
-                        <span className="text-xs text-slate-500 block">Pending Due:</span>
+                        <span className="text-xs text-muted block">Pending Due:</span>
                         <span
                           className={`text-sm font-extrabold ${
                             head.pendingAmount > 0
-                              ? 'text-indigo-600 dark:text-indigo-400'
-                              : 'text-emerald-600 dark:text-emerald-400'
+                              ? 'text-olive-700 '
+                              : 'text-olive-800 '
                           }`}
                         >
                           ₹ {head.pendingAmount.toLocaleString('en-IN')}
@@ -388,17 +388,17 @@ export const CollectFeesPage: React.FC = () => {
           <div className="space-y-6">
             <GlassCard variant="elevated" className="p-6 space-y-4 shadow-xl">
               <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <h3 className="text-base font-bold text-charcoal  flex items-center gap-2">
                   <CreditCard className="w-5 h-5 text-indigo-500" />
                   Deposit Payment Form
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                <p className="text-xs text-muted  mt-1">
                   Enforces strict server-side transaction consistency and generates official receipt.
                 </p>
               </div>
 
               {formError && (
-                <div className="p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-xs text-rose-700 dark:text-rose-300 flex items-start gap-2">
+                <div className="p-3 rounded-xl bg-terracotta/15 border border-terracotta/30 text-xs text-terracotta  flex items-start gap-2">
                   <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
                   <span>{formError}</span>
                 </div>
@@ -406,9 +406,9 @@ export const CollectFeesPage: React.FC = () => {
 
               {selectedHead && (
                 <form onSubmit={handleRecordPayment} className="space-y-4">
-                  <div className="p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-xs">
-                    <span className="text-slate-500 block">Selected Fee Head:</span>
-                    <span className="font-bold text-indigo-700 dark:text-indigo-300 text-sm">
+                  <div className="p-3 rounded-xl bg-olive-500/15 border border-indigo-500/20 text-xs">
+                    <span className="text-muted block">Selected Fee Head:</span>
+                    <span className="font-bold text-olive-800  text-sm">
                       {selectedHead.feeHead} Fee (Due: ₹{selectedHead.pendingAmount.toLocaleString('en-IN')})
                     </span>
                   </div>
@@ -451,9 +451,9 @@ export const CollectFeesPage: React.FC = () => {
                         type="checkbox"
                         checked={allowOverride}
                         onChange={(e) => setAllowOverride(e.target.checked)}
-                        className="w-4 h-4 rounded text-amber-600 focus:ring-amber-500 cursor-pointer"
+                        className="w-4 h-4 rounded text-gold-700 focus:ring-amber-500 cursor-pointer"
                       />
-                      <span className="text-xs font-semibold text-amber-800 dark:text-amber-200">
+                      <span className="text-xs font-semibold text-gold-700 ">
                         Confirm Overpayment Override (Amount exceeds current outstanding)
                       </span>
                     </label>

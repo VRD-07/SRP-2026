@@ -65,7 +65,7 @@ export const StudentDashboard: React.FC = () => {
       key: 'receiptNumber',
       header: 'Receipt #',
       render: (item) => (
-        <span className="font-mono font-bold text-xs text-indigo-600 dark:text-indigo-400">
+        <span className="font-mono font-bold text-xs text-olive-800 ">
           {item.receiptNumber}
         </span>
       ),
@@ -74,7 +74,7 @@ export const StudentDashboard: React.FC = () => {
       key: 'feeHead',
       header: 'Fee Head',
       render: (item) => (
-        <span className="font-bold text-xs text-slate-800 dark:text-slate-200">
+        <span className="font-bold text-xs text-charcoal ">
           {item.feeAssignment.feeStructure.feeHead} Fee
         </span>
       ),
@@ -87,7 +87,7 @@ export const StudentDashboard: React.FC = () => {
         return (
           <span
             className={`font-bold text-xs ${
-              isReversed ? 'text-rose-600 dark:text-rose-400 line-through' : 'text-slate-900 dark:text-white'
+              isReversed ? 'text-terracotta  line-through' : 'text-charcoal '
             }`}
           >
             ₹ {item.amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
@@ -100,10 +100,10 @@ export const StudentDashboard: React.FC = () => {
       header: 'Mode & Ref',
       render: (item) => (
         <div>
-          <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 block">
+          <span className="text-xs font-semibold text-charcoal  block">
             {item.paymentMode}
           </span>
-          <span className="text-[10px] text-slate-500 block">Ref: {item.referenceNumber}</span>
+          <span className="text-[10px] text-muted block">Ref: {item.referenceNumber}</span>
         </div>
       ),
     },
@@ -111,7 +111,7 @@ export const StudentDashboard: React.FC = () => {
       key: 'date',
       header: 'Payment Date',
       render: (item) => (
-        <span className="text-xs text-slate-600 dark:text-slate-400">
+        <span className="text-xs text-muted ">
           {new Date(item.createdAt).toLocaleDateString('en-IN', {
             dateStyle: 'medium',
           })}
@@ -152,7 +152,7 @@ export const StudentDashboard: React.FC = () => {
   if (loading) {
     return (
       <GlassCard className="p-16 text-center">
-        <div className="inline-flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+        <div className="inline-flex items-center gap-3 text-sm text-muted ">
           <div className="w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
           Loading your fee profile and official bursar statements...
         </div>
@@ -171,15 +171,15 @@ export const StudentDashboard: React.FC = () => {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">
+                <h1 className="text-xl sm:text-2xl font-extrabold text-charcoal ">
                   {student?.name}
                 </h1>
                 <GlassBadge variant="info">Student Portal</GlassBadge>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">
+              <p className="text-xs text-muted  font-mono mt-0.5">
                 Roll Number: {student?.rollNumber} • Class: {student?.class} (Batch {student?.batch})
               </p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
+              <p className="text-xs text-muted ">
                 Contact: {student?.contactNumber}
               </p>
             </div>
@@ -187,22 +187,22 @@ export const StudentDashboard: React.FC = () => {
 
           {/* Outstanding Balance Banner */}
           <div className="p-4 rounded-2xl bg-gradient-to-r from-indigo-500/15 via-purple-500/15 to-pink-500/15 border border-indigo-500/30 text-left md:text-right flex flex-col md:items-end justify-center">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-muted ">
               Current Outstanding Balance
             </span>
             <span
               className={`text-2xl sm:text-3xl font-black mt-0.5 ${
                 summary && summary.totalPending > 0
-                  ? 'text-amber-600 dark:text-amber-400'
-                  : 'text-emerald-600 dark:text-emerald-400'
+                  ? 'text-gold-700 '
+                  : 'text-olive-800 '
               }`}
             >
               ₹ {(summary?.totalPending || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
             </span>
             {summary?.nextDueDate && (
-              <span className="text-[11px] text-slate-500 flex items-center gap-1 mt-1">
+              <span className="text-[11px] text-muted flex items-center gap-1 mt-1">
                 <Calendar className="w-3.5 h-3.5" /> Next Due:{' '}
-                <strong className={summary.hasOverdue ? 'text-rose-500' : 'text-slate-700 dark:text-slate-300'}>
+                <strong className={summary.hasOverdue ? 'text-terracotta' : 'text-charcoal '}>
                   {new Date(summary.nextDueDate).toLocaleDateString('en-IN', { dateStyle: 'medium' })}
                 </strong>
               </span>
@@ -226,10 +226,10 @@ export const StudentDashboard: React.FC = () => {
       {/* Fee Breakdown by Head */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-bold text-slate-900 dark:text-white">
+          <h2 className="text-base font-bold text-charcoal ">
             Semester Fee Breakdown by Particulars
           </h2>
-          <span className="text-xs text-slate-500">Live breakdown computed by Bursar Service</span>
+          <span className="text-xs text-muted">Live breakdown computed by Bursar Service</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -237,14 +237,14 @@ export const StudentDashboard: React.FC = () => {
             <GlassCard key={head.feeAssignmentId} variant="default" className="p-5 space-y-4">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-sm">
+                  <div className="w-10 h-10 rounded-2xl bg-olive-500/15 text-olive-800  flex items-center justify-center font-bold text-sm">
                     {head.feeHead.substring(0, 2).toUpperCase()}
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                    <h3 className="text-base font-bold text-charcoal ">
                       {head.feeHead} Fee
                     </h3>
-                    <p className="text-xs text-slate-500 font-medium">AY {head.academicYear}</p>
+                    <p className="text-xs text-muted font-medium">AY {head.academicYear}</p>
                   </div>
                 </div>
 
@@ -267,14 +267,14 @@ export const StudentDashboard: React.FC = () => {
               {/* Progress bar */}
               <div className="space-y-1.5">
                 <div className="flex justify-between text-xs font-semibold">
-                  <span className="text-slate-500">
+                  <span className="text-muted">
                     Paid: ₹{head.paidAmount.toLocaleString('en-IN')}
                   </span>
-                  <span className="text-slate-800 dark:text-slate-200">
+                  <span className="text-charcoal ">
                     Total: ₹{head.assignedAmount.toLocaleString('en-IN')}
                   </span>
                 </div>
-                <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                <div className="w-full h-2 rounded-full bg-stone-200/80  overflow-hidden">
                   <div
                     className={`h-full transition-all duration-300 ${
                       head.status === 'PAID'
@@ -291,12 +291,12 @@ export const StudentDashboard: React.FC = () => {
               </div>
 
               {/* Due Date & Pay Button */}
-              <div className="pt-2 border-t border-slate-200/50 dark:border-white/10 flex items-center justify-between text-xs">
-                <div className="flex items-center gap-1.5 text-slate-500">
+              <div className="pt-2 border-t border-olive-500/15  flex items-center justify-between text-xs">
+                <div className="flex items-center gap-1.5 text-muted">
                   <Clock className="w-3.5 h-3.5" />
                   <span>
                     Due:{' '}
-                    <strong className={head.isOverdue ? 'text-rose-500' : 'text-slate-700 dark:text-slate-300'}>
+                    <strong className={head.isOverdue ? 'text-terracotta' : 'text-charcoal '}>
                       {new Date(head.dueDate).toLocaleDateString('en-IN', { dateStyle: 'medium' })}
                     </strong>
                   </span>
@@ -311,7 +311,7 @@ export const StudentDashboard: React.FC = () => {
                     Pay Due (₹{head.pendingAmount.toLocaleString('en-IN')})
                   </GlassButton>
                 ) : (
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
+                  <span className="text-olive-800  font-bold flex items-center gap-1">
                     <CheckCircle2 className="w-4 h-4" /> Cleared
                   </span>
                 )}
@@ -324,11 +324,11 @@ export const StudentDashboard: React.FC = () => {
       {/* Payment History & Receipts */}
       <GlassCard variant="default" className="p-5 space-y-4">
         <div>
-          <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <h2 className="text-base font-bold text-charcoal  flex items-center gap-2">
             <ReceiptText className="w-5 h-5 text-indigo-500" />
             Official Payment History & Downloadable Receipts
           </h2>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-muted mt-0.5">
             Download vector PDF receipts for semester exam clearance and verification.
           </p>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { X, LayoutDashboard, CreditCard, Clock, History, ReceiptText, Layers, Users, BarChart3, CalendarCheck, UserCheck2 } from 'lucide-react';
+import { LayoutDashboard, CreditCard, Clock, History, Layers, Users, BarChart3, CalendarCheck, UserCheck2 } from 'lucide-react';
 import clsx from 'clsx';
 import { useAuth } from '../../context/AuthContext';
 import { GlassSidebar } from './GlassSidebar';
@@ -17,7 +17,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) =
     <div className="fixed inset-0 z-50 lg:hidden flex">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-charcoal/30 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
 
@@ -52,7 +52,7 @@ export const MobileBottomNav: React.FC = () => {
   ];
 
   const studentLinks = [
-    { to: '/student', label: 'My Fees', icon: ReceiptText },
+    { to: '/student', label: 'My Fees', icon: CreditCard },
     { to: '/student/attendance', label: 'Attendance', icon: CalendarCheck },
     { to: '/student/profile', label: 'Profile', icon: UserCheck2 },
   ];
@@ -67,7 +67,7 @@ export const MobileBottomNav: React.FC = () => {
       : studentLinks;
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 glass-panel border-t border-white/40 dark:border-white/10 px-2 py-1.5 flex items-center justify-around shadow-lg">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 glass-panel border-t border-white/65 px-2 py-1.5 flex items-center justify-around shadow-sm">
       {links.map((link) => {
         const Icon = link.icon;
         return (
@@ -79,8 +79,8 @@ export const MobileBottomNav: React.FC = () => {
               clsx(
                 'flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-[10px] font-semibold transition-colors',
                 isActive
-                  ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-500/10'
-                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'text-olive-700 bg-olive-500/15'
+                  : 'text-muted hover:text-charcoal'
               )
             }
           >

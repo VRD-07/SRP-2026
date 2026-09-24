@@ -46,11 +46,11 @@ export const StudentLibraryPage: React.FC = () => {
     <div className="space-y-6 max-w-7xl mx-auto pb-14">
       {/* Header Banner */}
       <div>
-        <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
+        <h1 className="text-2xl font-extrabold text-charcoal  tracking-tight flex items-center gap-3">
           <BookOpen className="w-7 h-7 text-indigo-500" />
           My Library Account
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm text-muted  mt-1">
           Track your borrowed books, upcoming return deadlines, and library fines.
         </p>
       </div>
@@ -58,21 +58,21 @@ export const StudentLibraryPage: React.FC = () => {
       {isLoading ? (
         <div className="p-20 text-center">
           <div className="w-10 h-10 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-sm text-slate-500 font-medium">Fetching library loan records...</p>
+          <p className="text-sm text-muted font-medium">Fetching library loan records...</p>
         </div>
       ) : error ? (
         <GlassCard className="p-8 text-center border-rose-500/30">
-          <AlertCircle className="w-10 h-10 text-rose-500 mx-auto mb-2" />
-          <h3 className="text-base font-bold text-slate-800 dark:text-white">Record Unavailable</h3>
-          <p className="text-xs text-slate-500 mt-1">{error}</p>
+          <AlertCircle className="w-10 h-10 text-terracotta mx-auto mb-2" />
+          <h3 className="text-base font-bold text-charcoal ">Record Unavailable</h3>
+          <p className="text-xs text-muted mt-1">{error}</p>
         </GlassCard>
       ) : (
         <>
           {/* Overdue Warning Alert */}
           {libraryData && libraryData.overdueIssuesCount > 0 && (
-            <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-between gap-4 text-rose-600 dark:text-rose-400">
+            <div className="p-4 rounded-2xl bg-terracotta/15 border border-terracotta/30 flex items-center justify-between gap-4 text-terracotta ">
               <div className="flex items-center gap-3">
-                <AlertCircle className="w-6 h-6 shrink-0 text-rose-500 animate-pulse" />
+                <AlertCircle className="w-6 h-6 shrink-0 text-terracotta animate-pulse" />
                 <div>
                   <p className="text-sm font-bold">
                     You have {libraryData.overdueIssuesCount} overdue book(s)!
@@ -119,18 +119,18 @@ export const StudentLibraryPage: React.FC = () => {
 
           {/* Active Borrowed Books */}
           <GlassCard className="overflow-hidden">
-            <div className="p-4 border-b border-slate-200/60 dark:border-white/10 flex items-center justify-between">
-              <h3 className="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider flex items-center gap-2">
+            <div className="p-4 border-b border-olive-500/15  flex items-center justify-between">
+              <h3 className="text-sm font-bold text-charcoal  uppercase tracking-wider flex items-center gap-2">
                 <Bookmark className="w-4 h-4 text-indigo-500" />
                 Currently Borrowed Books
               </h3>
-              <span className="text-xs text-slate-400 font-mono">
+              <span className="text-xs text-muted font-mono">
                 Standard Loan Period: 14 Days
               </span>
             </div>
 
             {!libraryData?.activeIssues || libraryData.activeIssues.length === 0 ? (
-              <div className="p-10 text-center text-slate-500 text-xs">
+              <div className="p-10 text-center text-muted text-xs">
                 <CheckCircle2 className="w-8 h-8 text-emerald-500 mx-auto mb-2" />
                 You have no active book loans. Visit the campus library to check out titles!
               </div>
@@ -138,7 +138,7 @@ export const StudentLibraryPage: React.FC = () => {
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-slate-200/60 dark:border-white/10 bg-slate-50/50 dark:bg-slate-900/30 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <tr className="border-b border-olive-500/15  bg-olive-50/70  text-xs font-semibold uppercase tracking-wider text-muted ">
                       <th className="py-3.5 px-4">Title & Author</th>
                       <th className="py-3.5 px-4">ISBN</th>
                       <th className="py-3.5 px-4">Issued On</th>
@@ -147,22 +147,22 @@ export const StudentLibraryPage: React.FC = () => {
                       <th className="py-3.5 px-4 text-right">Accrued Fine</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-200/40 dark:divide-white/5 text-sm">
+                  <tbody className="divide-y divide-olive-500/10  text-sm">
                     {libraryData.activeIssues.map((issue) => (
                       <tr
                         key={issue.id}
-                        className="hover:bg-white/40 dark:hover:bg-slate-800/40 transition-colors"
+                        className="hover:bg-white/60  transition-colors"
                       >
                         <td className="py-3.5 px-4">
-                          <p className="font-bold text-slate-800 dark:text-white">{issue.title}</p>
-                          <p className="text-xs text-slate-500">{issue.author} • {issue.category}</p>
+                          <p className="font-bold text-charcoal ">{issue.title}</p>
+                          <p className="text-xs text-muted">{issue.author} • {issue.category}</p>
                         </td>
-                        <td className="py-3.5 px-4 text-xs font-mono text-slate-500">{issue.isbn}</td>
-                        <td className="py-3.5 px-4 text-xs font-mono text-slate-600 dark:text-slate-300">
+                        <td className="py-3.5 px-4 text-xs font-mono text-muted">{issue.isbn}</td>
+                        <td className="py-3.5 px-4 text-xs font-mono text-muted ">
                           {new Date(issue.issueDate).toLocaleDateString('en-IN')}
                         </td>
                         <td className="py-3.5 px-4 text-xs font-mono font-semibold">
-                          <span className={issue.isOverdue ? 'text-rose-500' : 'text-slate-700 dark:text-slate-200'}>
+                          <span className={issue.isOverdue ? 'text-terracotta' : 'text-charcoal '}>
                             {new Date(issue.dueDate).toLocaleDateString('en-IN')}
                           </span>
                         </td>
@@ -174,7 +174,7 @@ export const StudentLibraryPage: React.FC = () => {
                             {issue.isOverdue ? `${issue.daysOverdue} Days Overdue` : 'Active Loan'}
                           </GlassBadge>
                         </td>
-                        <td className="py-3.5 px-4 text-right font-mono font-bold text-rose-600 dark:text-rose-400">
+                        <td className="py-3.5 px-4 text-right font-mono font-bold text-terracotta ">
                           {formatCurrency(issue.accruedFine)}
                         </td>
                       </tr>
@@ -188,12 +188,12 @@ export const StudentLibraryPage: React.FC = () => {
           {/* Borrowing History */}
           {libraryData?.history && libraryData.history.length > 0 && (
             <GlassCard className="overflow-hidden">
-              <div className="p-4 border-b border-slate-200/60 dark:border-white/10 flex items-center justify-between">
-                <h3 className="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider flex items-center gap-2">
-                  <History className="w-4 h-4 text-slate-500" />
+              <div className="p-4 border-b border-olive-500/15  flex items-center justify-between">
+                <h3 className="text-sm font-bold text-charcoal  uppercase tracking-wider flex items-center gap-2">
+                  <History className="w-4 h-4 text-muted" />
                   Loan History & Returns
                 </h3>
-                <span className="text-xs text-slate-400 font-mono">
+                <span className="text-xs text-muted font-mono">
                   {libraryData.history.length} Completed Returns
                 </span>
               </div>
@@ -201,7 +201,7 @@ export const StudentLibraryPage: React.FC = () => {
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-slate-200/60 dark:border-white/10 bg-slate-50/50 dark:bg-slate-900/30 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <tr className="border-b border-olive-500/15  bg-olive-50/70  text-xs font-semibold uppercase tracking-wider text-muted ">
                       <th className="py-3 px-4">Book Title</th>
                       <th className="py-3 px-4">Borrowed On</th>
                       <th className="py-3 px-4">Due Date</th>
@@ -210,20 +210,20 @@ export const StudentLibraryPage: React.FC = () => {
                       <th className="py-3 px-4 text-right">Fine Settled</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-200/40 dark:divide-white/5 text-sm">
+                  <tbody className="divide-y divide-olive-500/10  text-sm">
                     {libraryData.history.map((hist) => (
-                      <tr key={hist.id} className="hover:bg-white/40 dark:hover:bg-slate-800/40 transition-colors">
-                        <td className="py-3 px-4 font-medium text-slate-800 dark:text-white">
+                      <tr key={hist.id} className="hover:bg-white/60  transition-colors">
+                        <td className="py-3 px-4 font-medium text-charcoal ">
                           {hist.title}
-                          <span className="block text-[11px] text-slate-400">{hist.author}</span>
+                          <span className="block text-[11px] text-muted">{hist.author}</span>
                         </td>
-                        <td className="py-3 px-4 text-xs font-mono text-slate-500">
+                        <td className="py-3 px-4 text-xs font-mono text-muted">
                           {new Date(hist.issueDate).toLocaleDateString('en-IN')}
                         </td>
-                        <td className="py-3 px-4 text-xs font-mono text-slate-500">
+                        <td className="py-3 px-4 text-xs font-mono text-muted">
                           {new Date(hist.dueDate).toLocaleDateString('en-IN')}
                         </td>
-                        <td className="py-3 px-4 text-xs font-mono text-slate-500">
+                        <td className="py-3 px-4 text-xs font-mono text-muted">
                           {hist.returnDate ? new Date(hist.returnDate).toLocaleDateString('en-IN') : '—'}
                         </td>
                         <td className="py-3 px-4 text-center">
@@ -241,10 +241,10 @@ export const StudentLibraryPage: React.FC = () => {
                               {hist.fineStatus}
                             </GlassBadge>
                           ) : (
-                            <span className="text-xs text-slate-400">No fine</span>
+                            <span className="text-xs text-muted">No fine</span>
                           )}
                         </td>
-                        <td className="py-3 px-4 text-right font-mono text-slate-700 dark:text-slate-200">
+                        <td className="py-3 px-4 text-right font-mono text-charcoal ">
                           {hist.fineAmount ? formatCurrency(hist.fineAmount) : '₹0.00'}
                         </td>
                       </tr>

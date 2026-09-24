@@ -28,17 +28,17 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
 
   const variantStyles = {
     primary:
-      'bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 text-white shadow-md shadow-indigo-500/25 hover:shadow-lg hover:shadow-indigo-500/40 hover:from-indigo-500 hover:to-purple-500 border border-indigo-400/30',
+      'bg-gradient-to-r from-olive-600 to-olive-700 hover:from-olive-700 hover:to-olive-800 text-white shadow-sm hover:shadow-md hover:shadow-olive-600/20 border border-olive-500/30',
     secondary:
-      'bg-white/60 dark:bg-slate-800/60 backdrop-blur-md text-slate-800 dark:text-slate-100 hover:bg-white/90 dark:hover:bg-slate-700/70 border border-slate-300/50 dark:border-white/10 shadow-sm',
+      'bg-white/70 backdrop-blur-md text-charcoal hover:bg-white/95 border border-olive-600/20 shadow-glassSm',
     danger:
-      'bg-rose-600/90 hover:bg-rose-500 text-white shadow-md shadow-rose-600/20 border border-rose-400/30',
+      'bg-terracotta hover:bg-terracotta-600 text-white shadow-sm border border-terracotta/30',
     success:
-      'bg-emerald-600/90 hover:bg-emerald-500 text-white shadow-md shadow-emerald-600/20 border border-emerald-400/30',
+      'bg-olive-700 hover:bg-olive-800 text-white shadow-sm border border-olive-600/30',
     ghost:
-      'bg-transparent hover:bg-white/40 dark:hover:bg-slate-800/40 text-slate-700 dark:text-slate-200',
+      'bg-transparent hover:bg-olive-500/10 text-charcoal',
     outline:
-      'bg-transparent border border-indigo-500/50 dark:border-indigo-400/40 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500/10',
+      'bg-transparent border border-olive-600 text-olive-700 hover:bg-olive-500/10',
   };
 
   return (

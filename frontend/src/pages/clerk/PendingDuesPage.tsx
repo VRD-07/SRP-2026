@@ -48,7 +48,7 @@ export const PendingDuesPage: React.FC = () => {
       key: 'rollNumber',
       header: 'Roll Number',
       render: (item) => (
-        <span className="font-mono font-bold text-xs text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-2 py-1 rounded-lg">
+        <span className="font-mono font-bold text-xs text-olive-800  bg-olive-500/15 px-2 py-1 rounded-lg">
           {item.rollNumber}
         </span>
       ),
@@ -58,8 +58,8 @@ export const PendingDuesPage: React.FC = () => {
       header: 'Student Name',
       render: (item) => (
         <div>
-          <span className="font-bold text-sm text-slate-900 dark:text-white block">{item.name}</span>
-          <span className="text-xs text-slate-500">
+          <span className="font-bold text-sm text-charcoal  block">{item.name}</span>
+          <span className="text-xs text-muted">
             {item.class} • Batch {item.batch}
           </span>
         </div>
@@ -69,7 +69,7 @@ export const PendingDuesPage: React.FC = () => {
       key: 'totalAssigned',
       header: 'Assigned Fee',
       render: (item) => (
-        <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+        <span className="text-xs font-semibold text-charcoal ">
           ₹ {item.totalAssigned.toLocaleString('en-IN')}
         </span>
       ),
@@ -78,7 +78,7 @@ export const PendingDuesPage: React.FC = () => {
       key: 'totalPaid',
       header: 'Amount Paid',
       render: (item) => (
-        <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
+        <span className="text-xs font-bold text-olive-800 ">
           ₹ {item.totalPaid.toLocaleString('en-IN')}
         </span>
       ),
@@ -88,7 +88,7 @@ export const PendingDuesPage: React.FC = () => {
       header: 'Outstanding Due',
       render: (item) => (
         <div>
-          <span className="text-xs font-extrabold text-amber-600 dark:text-amber-400 block">
+          <span className="text-xs font-extrabold text-gold-700  block">
             ₹ {item.totalPending.toLocaleString('en-IN')}
           </span>
           <GlassBadge variant={item.hasOverdue ? 'danger' : 'warning'} size="sm">
@@ -106,7 +106,7 @@ export const PendingDuesPage: React.FC = () => {
         return (
           <div className="flex items-center gap-1.5 text-xs">
             <Calendar className="w-3.5 h-3.5 text-slate-400" />
-            <span className={isPast ? 'text-rose-500 font-bold' : 'text-slate-700 dark:text-slate-300'}>
+            <span className={isPast ? 'text-terracotta font-bold' : 'text-charcoal '}>
               {new Date(item.nextDueDate).toLocaleDateString('en-IN', { dateStyle: 'medium' })}
             </span>
           </div>
@@ -133,10 +133,10 @@ export const PendingDuesPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        <h1 className="text-2xl font-extrabold text-charcoal  tracking-tight">
           Outstanding Student Dues
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm text-muted  mt-1">
           Live real-time ledger balance computation identifying all students with unremitted semester fees.
         </p>
       </div>

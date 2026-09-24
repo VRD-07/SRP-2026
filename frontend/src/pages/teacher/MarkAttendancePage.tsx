@@ -218,11 +218,11 @@ export const MarkAttendancePage: React.FC = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
+          <h1 className="text-2xl font-bold text-charcoal  flex items-center gap-2.5">
             <CalendarCheck className="w-7 h-7 text-indigo-500" />
             Mark Daily Attendance
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-sm text-muted  mt-1">
             Record and manage student presence for your assigned class rosters
           </p>
         </div>
@@ -233,11 +233,11 @@ export const MarkAttendancePage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 items-end">
           {/* Class-Section Selector */}
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-charcoal  mb-1.5">
               Assigned Class & Section
             </label>
             {isLoadingAssignments ? (
-              <div className="h-10 rounded-xl bg-slate-200 dark:bg-slate-800 animate-pulse" />
+              <div className="h-10 rounded-xl bg-slate-200  animate-pulse" />
             ) : assignments.length === 0 ? (
               <p className="text-xs text-rose-500 py-2">No assigned classes found</p>
             ) : (
@@ -254,7 +254,7 @@ export const MarkAttendancePage: React.FC = () => {
 
           {/* Date Picker */}
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-charcoal  mb-1.5">
               Date
             </label>
             <GlassInput
@@ -268,7 +268,7 @@ export const MarkAttendancePage: React.FC = () => {
           {/* Subject (Optional / Info) */}
           {subjects.length > 0 && (
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-charcoal  mb-1.5">
                 Subject
               </label>
               <GlassSelect
@@ -307,10 +307,10 @@ export const MarkAttendancePage: React.FC = () => {
         <div
           className={`p-4 rounded-2xl flex items-center gap-3 text-sm font-medium border backdrop-blur-md ${
             notification.type === 'success'
-              ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-300'
+              ? 'bg-olive-600/15 border-olive-600/25 text-olive-800 '
               : notification.type === 'error'
-              ? 'bg-rose-500/10 border-rose-500/30 text-rose-700 dark:text-rose-300'
-              : 'bg-indigo-500/10 border-indigo-500/30 text-indigo-700 dark:text-indigo-300'
+              ? 'bg-terracotta/15 border-terracotta/25 text-terracotta '
+              : 'bg-olive-500/15 border-olive-500/25 text-olive-800 '
           }`}
         >
           {notification.type === 'success' && <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-emerald-500" />}
@@ -324,8 +324,8 @@ export const MarkAttendancePage: React.FC = () => {
       {!isLoadingAssignments && assignments.length === 0 && (
         <GlassCard className="p-8 text-center">
           <AlertCircle className="w-12 h-12 text-amber-500 mx-auto mb-3" />
-          <h3 className="text-lg font-bold text-slate-800 dark:text-white">No Assigned Classes</h3>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-md mx-auto">
+          <h3 className="text-lg font-bold text-charcoal ">No Assigned Classes</h3>
+          <p className="text-sm text-muted  mt-1 max-w-md mx-auto">
             Your account currently has no class sections assigned. Please reach out to an administrator to assign classes to your profile before marking attendance.
           </p>
         </GlassCard>
@@ -337,52 +337,52 @@ export const MarkAttendancePage: React.FC = () => {
           {/* Quick Metrics Bar & Bulk Actions */}
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
             <GlassCard className="p-3.5 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-xl bg-olive-500/15  text-olive-700  flex items-center justify-center font-bold">
                 <Users className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-xs text-slate-500 font-medium">Total Roster</p>
-                <p className="text-lg font-bold text-slate-800 dark:text-white">{totalCount}</p>
+                <p className="text-xs text-muted font-medium">Total Roster</p>
+                <p className="text-lg font-bold text-charcoal ">{totalCount}</p>
               </div>
             </GlassCard>
 
             <GlassCard className="p-3.5 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-xl bg-olive-600/15  text-olive-800  flex items-center justify-center font-bold">
                 <CheckCircle2 className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-xs text-slate-500 font-medium">Present</p>
-                <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">{presentCount}</p>
+                <p className="text-xs text-muted font-medium">Present</p>
+                <p className="text-lg font-bold text-olive-800 ">{presentCount}</p>
               </div>
             </GlassCard>
 
             <GlassCard className="p-3.5 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-rose-500/10 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-xl bg-terracotta/15  text-terracotta  flex items-center justify-center font-bold">
                 <XCircle className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-xs text-slate-500 font-medium">Absent</p>
-                <p className="text-lg font-bold text-rose-600 dark:text-rose-400">{absentCount}</p>
+                <p className="text-xs text-muted font-medium">Absent</p>
+                <p className="text-lg font-bold text-terracotta ">{absentCount}</p>
               </div>
             </GlassCard>
 
             <GlassCard className="p-3.5 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-xl bg-gold/15  text-gold-700  flex items-center justify-center font-bold">
                 <Clock className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-xs text-slate-500 font-medium">Late</p>
-                <p className="text-lg font-bold text-amber-600 dark:text-amber-400">{lateCount}</p>
+                <p className="text-xs text-muted font-medium">Late</p>
+                <p className="text-lg font-bold text-gold-700 ">{lateCount}</p>
               </div>
             </GlassCard>
 
             <GlassCard className="p-3.5 flex items-center gap-3 col-span-2 sm:col-span-1">
-              <div className="w-10 h-10 rounded-xl bg-purple-500/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-xl bg-spruce/15  text-spruce-700  flex items-center justify-center font-bold">
                 <Sparkles className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-xs text-slate-500 font-medium">Presence Rate</p>
-                <p className="text-lg font-bold text-purple-600 dark:text-purple-400">{percentage}%</p>
+                <p className="text-xs text-muted font-medium">Presence Rate</p>
+                <p className="text-lg font-bold text-spruce-700 ">{percentage}%</p>
               </div>
             </GlassCard>
           </div>
@@ -390,13 +390,13 @@ export const MarkAttendancePage: React.FC = () => {
           {/* Quick Actions Bar */}
           <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 mr-1">
+              <span className="text-xs font-semibold uppercase tracking-wider text-muted mr-1">
                 Quick Mark:
               </span>
               <GlassButton
                 size="sm"
                 variant="outline"
-                className="hover:border-emerald-500 text-emerald-600 dark:text-emerald-400 text-xs flex items-center gap-1.5"
+                className="hover:border-emerald-500 text-olive-800  text-xs flex items-center gap-1.5"
                 onClick={() => handleMarkAll('PRESENT')}
                 disabled={isLoadingRoster || totalCount === 0}
               >
@@ -406,7 +406,7 @@ export const MarkAttendancePage: React.FC = () => {
               <GlassButton
                 size="sm"
                 variant="outline"
-                className="hover:border-rose-500 text-rose-600 dark:text-rose-400 text-xs flex items-center gap-1.5"
+                className="border border-terracotta/25 text-terracotta hover:bg-terracotta/10  text-xs flex items-center gap-1.5"
                 onClick={() => handleMarkAll('ABSENT')}
                 disabled={isLoadingRoster || totalCount === 0}
               >
@@ -435,15 +435,15 @@ export const MarkAttendancePage: React.FC = () => {
             {isLoadingRoster ? (
               <div className="p-12 text-center">
                 <div className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-                <p className="text-sm text-slate-500">Loading student roster...</p>
+                <p className="text-sm text-muted">Loading student roster...</p>
               </div>
             ) : students.length === 0 ? (
               <div className="p-12 text-center">
-                <Users className="w-10 h-10 text-slate-400 mx-auto mb-2" />
-                <p className="text-base font-semibold text-slate-700 dark:text-slate-300">
+                <Users className="w-10 h-10 text-muted mx-auto mb-2" />
+                <p className="text-base font-semibold text-charcoal ">
                   No Students Enrolled
                 </p>
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs text-muted mt-1">
                   There are currently no active students found in this class and section.
                 </p>
               </div>
@@ -451,14 +451,14 @@ export const MarkAttendancePage: React.FC = () => {
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-slate-200/60 dark:border-white/10 bg-slate-50/50 dark:bg-slate-900/30 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <tr className="border-b border-olive-500/15  bg-olive-50/70  text-xs font-semibold uppercase tracking-wider text-muted ">
                       <th className="py-3.5 px-4 w-16">#</th>
                       <th className="py-3.5 px-4">Student</th>
                       <th className="py-3.5 px-4 text-center w-72">Attendance Status</th>
                       <th className="py-3.5 px-4 w-72">Remarks (Optional)</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-200/40 dark:divide-white/5 text-sm">
+                  <tbody className="divide-y divide-olive-500/10  text-sm">
                     {students.map((student, idx) => {
                       const currentStatus = attendanceRecords[student.id]?.status || 'PRESENT';
                       const currentRemarks = attendanceRecords[student.id]?.remarks || '';
@@ -466,10 +466,10 @@ export const MarkAttendancePage: React.FC = () => {
                       return (
                         <tr
                           key={student.id}
-                          className="hover:bg-white/40 dark:hover:bg-slate-800/40 transition-colors"
+                          className="hover:bg-white/60  transition-colors"
                         >
                           {/* Index & Roll */}
-                          <td className="py-3.5 px-4 text-xs font-semibold text-slate-500">
+                          <td className="py-3.5 px-4 text-xs font-semibold text-muted">
                             {idx + 1}
                           </td>
 
@@ -480,7 +480,7 @@ export const MarkAttendancePage: React.FC = () => {
                                 <img
                                   src={student.photoUrl}
                                   alt={student.name}
-                                  className="w-9 h-9 rounded-full object-cover border border-slate-200 dark:border-white/10"
+                                  className="w-9 h-9 rounded-full object-cover border border-slate-200 "
                                 />
                               ) : (
                                 <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xs shadow-sm">
@@ -488,10 +488,10 @@ export const MarkAttendancePage: React.FC = () => {
                                 </div>
                               )}
                               <div>
-                                <p className="font-semibold text-slate-800 dark:text-white">
+                                <p className="font-semibold text-charcoal ">
                                   {student.name}
                                 </p>
-                                <p className="text-xs text-slate-500 font-mono">
+                                <p className="text-xs text-muted font-mono">
                                   Roll: {student.rollNumber}
                                 </p>
                               </div>
@@ -500,14 +500,14 @@ export const MarkAttendancePage: React.FC = () => {
 
                           {/* Attendance Status Buttons */}
                           <td className="py-3.5 px-4 text-center">
-                            <div className="inline-flex rounded-xl p-1 bg-slate-100 dark:bg-slate-800/80 border border-slate-200/60 dark:border-white/10 shadow-inner">
+                            <div className="inline-flex rounded-xl p-1 bg-stone-100/80  border border-olive-500/15  shadow-inner">
                               <button
                                 type="button"
                                 onClick={() => handleStatusChange(student.id, 'PRESENT')}
                                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
                                   currentStatus === 'PRESENT'
                                     ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/30'
-                                    : 'text-slate-600 dark:text-slate-300 hover:text-emerald-500'
+                                    : 'text-muted  hover:text-emerald-500'
                                 }`}
                               >
                                 <CheckCircle2 className="w-3.5 h-3.5" />
@@ -519,7 +519,7 @@ export const MarkAttendancePage: React.FC = () => {
                                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
                                   currentStatus === 'ABSENT'
                                     ? 'bg-rose-500 text-white shadow-md shadow-rose-500/30'
-                                    : 'text-slate-600 dark:text-slate-300 hover:text-rose-500'
+                                    : 'text-muted  hover:text-rose-500'
                                 }`}
                               >
                                 <XCircle className="w-3.5 h-3.5" />
@@ -531,7 +531,7 @@ export const MarkAttendancePage: React.FC = () => {
                                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
                                   currentStatus === 'LATE'
                                     ? 'bg-amber-500 text-white shadow-md shadow-amber-500/30'
-                                    : 'text-slate-600 dark:text-slate-300 hover:text-amber-500'
+                                    : 'text-muted  hover:text-amber-500'
                                 }`}
                               >
                                 <Clock className="w-3.5 h-3.5" />
@@ -547,7 +547,7 @@ export const MarkAttendancePage: React.FC = () => {
                               value={currentRemarks}
                               onChange={(e) => handleRemarksChange(student.id, e.target.value)}
                               placeholder="e.g. Sick, Excused..."
-                              className="w-full px-3 py-1.5 text-xs rounded-lg bg-white/60 dark:bg-slate-800/60 border border-slate-200/70 dark:border-white/10 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-slate-800 dark:text-slate-200"
+                              className="w-full px-3 py-1.5 text-xs rounded-lg bg-white/75  border border-olive-500/20  focus:outline-none focus:ring-1 focus:ring-olive-500/20 focus:border-olive-600 text-charcoal "
                             />
                           </td>
                         </tr>

@@ -47,17 +47,17 @@ export const TeacherDashboard: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Welcome Hero Card */}
-      <GlassCard className="p-6 sm:p-8 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-indigo-500/10 border-emerald-500/20">
+      <GlassCard className="p-6 sm:p-8 bg-gradient-to-r bg-olive-500/10 border-olive-500/25">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-olive-500/15 text-olive-800  border border-olive-500/25">
+              <Sparkles className="w-3.5 h-3.5 text-olive-700" />
               Faculty Portal • {user?.employeeId || 'Instructor'}
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-black text-charcoal  tracking-tight">
               Welcome back, {user?.name}
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            <p className="text-xs sm:text-sm text-muted ">
               Department of Computer Science & Academic Affairs • Institutional Attendance System
             </p>
           </div>
@@ -78,16 +78,16 @@ export const TeacherDashboard: React.FC = () => {
       {subjects.length > 0 && (
         <GlassCard className="p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-olive-500/15 text-olive-700  flex items-center justify-center">
               <BookOpen className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-700 dark:text-slate-300">Curriculum Subjects Handled</p>
+              <p className="text-xs font-bold text-charcoal ">Curriculum Subjects Handled</p>
               <div className="flex flex-wrap gap-1.5 mt-1">
                 {subjects.map((sub, idx) => (
                   <span
                     key={idx}
-                    className="text-xs font-semibold px-2 py-0.5 rounded-md bg-white/60 dark:bg-slate-800/60 text-slate-800 dark:text-slate-200 border border-slate-200/50 dark:border-white/5"
+                    className="text-xs font-semibold px-2 py-0.5 rounded-md bg-white/60  text-charcoal  border border-olive-500/15 "
                   >
                     {sub}
                   </span>
@@ -101,11 +101,11 @@ export const TeacherDashboard: React.FC = () => {
       {/* Assigned Classes Grid */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
-            <GraduationCap className="w-5 h-5 text-indigo-600" />
+          <h3 className="text-base font-extrabold text-charcoal  flex items-center gap-2">
+            <GraduationCap className="w-5 h-5 text-olive-700" />
             Authorized Classes & Rosters
           </h3>
-          <span className="text-xs text-slate-500">
+          <span className="text-xs text-muted">
             {assignments.length} Assigned Sections
           </span>
         </div>
@@ -121,24 +121,24 @@ export const TeacherDashboard: React.FC = () => {
                   <GlassBadge variant="cyan" size="sm">
                     Section {item.section}
                   </GlassBadge>
-                  <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                  <span className="text-[11px] font-semibold text-olive-800  flex items-center gap-1">
                     <CheckCircle2 className="w-3.5 h-3.5" /> Assigned
                   </span>
                 </div>
-                <h4 className="text-lg font-black text-slate-900 dark:text-white group-hover:text-indigo-600 transition-colors">
+                <h4 className="text-lg font-black text-charcoal  group-hover:text-olive-700 transition-colors">
                   {item.class}
                 </h4>
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs text-muted mt-1">
                   Section {item.section} • Daily Attendance Boundary
                 </p>
               </div>
 
-              <div className="mt-5 pt-4 border-t border-slate-200/50 dark:border-white/10 flex items-center justify-between">
+              <div className="mt-5 pt-4 border-t border-olive-500/15  flex items-center justify-between">
                 <button
                   onClick={() =>
                     navigate(`/teacher/mark?class=${encodeURIComponent(item.class)}&section=${encodeURIComponent(item.section)}`)
                   }
-                  className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
+                  className="text-xs font-bold text-olive-700  hover:underline flex items-center gap-1"
                 >
                   Mark Attendance <ArrowRight className="w-3.5 h-3.5" />
                 </button>
@@ -155,14 +155,14 @@ export const TeacherDashboard: React.FC = () => {
           onClick={() => navigate('/teacher/mark')}
         >
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center flex-shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-olive-500/15 text-olive-700  flex items-center justify-center flex-shrink-0">
               <CalendarCheck className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+              <h4 className="text-sm font-bold text-charcoal ">
                 Take Daily Roll Call
               </h4>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-muted mt-0.5">
                 Load active student roster, mark Present/Absent/Late, and submit session
               </p>
             </div>
@@ -174,14 +174,14 @@ export const TeacherDashboard: React.FC = () => {
           onClick={() => navigate('/teacher/history')}
         >
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center flex-shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-spruce/15 text-spruce-700  flex items-center justify-center flex-shrink-0">
               <History className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+              <h4 className="text-sm font-bold text-charcoal ">
                 Review Past Sessions
               </h4>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-muted mt-0.5">
                 Browse previously recorded attendance sessions, filter by date, or make corrections
               </p>
             </div>

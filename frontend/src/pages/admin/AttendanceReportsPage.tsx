@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
-  FileSpreadsheet,
   Download,
-  Search,
-  Filter,
   AlertTriangle,
-  CheckCircle2,
-  Calendar,
   Users,
   Percent,
 } from 'lucide-react';
@@ -91,7 +86,7 @@ export const AttendanceReportsPage: React.FC = () => {
       key: 'rollNumber',
       header: 'Roll Number',
       render: (item) => (
-        <span className="font-mono font-bold text-xs text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-lg">
+        <span className="font-mono font-bold text-xs text-olive-800 bg-olive-500/15 px-2.5 py-1 rounded-lg">
           {item.rollNumber}
         </span>
       ),
@@ -101,8 +96,8 @@ export const AttendanceReportsPage: React.FC = () => {
       header: 'Student Name',
       render: (item) => (
         <div>
-          <span className="font-bold text-sm text-slate-900 dark:text-white block">{item.name}</span>
-          <span className="text-[11px] text-slate-500">
+          <span className="font-bold text-sm text-charcoal block">{item.name}</span>
+          <span className="text-[11px] text-muted">
             {item.class} • Sec {item.section}
           </span>
         </div>
@@ -112,7 +107,7 @@ export const AttendanceReportsPage: React.FC = () => {
       key: 'total',
       header: 'Sessions',
       render: (item) => (
-        <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+        <span className="text-xs font-semibold text-charcoal">
           {item.total} classes
         </span>
       ),
@@ -122,11 +117,11 @@ export const AttendanceReportsPage: React.FC = () => {
       header: 'Present / Absent / Late',
       render: (item) => (
         <div className="flex items-center gap-1.5 text-xs">
-          <span className="font-bold text-emerald-600 dark:text-emerald-400">{item.present} P</span>
-          <span className="text-slate-400">•</span>
-          <span className="font-bold text-rose-600 dark:text-rose-400">{item.absent} A</span>
-          <span className="text-slate-400">•</span>
-          <span className="font-bold text-amber-600 dark:text-amber-400">{item.late} L</span>
+          <span className="font-bold text-olive-700">{item.present} P</span>
+          <span className="text-stone-400">•</span>
+          <span className="font-bold text-terracotta">{item.absent} A</span>
+          <span className="text-stone-400">•</span>
+          <span className="font-bold text-gold-700">{item.late} L</span>
         </div>
       ),
     },
@@ -139,12 +134,12 @@ export const AttendanceReportsPage: React.FC = () => {
           <div className="space-y-1 w-36">
             <div className="flex items-center justify-between text-xs">
               <span
-                className={`font-black ${
+                className={`font-extrabold ${
                   isLow
-                    ? 'text-rose-600 dark:text-rose-400'
+                    ? 'text-terracotta'
                     : item.percentage >= 85
-                    ? 'text-emerald-600 dark:text-emerald-400'
-                    : 'text-indigo-600 dark:text-indigo-400'
+                    ? 'text-olive-800'
+                    : 'text-olive-700'
                 }`}
               >
                 {item.percentage}%
@@ -155,14 +150,14 @@ export const AttendanceReportsPage: React.FC = () => {
                 </GlassBadge>
               )}
             </div>
-            <div className="w-full bg-slate-200/80 dark:bg-slate-700/60 rounded-full h-1.5 overflow-hidden">
+            <div className="w-full bg-stone-200/80 rounded-full h-1.5 overflow-hidden">
               <div
                 className={`h-1.5 rounded-full transition-all ${
                   isLow
-                    ? 'bg-rose-500'
+                    ? 'bg-terracotta'
                     : item.percentage >= 85
-                    ? 'bg-emerald-500'
-                    : 'bg-indigo-500'
+                    ? 'bg-olive-600'
+                    : 'bg-olive-500'
                 }`}
                 style={{ width: `${Math.min(100, item.percentage)}%` }}
               />
@@ -178,10 +173,10 @@ export const AttendanceReportsPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-charcoal tracking-tight">
             Institutional Attendance Reports
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-muted mt-1">
             Aggregated attendance statistics across all classes and sections with CSV export capabilities
           </p>
         </div>
@@ -198,36 +193,36 @@ export const AttendanceReportsPage: React.FC = () => {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <GlassCard className="p-4 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-2xl bg-olive-500/15 text-olive-800 flex items-center justify-center">
             <Users className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500">Students Tracked</p>
-            <p className="text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">
+            <p className="text-xs font-semibold text-muted">Students Tracked</p>
+            <p className="text-xl font-extrabold text-charcoal mt-0.5">
               {totalStudents}
             </p>
           </div>
         </GlassCard>
 
         <GlassCard className="p-4 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-2xl bg-olive-600/15 text-olive-800 flex items-center justify-center">
             <Percent className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500">Overall Average Attendance</p>
-            <p className="text-xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-0.5">
+            <p className="text-xs font-semibold text-muted">Overall Average Attendance</p>
+            <p className="text-xl font-extrabold text-olive-800 mt-0.5">
               {avgAttendance}%
             </p>
           </div>
         </GlassCard>
 
         <GlassCard className="p-4 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-2xl bg-terracotta/15 text-terracotta flex items-center justify-center">
             <AlertTriangle className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500">Shortage Notice (&lt;75%)</p>
-            <p className="text-xl font-extrabold text-rose-600 dark:text-rose-400 mt-0.5">
+            <p className="text-xs font-semibold text-muted">Shortage Notice (&lt;75%)</p>
+            <p className="text-xl font-extrabold text-terracotta mt-0.5">
               {lowAttendanceCount} Students
             </p>
           </div>

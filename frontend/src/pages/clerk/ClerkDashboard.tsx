@@ -53,10 +53,10 @@ export const ClerkDashboard: React.FC = () => {
       {/* Welcome Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h1 className="text-2xl font-extrabold text-charcoal  tracking-tight">
             Fee Collection Desk
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-muted  mt-1">
             Cashier workstation for {user?.name}. Process fee deposits and generate official receipts.
           </p>
         </div>
@@ -107,15 +107,15 @@ export const ClerkDashboard: React.FC = () => {
           className="p-5 cursor-pointer flex items-center justify-between group"
         >
           <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+            <div className="w-11 h-11 rounded-2xl bg-olive-500/15 text-olive-700  flex items-center justify-center">
               <CreditCard className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="font-bold text-sm text-slate-900 dark:text-white">Collect Student Fees</h4>
-              <p className="text-xs text-slate-500">Live search & voucher issue</p>
+              <h4 className="font-bold text-sm text-charcoal ">Collect Student Fees</h4>
+              <p className="text-xs text-muted">Live search & voucher issue</p>
             </div>
           </div>
-          <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all" />
+          <ArrowRight className="w-5 h-5 text-muted group-hover:text-indigo-500 group-hover:translate-x-1 transition-all" />
         </GlassCard>
 
         <GlassCard
@@ -125,15 +125,15 @@ export const ClerkDashboard: React.FC = () => {
           className="p-5 cursor-pointer flex items-center justify-between group"
         >
           <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center">
+            <div className="w-11 h-11 rounded-2xl bg-spruce/15 text-spruce-700  flex items-center justify-center">
               <History className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="font-bold text-sm text-slate-900 dark:text-white">My Payment Ledger</h4>
-              <p className="text-xs text-slate-500">Search & print past receipts</p>
+              <h4 className="font-bold text-sm text-charcoal ">My Payment Ledger</h4>
+              <p className="text-xs text-muted">Search & print past receipts</p>
             </div>
           </div>
-          <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-cyan-500 group-hover:translate-x-1 transition-all" />
+          <ArrowRight className="w-5 h-5 text-muted group-hover:text-cyan-500 group-hover:translate-x-1 transition-all" />
         </GlassCard>
 
         <GlassCard
@@ -143,15 +143,15 @@ export const ClerkDashboard: React.FC = () => {
           className="p-5 cursor-pointer flex items-center justify-between group"
         >
           <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+            <div className="w-11 h-11 rounded-2xl bg-gold/15 text-gold-700  flex items-center justify-center">
               <Clock className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="font-bold text-sm text-slate-900 dark:text-white">Pending Dues List</h4>
-              <p className="text-xs text-slate-500">Live outstanding balances</p>
+              <h4 className="font-bold text-sm text-charcoal ">Pending Dues List</h4>
+              <p className="text-xs text-muted">Live outstanding balances</p>
             </div>
           </div>
-          <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-amber-500 group-hover:translate-x-1 transition-all" />
+          <ArrowRight className="w-5 h-5 text-muted group-hover:text-amber-500 group-hover:translate-x-1 transition-all" />
         </GlassCard>
       </div>
 
@@ -159,10 +159,10 @@ export const ClerkDashboard: React.FC = () => {
       <GlassCard variant="default" className="p-5 space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-base font-bold text-slate-900 dark:text-white">
+            <h3 className="text-base font-bold text-charcoal ">
               Recent Deposits Recorded by You
             </h3>
-            <p className="text-xs text-slate-500">Latest receipts issued at your collection station</p>
+            <p className="text-xs text-muted">Latest receipts issued at your collection station</p>
           </div>
 
           <GlassButton
@@ -175,21 +175,21 @@ export const ClerkDashboard: React.FC = () => {
           </GlassButton>
         </div>
 
-        <div className="divide-y divide-slate-200/50 dark:divide-white/5">
+        <div className="divide-y divide-olive-500/10 ">
           {myTransactions.slice(0, 5).map((tx) => (
             <div
               key={tx.id}
-              className="py-3 flex items-center justify-between hover:bg-white/40 dark:hover:bg-slate-800/40 p-2 rounded-xl transition-colors"
+              className="py-3 flex items-center justify-between hover:bg-white/60  p-2 rounded-xl transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-xs font-mono">
+                <div className="w-9 h-9 rounded-xl bg-olive-500/15 text-olive-700  flex items-center justify-center font-bold text-xs font-mono">
                   RCP
                 </div>
                 <div>
-                  <span className="font-bold text-xs text-slate-900 dark:text-white block">
+                  <span className="font-bold text-xs text-charcoal  block">
                     {tx.student.name} ({tx.student.rollNumber})
                   </span>
-                  <span className="text-[11px] text-slate-500">
+                  <span className="text-[11px] text-muted">
                     {tx.feeAssignment.feeStructure.feeHead} • {tx.paymentMode} (Ref: {tx.referenceNumber})
                   </span>
                 </div>
@@ -197,10 +197,10 @@ export const ClerkDashboard: React.FC = () => {
 
               <div className="flex items-center gap-3">
                 <div className="text-right">
-                  <span className="font-bold text-sm text-slate-900 dark:text-white block">
+                  <span className="font-bold text-sm text-charcoal  block">
                     ₹ {tx.amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                   </span>
-                  <span className="text-[10px] text-slate-500">Receipt #{tx.receiptNumber}</span>
+                  <span className="text-[10px] text-muted">Receipt #{tx.receiptNumber}</span>
                 </div>
 
                 <GlassButton
@@ -218,7 +218,7 @@ export const ClerkDashboard: React.FC = () => {
           ))}
 
           {myTransactions.length === 0 && (
-            <div className="py-8 text-center text-xs text-slate-500">
+            <div className="py-8 text-center text-xs text-muted">
               No transactions recorded yet today. Click "Collect Fee Now" to process your first payment.
             </div>
           )}

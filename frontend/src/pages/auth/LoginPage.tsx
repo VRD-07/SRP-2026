@@ -61,35 +61,35 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen flex items-center justify-center p-4 relative selection:bg-olive-600 selection:text-white">
       {/* Ambient Animated Mesh Background */}
       <div className="ambient-mesh-bg" />
 
       <div className="w-full max-w-md space-y-6">
         {/* Brand Header */}
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-600 text-white shadow-xl shadow-indigo-500/30 mb-2">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-gradient-to-tr from-olive-700 via-olive-600 to-olive-500 text-white shadow-xl shadow-olive-600/25 mb-2">
             <GraduationCap className="w-9 h-9" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-            AURA <span className="bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-300 bg-clip-text text-transparent">ERP</span>
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-charcoal">
+            AURA <span className="text-olive-600">ERP</span>
           </h1>
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted">
             College Academic & Revenue Bursar Suite
           </p>
         </div>
 
         {/* Login Glass Card */}
-        <GlassCard variant="elevated" className="p-6 sm:p-8 space-y-6 border border-white/60 dark:border-white/10 shadow-2xl">
+        <GlassCard variant="elevated" className="p-6 sm:p-8 space-y-6 border border-white/80 shadow-glassElevated">
           <div>
-            <h2 className="text-lg font-bold text-slate-800 dark:text-white">Sign In</h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            <h2 className="text-lg font-bold text-charcoal">Sign In</h2>
+            <p className="text-xs text-muted mt-1">
               Enter your institutional credentials to access your portal
             </p>
           </div>
 
           {error && (
-            <div className="p-3.5 rounded-2xl bg-rose-500/15 border border-rose-500/30 text-xs text-rose-700 dark:text-rose-300 flex items-start gap-2.5 animate-in fade-in">
+            <div className="p-3.5 rounded-2xl bg-terracotta/15 border border-terracotta/30 text-xs text-terracotta flex items-start gap-2.5 animate-in fade-in">
               <ShieldAlert className="w-4 h-4 flex-shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
@@ -129,42 +129,42 @@ export const LoginPage: React.FC = () => {
           </form>
 
           {/* Quick Demo Logins for Client Demo */}
-          <div className="pt-4 border-t border-slate-200/60 dark:border-white/10">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+          <div className="pt-4 border-t border-olive-500/15">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-muted mb-2.5 flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-gold" />
               Quick Demo Access (1-Click Fill):
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               <button
                 type="button"
                 onClick={() => handleQuickLogin('admin@college.edu', 'Admin@123')}
-                className="px-2 py-2 rounded-xl text-xs font-semibold bg-purple-500/10 hover:bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/20 transition-all flex flex-col items-center gap-1"
+                className="px-2 py-2.5 rounded-xl text-xs font-semibold bg-stone-500/10 hover:bg-stone-500/20 text-stone-700 border border-stone-500/20 transition-all flex flex-col items-center gap-1 cursor-pointer"
               >
-                <ShieldCheck className="w-3.5 h-3.5" />
+                <ShieldCheck className="w-4 h-4" />
                 <span>Admin</span>
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickLogin('teacher.sunita@college.edu', 'Teacher@123')}
-                className="px-2 py-2 rounded-xl text-xs font-semibold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 transition-all flex flex-col items-center gap-1"
+                className="px-2 py-2.5 rounded-xl text-xs font-semibold bg-olive-500/15 hover:bg-olive-500/25 text-olive-800 border border-olive-500/25 transition-all flex flex-col items-center gap-1 cursor-pointer"
               >
-                <Sparkles className="w-3.5 h-3.5" />
+                <Sparkles className="w-4 h-4" />
                 <span>Teacher</span>
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickLogin('clerk.raj@college.edu', 'Clerk@123')}
-                className="px-2 py-2 rounded-xl text-xs font-semibold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20 transition-all flex flex-col items-center gap-1"
+                className="px-2 py-2.5 rounded-xl text-xs font-semibold bg-spruce/15 hover:bg-spruce/25 text-spruce-700 border border-spruce/25 transition-all flex flex-col items-center gap-1 cursor-pointer"
               >
-                <UserCheck className="w-3.5 h-3.5" />
+                <UserCheck className="w-4 h-4" />
                 <span>Clerk</span>
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickLogin('student.aarav@college.edu', 'Student@123')}
-                className="px-2 py-2 rounded-xl text-xs font-semibold bg-blue-500/10 hover:bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-500/20 transition-all flex flex-col items-center gap-1"
+                className="px-2 py-2.5 rounded-xl text-xs font-semibold bg-gold/15 hover:bg-gold/25 text-gold-700 border border-gold/25 transition-all flex flex-col items-center gap-1 cursor-pointer"
               >
-                <GraduationCap className="w-3.5 h-3.5" />
+                <GraduationCap className="w-4 h-4" />
                 <span>Student</span>
               </button>
             </div>
@@ -172,7 +172,7 @@ export const LoginPage: React.FC = () => {
         </GlassCard>
 
         {/* Footer info */}
-        <p className="text-center text-[11px] text-slate-500 dark:text-slate-400">
+        <p className="text-center text-[11px] text-muted">
           Metropolitan Institute of Technology & Higher Studies • ERP Core v1.0
         </p>
       </div>

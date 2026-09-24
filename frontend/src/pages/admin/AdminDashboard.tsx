@@ -5,10 +5,8 @@ import {
   TrendingUp,
   AlertCircle,
   RotateCcw,
-  Users,
   CreditCard,
   FileBarChart,
-  Calendar,
   Layers,
   ArrowRight,
 } from 'lucide-react';
@@ -67,7 +65,7 @@ export const AdminDashboard: React.FC = () => {
     fetchData();
   }, []);
 
-  const COLORS = ['#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6'];
+  const COLORS = ['#6B7A4F', '#A8B58C', '#C28E2E', '#5A737D', '#B2533E', '#8C9E6E'];
 
   const kpis = report?.kpis;
 
@@ -76,10 +74,10 @@ export const AdminDashboard: React.FC = () => {
       {/* Top Banner / Welcome */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-charcoal tracking-tight">
             Institutional Finance Overview
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-muted mt-1">
             Real-time revenue metrics, fee heads collection status, and bursar ledger audit.
           </p>
         </div>
@@ -146,10 +144,10 @@ export const AdminDashboard: React.FC = () => {
         <GlassCard variant="default" className="p-5 lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">
+              <h3 className="text-base font-bold text-charcoal">
                 Revenue Collection Timeline
               </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
+              <p className="text-xs text-muted">
                 Daily collection progression across all programs
               </p>
             </div>
@@ -162,30 +160,32 @@ export const AdminDashboard: React.FC = () => {
                 <AreaChart data={report.timelineTrends}>
                   <defs>
                     <linearGradient id="colorAmount" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4} />
-                      <stop offset="95%" stopColor="#6366f1" stopOpacity={0.0} />
+                      <stop offset="5%" stopColor="#6B7A4F" stopOpacity={0.35} />
+                      <stop offset="95%" stopColor="#6B7A4F" stopOpacity={0.0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-                  <XAxis dataKey="date" tick={{ fontSize: 11 }} />
+                  <CartesianGrid strokeDasharray="3 3" opacity={0.12} stroke="#6B7A4F" />
+                  <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#6B675E' }} stroke="#DDD9D1" />
                   <YAxis
-                    tick={{ fontSize: 11 }}
+                    tick={{ fontSize: 11, fill: '#6B675E' }}
+                    stroke="#DDD9D1"
                     tickFormatter={(val) => `₹${(val / 1000).toFixed(0)}k`}
                   />
                   <Tooltip
                     formatter={(val: any) => [`₹ ${Number(val).toLocaleString('en-IN')}`, 'Collected']}
                     contentStyle={{
-                      backgroundColor: 'rgba(15, 23, 42, 0.85)',
-                      borderRadius: '12px',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      color: '#fff',
+                      backgroundColor: 'rgba(252, 251, 248, 0.95)',
+                      borderRadius: '14px',
+                      border: '1px solid rgba(107, 122, 79, 0.2)',
+                      color: '#2E2C28',
+                      boxShadow: '0 8px 24px rgba(46, 44, 40, 0.08)',
                       fontSize: '12px',
                     }}
                   />
                   <Area
                     type="monotone"
                     dataKey="amount"
-                    stroke="#6366f1"
+                    stroke="#6B7A4F"
                     strokeWidth={2.5}
                     fillOpacity={1}
                     fill="url(#colorAmount)"
@@ -193,7 +193,7 @@ export const AdminDashboard: React.FC = () => {
                 </AreaChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-full flex items-center justify-center text-xs text-slate-400">
+              <div className="h-full flex items-center justify-center text-xs text-muted">
                 No recent timeline data available
               </div>
             )}
@@ -203,8 +203,8 @@ export const AdminDashboard: React.FC = () => {
         {/* Fee Head Breakdown Donut (1 col) */}
         <GlassCard variant="default" className="p-5 space-y-4">
           <div>
-            <h3 className="text-base font-bold text-slate-900 dark:text-white">Fee Head Split</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Revenue collected by fee type</p>
+            <h3 className="text-base font-bold text-charcoal">Fee Head Split</h3>
+            <p className="text-xs text-muted">Revenue collected by fee type</p>
           </div>
 
           <div className="h-64 w-full flex items-center justify-center">
@@ -228,18 +228,19 @@ export const AdminDashboard: React.FC = () => {
                   <Tooltip
                     formatter={(val: any) => [`₹ ${Number(val).toLocaleString('en-IN')}`, 'Collected']}
                     contentStyle={{
-                      backgroundColor: 'rgba(15, 23, 42, 0.85)',
-                      borderRadius: '12px',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      color: '#fff',
+                      backgroundColor: 'rgba(252, 251, 248, 0.95)',
+                      borderRadius: '14px',
+                      border: '1px solid rgba(107, 122, 79, 0.2)',
+                      color: '#2E2C28',
+                      boxShadow: '0 8px 24px rgba(46, 44, 40, 0.08)',
                       fontSize: '12px',
                     }}
                   />
-                  <Legend wrapperStyle={{ fontSize: '11px' }} />
+                  <Legend wrapperStyle={{ fontSize: '11px', color: '#2E2C28' }} />
                 </PieChart>
               </ResponsiveContainer>
             ) : (
-              <div className="text-xs text-slate-400">No data available</div>
+              <div className="text-xs text-muted">No data available</div>
             )}
           </div>
         </GlassCard>
@@ -249,10 +250,10 @@ export const AdminDashboard: React.FC = () => {
       <GlassCard variant="default" className="p-5 space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-base font-bold text-slate-900 dark:text-white">
+            <h3 className="text-base font-bold text-charcoal">
               Program-wise Assigned vs Collected
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="text-xs text-muted">
               Comparative dues recovery across academic branches
             </p>
           </div>
@@ -262,30 +263,32 @@ export const AdminDashboard: React.FC = () => {
           {report?.classDistribution && report.classDistribution.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={report.classDistribution}>
-                <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-                <XAxis dataKey="className" tick={{ fontSize: 11 }} />
+                <CartesianGrid strokeDasharray="3 3" opacity={0.12} stroke="#6B7A4F" />
+                <XAxis dataKey="className" tick={{ fontSize: 11, fill: '#6B675E' }} stroke="#DDD9D1" />
                 <YAxis
-                  tick={{ fontSize: 11 }}
+                  tick={{ fontSize: 11, fill: '#6B675E' }}
+                  stroke="#DDD9D1"
                   tickFormatter={(val) => `₹${(val / 1000).toFixed(0)}k`}
                 />
                 <Tooltip
                   formatter={(val: any) => `₹ ${Number(val).toLocaleString('en-IN')}`}
                   contentStyle={{
-                    backgroundColor: 'rgba(15, 23, 42, 0.85)',
-                    borderRadius: '12px',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    color: '#fff',
+                    backgroundColor: 'rgba(252, 251, 248, 0.95)',
+                    borderRadius: '14px',
+                    border: '1px solid rgba(107, 122, 79, 0.2)',
+                    color: '#2E2C28',
+                    boxShadow: '0 8px 24px rgba(46, 44, 40, 0.08)',
                     fontSize: '12px',
                   }}
                 />
-                <Legend wrapperStyle={{ fontSize: '11px' }} />
-                <Bar dataKey="assigned" fill="#94a3b8" radius={[4, 4, 0, 0]} name="Assigned" />
-                <Bar dataKey="collected" fill="#6366f1" radius={[4, 4, 0, 0]} name="Collected" />
-                <Bar dataKey="pending" fill="#f59e0b" radius={[4, 4, 0, 0]} name="Pending" />
+                <Legend wrapperStyle={{ fontSize: '11px', color: '#2E2C28' }} />
+                <Bar dataKey="assigned" fill="#A8B58C" radius={[4, 4, 0, 0]} name="Assigned" />
+                <Bar dataKey="collected" fill="#6B7A4F" radius={[4, 4, 0, 0]} name="Collected" />
+                <Bar dataKey="pending" fill="#C28E2E" radius={[4, 4, 0, 0]} name="Pending" />
               </BarChart>
             </ResponsiveContainer>
           ) : (
-            <div className="h-full flex items-center justify-center text-xs text-slate-400">
+            <div className="h-full flex items-center justify-center text-xs text-muted">
               No program data available
             </div>
           )}
@@ -296,10 +299,10 @@ export const AdminDashboard: React.FC = () => {
       <GlassCard variant="default" className="p-5 space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-base font-bold text-slate-900 dark:text-white">
+            <h3 className="text-base font-bold text-charcoal">
               Recent Transactions & Reversals
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="text-xs text-muted">
               Live bursar entries recorded across all collection desks
             </p>
           </div>
@@ -314,34 +317,34 @@ export const AdminDashboard: React.FC = () => {
           </GlassButton>
         </div>
 
-        <div className="divide-y divide-slate-200/50 dark:divide-white/5">
+        <div className="divide-y divide-olive-500/10">
           {recentTransactions.map((tx) => {
             const isReversed = tx.status === 'REVERSED';
             return (
               <div
                 key={tx.id}
-                className="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-white/40 dark:hover:bg-slate-800/40 p-2 rounded-xl transition-colors"
+                className="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-white/60 p-2 rounded-xl transition-colors"
               >
                 <div className="flex items-center gap-3">
                   <div
                     className={`w-9 h-9 rounded-xl flex items-center justify-center ${
                       isReversed
-                        ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                        : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                        ? 'bg-terracotta/15 text-terracotta'
+                        : 'bg-olive-500/15 text-olive-800'
                     }`}
                   >
                     {isReversed ? <RotateCcw className="w-4 h-4" /> : <CreditCard className="w-4 h-4" />}
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-xs text-slate-900 dark:text-white">
+                      <span className="font-bold text-xs text-charcoal">
                         {tx.student.name}
                       </span>
-                      <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                      <span className="text-[11px] font-mono text-muted">
                         ({tx.student.rollNumber})
                       </span>
                     </div>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                    <p className="text-[11px] text-muted">
                       {tx.feeAssignment.feeStructure.feeHead} • Ref: {tx.referenceNumber} • Receipt: #{tx.receiptNumber}
                     </p>
                   </div>
@@ -351,12 +354,12 @@ export const AdminDashboard: React.FC = () => {
                   <div className="text-right">
                     <p
                       className={`text-sm font-bold ${
-                        isReversed ? 'text-rose-600 dark:text-rose-400 line-through' : 'text-slate-900 dark:text-white'
+                        isReversed ? 'text-terracotta line-through' : 'text-charcoal'
                       }`}
                     >
                       ₹ {tx.amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                     </p>
-                    <p className="text-[10px] text-slate-500">
+                    <p className="text-[10px] text-muted">
                       {new Date(tx.createdAt).toLocaleDateString('en-IN', { dateStyle: 'medium' })}
                     </p>
                   </div>
@@ -371,7 +374,7 @@ export const AdminDashboard: React.FC = () => {
                         setSelectedTx(tx);
                         setReceiptModalOpen(true);
                       }}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-white/60 dark:hover:bg-slate-800"
+                      className="p-1.5 rounded-lg text-muted hover:text-olive-700 hover:bg-white/80 cursor-pointer"
                       title="View Voucher"
                     >
                       <FileBarChart className="w-4 h-4" />
@@ -383,7 +386,7 @@ export const AdminDashboard: React.FC = () => {
                           setSelectedTx(tx);
                           setReversalModalOpen(true);
                         }}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-white/60 dark:hover:bg-slate-800"
+                        className="p-1.5 rounded-lg text-muted hover:text-terracotta hover:bg-white/80 cursor-pointer"
                         title="Initiate Reversal"
                       >
                         <RotateCcw className="w-3.5 h-3.5" />

@@ -12,8 +12,6 @@ import {
   Clock,
   LogOut,
   GraduationCap,
-  ShieldCheck,
-  ReceiptText,
   CalendarCheck,
   UserSquare2,
   FileSpreadsheet,
@@ -65,7 +63,7 @@ export const GlassSidebar: React.FC<GlassSidebarProps> = ({ className, onNavigat
   ];
 
   const studentLinks = [
-    { to: '/student', label: 'My Fees & Dues', icon: ReceiptText },
+    { to: '/student', label: 'My Fees & Dues', icon: CreditCard },
     { to: '/student/attendance', label: 'My Attendance', icon: CalendarCheck },
     { to: '/student/library', label: 'My Library', icon: BookOpen },
     { to: '/student/profile', label: 'My Profile', icon: UserCheck2 },
@@ -92,22 +90,22 @@ export const GlassSidebar: React.FC<GlassSidebarProps> = ({ className, onNavigat
   return (
     <aside
       className={clsx(
-        'w-64 flex flex-col justify-between p-4 glass-panel border-r border-white/40 dark:border-white/10 h-full select-none',
+        'w-64 flex flex-col justify-between p-4 glass-panel border-r border-white/65 h-full select-none shadow-sm',
         className
       )}
     >
       {/* Brand Header */}
       <div>
-        <div className="flex items-center gap-3 px-3 py-4 mb-4 border-b border-slate-200/50 dark:border-white/10">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-md shadow-indigo-500/30">
-            <GraduationCap className="w-6 h-6" />
+        <div className="flex items-center gap-3 px-3 py-3.5 mb-4 border-b border-olive-500/15">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-olive-700 via-olive-600 to-olive-500 flex items-center justify-center text-white shadow-sm shadow-olive-600/25">
+            <GraduationCap className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-base font-extrabold tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-300 bg-clip-text text-transparent">
-              AURA ERP
+            <h1 className="text-base font-extrabold tracking-tight text-charcoal leading-none">
+              AURA <span className="text-olive-600">ERP</span>
             </h1>
-            <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-              Fees & Bursar Suite
+            <p className="text-[10px] font-semibold text-muted uppercase tracking-wider mt-1">
+              Bursar & Academic Suite
             </p>
           </div>
         </div>
@@ -124,10 +122,10 @@ export const GlassSidebar: React.FC<GlassSidebarProps> = ({ className, onNavigat
                 onClick={onNavigate}
                 className={({ isActive }) =>
                   clsx(
-                    'flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-150',
+                    'flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm transition-all duration-150',
                     isActive
-                      ? 'bg-gradient-to-r from-indigo-600/90 to-purple-600/90 text-white shadow-md shadow-indigo-500/20'
-                      : 'text-slate-600 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white'
+                      ? 'bg-olive-600 text-white font-semibold shadow-sm shadow-olive-600/20'
+                      : 'text-muted font-medium hover:bg-white/65 hover:text-charcoal'
                   )
                 }
               >
@@ -140,13 +138,13 @@ export const GlassSidebar: React.FC<GlassSidebarProps> = ({ className, onNavigat
       </div>
 
       {/* User Footer & Logout */}
-      <div className="pt-4 border-t border-slate-200/50 dark:border-white/10 space-y-3">
-        <div className="p-3 rounded-2xl bg-white/50 dark:bg-slate-800/50 border border-white/40 dark:border-white/5 flex items-center justify-between">
+      <div className="pt-4 border-t border-olive-500/15 space-y-3">
+        <div className="p-3 rounded-2xl bg-white/65 border border-white/80 shadow-xs flex items-center justify-between">
           <div className="truncate pr-2">
-            <p className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">
+            <p className="text-xs font-bold text-charcoal truncate">
               {user?.name}
             </p>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
+            <p className="text-[11px] text-muted truncate">{user?.email}</p>
           </div>
           <GlassBadge variant={roleVariant} size="sm">
             {user?.role}
@@ -155,7 +153,7 @@ export const GlassSidebar: React.FC<GlassSidebarProps> = ({ className, onNavigat
 
         <button
           onClick={handleLogout}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 transition-colors"
+          className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-terracotta hover:bg-terracotta/10 transition-colors cursor-pointer"
         >
           <LogOut className="w-3.5 h-3.5" />
           <span>Sign Out</span>

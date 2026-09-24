@@ -185,11 +185,11 @@ export const AttendanceHistoryPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
+          <h1 className="text-2xl font-bold text-charcoal  flex items-center gap-2.5">
             <History className="w-7 h-7 text-indigo-500" />
             Attendance History & Audits
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-sm text-muted  mt-1">
             Review past attendance records, check presence percentages, and make record adjustments
           </p>
         </div>
@@ -200,7 +200,7 @@ export const AttendanceHistoryPage: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
           {/* Class Filter */}
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-charcoal  mb-1.5">
               Class & Section
             </label>
             <GlassSelect
@@ -218,7 +218,7 @@ export const AttendanceHistoryPage: React.FC = () => {
 
           {/* Start Date */}
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-charcoal  mb-1.5">
               From Date
             </label>
             <GlassInput
@@ -230,7 +230,7 @@ export const AttendanceHistoryPage: React.FC = () => {
 
           {/* End Date */}
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-charcoal  mb-1.5">
               To Date
             </label>
             <GlassInput
@@ -264,7 +264,7 @@ export const AttendanceHistoryPage: React.FC = () => {
 
       {/* Error Alert */}
       {error && (
-        <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-700 dark:text-rose-300 text-sm flex items-center gap-3">
+        <div className="p-4 rounded-2xl bg-terracotta/15 border border-terracotta/30 text-terracotta  text-sm flex items-center gap-3">
           <AlertCircle className="w-5 h-5 flex-shrink-0 text-rose-500" />
           <span>{error}</span>
         </div>
@@ -275,15 +275,15 @@ export const AttendanceHistoryPage: React.FC = () => {
         {isLoading ? (
           <div className="p-16 text-center">
             <div className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-            <p className="text-sm text-slate-500 font-medium">Loading session history...</p>
+            <p className="text-sm text-muted font-medium">Loading session history...</p>
           </div>
         ) : sessions.length === 0 ? (
           <div className="p-16 text-center">
-            <Calendar className="w-12 h-12 text-slate-400 mx-auto mb-3" />
-            <p className="text-base font-semibold text-slate-700 dark:text-slate-300">
+            <Calendar className="w-12 h-12 text-muted mx-auto mb-3" />
+            <p className="text-base font-semibold text-charcoal ">
               No Attendance Sessions Found
             </p>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-muted mt-1">
               Try adjusting your filter criteria or record new attendance from the Mark Attendance page.
             </p>
           </div>
@@ -291,7 +291,7 @@ export const AttendanceHistoryPage: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-slate-200/60 dark:border-white/10 bg-slate-50/50 dark:bg-slate-900/30 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <tr className="border-b border-olive-500/15  bg-olive-50/70  text-xs font-semibold uppercase tracking-wider text-muted ">
                   <th className="py-3.5 px-4">Date</th>
                   <th className="py-3.5 px-4">Class & Section</th>
                   <th className="py-3.5 px-4 text-center">Roster Size</th>
@@ -303,7 +303,7 @@ export const AttendanceHistoryPage: React.FC = () => {
                   <th className="py-3.5 px-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200/40 dark:divide-white/5 text-sm">
+              <tbody className="divide-y divide-olive-500/10  text-sm">
                 {sessions.map((sess) => {
                   const turnout = sess.total > 0
                     ? Math.round(((sess.present + sess.late) / sess.total) * 100)
@@ -312,26 +312,26 @@ export const AttendanceHistoryPage: React.FC = () => {
                   return (
                     <tr
                       key={sess.id}
-                      className="hover:bg-white/40 dark:hover:bg-slate-800/40 transition-colors"
+                      className="hover:bg-white/60  transition-colors"
                     >
                       {/* Date */}
-                      <td className="py-3.5 px-4 font-mono font-medium text-slate-800 dark:text-slate-200">
+                      <td className="py-3.5 px-4 font-mono font-medium text-charcoal ">
                         {sess.date}
                       </td>
 
                       {/* Class & Section */}
-                      <td className="py-3.5 px-4 font-semibold text-slate-800 dark:text-white">
+                      <td className="py-3.5 px-4 font-semibold text-charcoal ">
                         {sess.class} — Sec {sess.section}
                       </td>
 
                       {/* Total */}
-                      <td className="py-3.5 px-4 text-center font-semibold text-slate-600 dark:text-slate-300">
+                      <td className="py-3.5 px-4 text-center font-semibold text-muted ">
                         {sess.total}
                       </td>
 
                       {/* Present */}
                       <td className="py-3.5 px-4 text-center">
-                        <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                        <span className="inline-flex items-center gap-1 text-xs font-bold text-olive-800  bg-olive-500/15 px-2 py-0.5 rounded-full">
                           <CheckCircle2 className="w-3 h-3" />
                           {sess.present}
                         </span>
@@ -339,7 +339,7 @@ export const AttendanceHistoryPage: React.FC = () => {
 
                       {/* Absent */}
                       <td className="py-3.5 px-4 text-center">
-                        <span className="inline-flex items-center gap-1 text-xs font-bold text-rose-600 dark:text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full">
+                        <span className="inline-flex items-center gap-1 text-xs font-bold text-terracotta  bg-terracotta/15 px-2 py-0.5 rounded-full">
                           <XCircle className="w-3 h-3" />
                           {sess.absent}
                         </span>
@@ -347,7 +347,7 @@ export const AttendanceHistoryPage: React.FC = () => {
 
                       {/* Late */}
                       <td className="py-3.5 px-4 text-center">
-                        <span className="inline-flex items-center gap-1 text-xs font-bold text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full">
+                        <span className="inline-flex items-center gap-1 text-xs font-bold text-gold-700  bg-gold/15 px-2 py-0.5 rounded-full">
                           <Clock className="w-3 h-3" />
                           {sess.late}
                         </span>
@@ -370,7 +370,7 @@ export const AttendanceHistoryPage: React.FC = () => {
                       </td>
 
                       {/* Marked By */}
-                      <td className="py-3.5 px-4 text-xs text-slate-500">
+                      <td className="py-3.5 px-4 text-xs text-muted">
                         {sess.markedBy}
                       </td>
 
@@ -409,8 +409,8 @@ export const AttendanceHistoryPage: React.FC = () => {
             <div
               className={`p-3 rounded-xl text-xs font-medium border ${
                 modalFeedback.type === 'success'
-                  ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-300'
-                  : 'bg-rose-500/10 border-rose-500/30 text-rose-700 dark:text-rose-300'
+                  ? 'bg-olive-500/15 border-emerald-500/30 text-emerald-700 '
+                  : 'bg-terracotta/15 border-terracotta/30 text-terracotta '
               }`}
             >
               {modalFeedback.text}
@@ -420,16 +420,16 @@ export const AttendanceHistoryPage: React.FC = () => {
           {isLoadingDetail ? (
             <div className="p-8 text-center">
               <div className="w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
-              <p className="text-xs text-slate-500">Loading student marks...</p>
+              <p className="text-xs text-muted">Loading student marks...</p>
             </div>
           ) : sessionDetail ? (
             <>
-              <div className="flex items-center justify-between text-xs text-slate-500 pb-2 border-b border-slate-200/50 dark:border-white/10">
+              <div className="flex items-center justify-between text-xs text-muted pb-2 border-b border-slate-200/50 ">
                 <span>
-                  Recorded by: <strong className="text-slate-800 dark:text-white">{sessionDetail.teacher?.name || 'Instructor'}</strong>
+                  Recorded by: <strong className="text-charcoal ">{sessionDetail.teacher?.name || 'Instructor'}</strong>
                 </span>
                 <span>
-                  Total enrolled: <strong className="text-slate-800 dark:text-white">{sessionDetail.records?.length || 0}</strong>
+                  Total enrolled: <strong className="text-charcoal ">{sessionDetail.records?.length || 0}</strong>
                 </span>
               </div>
 
@@ -442,27 +442,27 @@ export const AttendanceHistoryPage: React.FC = () => {
                   return (
                     <div
                       key={rec.id || rec.studentId}
-                      className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                      className="p-3 rounded-xl bg-white/60 border border-olive-500/15  flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                     >
                       <div>
-                        <p className="text-sm font-semibold text-slate-800 dark:text-white">
+                        <p className="text-sm font-semibold text-charcoal ">
                           {rec.student?.name || 'Student'}
                         </p>
-                        <p className="text-xs text-slate-500 font-mono">
+                        <p className="text-xs text-muted font-mono">
                           Roll: {rec.student?.rollNumber}
                         </p>
                       </div>
 
                       <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
                         {/* Status Buttons */}
-                        <div className="inline-flex rounded-lg p-0.5 bg-slate-200/80 dark:bg-slate-800 text-xs">
+                        <div className="inline-flex rounded-lg p-0.5 bg-stone-200/80 text-xs">
                           <button
                             type="button"
                             onClick={() => handleStatusChangeInModal(rec.studentId, 'PRESENT')}
                             className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-all ${
                               currentStatus === 'PRESENT'
                                 ? 'bg-emerald-500 text-white shadow-sm'
-                                : 'text-slate-600 dark:text-slate-400'
+                                : 'text-muted '
                             }`}
                           >
                             P
@@ -473,7 +473,7 @@ export const AttendanceHistoryPage: React.FC = () => {
                             className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-all ${
                               currentStatus === 'ABSENT'
                                 ? 'bg-rose-500 text-white shadow-sm'
-                                : 'text-slate-600 dark:text-slate-400'
+                                : 'text-muted '
                             }`}
                           >
                             A
@@ -484,7 +484,7 @@ export const AttendanceHistoryPage: React.FC = () => {
                             className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-all ${
                               currentStatus === 'LATE'
                                 ? 'bg-amber-500 text-white shadow-sm'
-                                : 'text-slate-600 dark:text-slate-400'
+                                : 'text-muted '
                             }`}
                           >
                             L
@@ -497,7 +497,7 @@ export const AttendanceHistoryPage: React.FC = () => {
                           value={currentRemarks}
                           onChange={(e) => handleRemarksChangeInModal(rec.studentId, e.target.value)}
                           placeholder="Remarks..."
-                          className="px-2 py-1 text-xs rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 w-36"
+                          className="px-2 py-1 text-xs rounded-lg bg-white border border-slate-200  text-charcoal  w-36"
                         />
                       </div>
                     </div>
@@ -506,7 +506,7 @@ export const AttendanceHistoryPage: React.FC = () => {
               </div>
 
               {/* Modal Actions */}
-              <div className="flex items-center justify-end gap-2 pt-4 border-t border-slate-200/50 dark:border-white/10">
+              <div className="flex items-center justify-end gap-2 pt-4 border-t border-slate-200/50 ">
                 <GlassButton
                   variant="outline"
                   onClick={() => {

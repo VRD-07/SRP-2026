@@ -314,15 +314,15 @@ export const StudentsPage: React.FC = () => {
             )}
           </div>
           <div>
-            <span className="font-bold text-sm text-slate-900 dark:text-white block hover:text-indigo-600 cursor-pointer" onClick={() => navigate(`/admin/students/${item.id}`)}>
+            <span className="font-bold text-sm text-charcoal  block hover:text-olive-700 cursor-pointer" onClick={() => navigate(`/admin/students/${item.id}`)}>
               {item.name}
             </span>
             <div className="flex items-center gap-2 mt-0.5">
-              <span className="font-mono text-[11px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-1.5 py-0.5 rounded">
+              <span className="font-mono text-[11px] font-bold text-olive-700  bg-olive-500/15 px-1.5 py-0.5 rounded">
                 {item.rollNumber}
               </span>
               {item.admissionNumber && (
-                <span className="text-[10px] text-slate-500 font-mono">
+                <span className="text-[10px] text-muted font-mono">
                   {item.admissionNumber}
                 </span>
               )}
@@ -336,10 +336,10 @@ export const StudentsPage: React.FC = () => {
       header: 'Class & Section',
       render: (item) => (
         <div>
-          <span className="font-semibold text-slate-800 dark:text-slate-200 block text-xs">
+          <span className="font-semibold text-charcoal  block text-xs">
             {item.class} • Sec {item.section || 'A'}
           </span>
-          <span className="text-[11px] text-slate-500">{item.batch}</span>
+          <span className="text-[11px] text-muted">{item.batch}</span>
         </div>
       ),
     },
@@ -348,10 +348,10 @@ export const StudentsPage: React.FC = () => {
       header: 'Guardian & Contact',
       render: (item) => (
         <div>
-          <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 block">
+          <span className="text-xs font-semibold text-charcoal  block">
             {item.guardianName ? `${item.guardianName} (${item.guardianRelation || 'P'})` : item.name}
           </span>
-          <span className="text-[11px] text-slate-500 flex items-center gap-1">
+          <span className="text-[11px] text-muted flex items-center gap-1">
             <Phone className="w-3 h-3" /> {item.guardianContact || item.contactNumber}
           </span>
         </div>
@@ -365,8 +365,8 @@ export const StudentsPage: React.FC = () => {
           <span
             className={`text-xs font-bold ${
               item.totalPending > 0
-                ? 'text-amber-600 dark:text-amber-400'
-                : 'text-emerald-600 dark:text-emerald-400'
+                ? 'text-gold-700 '
+                : 'text-olive-800 '
             }`}
           >
             ₹ {item.totalPending.toLocaleString('en-IN')}
@@ -416,21 +416,21 @@ export const StudentsPage: React.FC = () => {
         <div className="flex items-center justify-end gap-1">
           <button
             onClick={() => navigate(`/admin/students/${item.id}`)}
-            className="p-1.5 rounded-lg text-slate-500 hover:text-indigo-600 hover:bg-white/60 dark:hover:bg-slate-800"
+            className="p-1.5 rounded-lg text-muted hover:text-olive-700 hover:bg-white/80 "
             title="View Unified Student Profile"
           >
             <Eye className="w-4 h-4" />
           </button>
           <button
             onClick={() => handleOpenEdit(item)}
-            className="p-1.5 rounded-lg text-slate-500 hover:text-blue-600 hover:bg-white/60 dark:hover:bg-slate-800"
+            className="p-1.5 rounded-lg text-muted hover:text-olive-700 hover:bg-white/80 "
             title="Edit Student Details"
           >
             <Edit2 className="w-4 h-4" />
           </button>
           <button
             onClick={() => handleOpenAssign(item)}
-            className="p-1.5 rounded-lg text-slate-500 hover:text-purple-600 hover:bg-white/60 dark:hover:bg-slate-800"
+            className="p-1.5 rounded-lg text-muted hover:text-olive-700 hover:bg-white/80 "
             title="Assign Fee Heads"
           >
             <Layers className="w-4 h-4" />
@@ -442,8 +442,8 @@ export const StudentsPage: React.FC = () => {
             }}
             className={`p-1.5 rounded-lg ${
               item.status === 'ACTIVE'
-                ? 'text-slate-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30'
-                : 'text-rose-600 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/30'
+                ? 'text-muted hover:text-terracotta hover:bg-rose-50 '
+                : 'text-terracotta hover:text-olive-800 hover:bg-emerald-50 '
             }`}
             title={item.status === 'ACTIVE' ? 'Deactivate Student' : 'Reactivate Student'}
           >
@@ -459,10 +459,10 @@ export const StudentsPage: React.FC = () => {
       {/* Header Banner */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-charcoal  tracking-tight">
             Student Records & Admissions
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-muted  mt-1">
             Institutional directory with full admissions records, guardian info, attendance status, and financial ledger
           </p>
         </div>
@@ -543,7 +543,7 @@ export const StudentsPage: React.FC = () => {
       >
         <form onSubmit={handleCreateAdmission} className="space-y-5">
           {formError && (
-            <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-700 dark:text-rose-400 flex items-center gap-2">
+            <div className="p-3 rounded-xl bg-terracotta/15 border border-terracotta/30 text-xs text-terracotta  flex items-center gap-2">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               <span>{formError}</span>
             </div>
@@ -551,7 +551,7 @@ export const StudentsPage: React.FC = () => {
 
           {/* Section 1: Academic & Admission Identifiers */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-olive-700  flex items-center gap-1.5">
               <GraduationCap className="w-3.5 h-3.5" /> 1. Academic & Admission Details
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -616,8 +616,8 @@ export const StudentsPage: React.FC = () => {
           </div>
 
           {/* Section 2: Personal & Contact Details */}
-          <div className="space-y-3 pt-2 border-t border-slate-200/40 dark:border-white/10">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
+          <div className="space-y-3 pt-2 border-t border-olive-500/15 ">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-olive-700  flex items-center gap-1.5">
               <Mail className="w-3.5 h-3.5" /> 2. Personal & Contact Information
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -666,8 +666,8 @@ export const StudentsPage: React.FC = () => {
           </div>
 
           {/* Section 3: Guardian Details */}
-          <div className="space-y-3 pt-2 border-t border-slate-200/40 dark:border-white/10">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
+          <div className="space-y-3 pt-2 border-t border-olive-500/15 ">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-olive-700  flex items-center gap-1.5">
               <HeartHandshake className="w-3.5 h-3.5" /> 3. Guardian Information
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -697,47 +697,47 @@ export const StudentsPage: React.FC = () => {
           </div>
 
           {/* Section 4: Documents Submitted */}
-          <div className="space-y-3 pt-2 border-t border-slate-200/40 dark:border-white/10">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
+          <div className="space-y-3 pt-2 border-t border-olive-500/15 ">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-olive-700  flex items-center gap-1.5">
               <FileText className="w-3.5 h-3.5" /> 4. Documents Submitted Checklist
             </h4>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <label className="flex items-center gap-2 p-2.5 rounded-xl bg-white/40 dark:bg-slate-800/40 border border-slate-200/50 dark:border-white/5 cursor-pointer">
+              <label className="flex items-center gap-2 p-2.5 rounded-xl bg-white/60  border border-olive-500/15  cursor-pointer">
                 <input
                   type="checkbox"
                   checked={formData.docAadhaar}
                   onChange={(e) => setFormData({ ...formData, docAadhaar: e.target.checked })}
-                  className="rounded text-indigo-600 focus:ring-indigo-500"
+                  className="rounded text-olive-700 focus:ring-olive-500"
                 />
                 <span className="text-xs font-semibold">Aadhaar Card</span>
               </label>
 
-              <label className="flex items-center gap-2 p-2.5 rounded-xl bg-white/40 dark:bg-slate-800/40 border border-slate-200/50 dark:border-white/5 cursor-pointer">
+              <label className="flex items-center gap-2 p-2.5 rounded-xl bg-white/60  border border-olive-500/15  cursor-pointer">
                 <input
                   type="checkbox"
                   checked={formData.docBirthCert}
                   onChange={(e) => setFormData({ ...formData, docBirthCert: e.target.checked })}
-                  className="rounded text-indigo-600 focus:ring-indigo-500"
+                  className="rounded text-olive-700 focus:ring-olive-500"
                 />
                 <span className="text-xs font-semibold">Birth Certificate</span>
               </label>
 
-              <label className="flex items-center gap-2 p-2.5 rounded-xl bg-white/40 dark:bg-slate-800/40 border border-slate-200/50 dark:border-white/5 cursor-pointer">
+              <label className="flex items-center gap-2 p-2.5 rounded-xl bg-white/60  border border-olive-500/15  cursor-pointer">
                 <input
                   type="checkbox"
                   checked={formData.docTransferCert}
                   onChange={(e) => setFormData({ ...formData, docTransferCert: e.target.checked })}
-                  className="rounded text-indigo-600 focus:ring-indigo-500"
+                  className="rounded text-olive-700 focus:ring-olive-500"
                 />
                 <span className="text-xs font-semibold">Transfer Certificate</span>
               </label>
 
-              <label className="flex items-center gap-2 p-2.5 rounded-xl bg-white/40 dark:bg-slate-800/40 border border-slate-200/50 dark:border-white/5 cursor-pointer">
+              <label className="flex items-center gap-2 p-2.5 rounded-xl bg-white/60  border border-olive-500/15  cursor-pointer">
                 <input
                   type="checkbox"
                   checked={formData.docMarksheet}
                   onChange={(e) => setFormData({ ...formData, docMarksheet: e.target.checked })}
-                  className="rounded text-indigo-600 focus:ring-indigo-500"
+                  className="rounded text-olive-700 focus:ring-olive-500"
                 />
                 <span className="text-xs font-semibold">Marksheets (10+2)</span>
               </label>
@@ -765,7 +765,7 @@ export const StudentsPage: React.FC = () => {
       >
         <form onSubmit={handleUpdateStudent} className="space-y-5">
           {formError && (
-            <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-700 dark:text-rose-400 flex items-center gap-2">
+            <div className="p-3 rounded-xl bg-terracotta/15 border border-terracotta/30 text-xs text-terracotta  flex items-center gap-2">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               <span>{formError}</span>
             </div>
@@ -859,14 +859,14 @@ export const StudentsPage: React.FC = () => {
         description="Historical Fees, Attendance, and Ledger records are strictly preserved."
       >
         <div className="space-y-4">
-          <p className="text-sm text-slate-600 dark:text-slate-300">
+          <p className="text-sm text-muted ">
             Are you sure you want to {studentToDeactivate?.status === 'ACTIVE' ? 'deactivate' : 'reactivate'}{' '}
-            <strong className="text-slate-900 dark:text-white">{studentToDeactivate?.name}</strong> (Roll Number:{' '}
-            <span className="font-mono text-indigo-600">{studentToDeactivate?.rollNumber}</span>)?
+            <strong className="text-charcoal ">{studentToDeactivate?.name}</strong> (Roll Number:{' '}
+            <span className="font-mono text-olive-700">{studentToDeactivate?.rollNumber}</span>)?
           </p>
 
           {studentToDeactivate?.status === 'ACTIVE' && (
-            <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-700 dark:text-amber-400 flex items-center gap-2">
+            <div className="p-3 rounded-xl bg-gold/15 border border-gold/30 text-xs text-gold-700  flex items-center gap-2">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               <span>Deactivating prevents student login, but preserves all financial transactions and attendance history.</span>
             </div>
@@ -897,12 +897,12 @@ export const StudentsPage: React.FC = () => {
         <form onSubmit={handleAssignSubmit} className="space-y-4">
           <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
             {availableStructures.length === 0 ? (
-              <p className="text-xs text-slate-500">No fee structures found for this class.</p>
+              <p className="text-xs text-muted">No fee structures found for this class.</p>
             ) : (
               availableStructures.map((fs) => (
                 <label
                   key={fs.id}
-                  className="flex items-center justify-between p-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-slate-200/50 dark:border-white/5 cursor-pointer hover:bg-white/80 transition-colors"
+                  className="flex items-center justify-between p-3 rounded-xl bg-white/60  border border-olive-500/15  cursor-pointer hover:bg-white/80 transition-colors"
                 >
                   <div className="flex items-center gap-3">
                     <input
@@ -915,16 +915,16 @@ export const StudentsPage: React.FC = () => {
                           setSelectedStructureIds(selectedStructureIds.filter((id) => id !== fs.id));
                         }
                       }}
-                      className="rounded text-indigo-600 focus:ring-indigo-500"
+                      className="rounded text-olive-700 focus:ring-olive-500"
                     />
                     <div>
                       <span className="text-xs font-bold block">{fs.feeHead}</span>
-                      <span className="text-[11px] text-slate-500">
+                      <span className="text-[11px] text-muted">
                         {fs.academicYear} • Due: {new Date(fs.dueDate).toLocaleDateString()}
                       </span>
                     </div>
                   </div>
-                  <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">
+                  <span className="text-xs font-bold text-olive-700 ">
                     ₹ {fs.amount.toLocaleString('en-IN')}
                   </span>
                 </label>

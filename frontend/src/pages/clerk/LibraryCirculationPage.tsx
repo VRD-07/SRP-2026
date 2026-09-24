@@ -178,11 +178,11 @@ export const LibraryCirculationPage: React.FC = () => {
       {/* Header Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
+          <h1 className="text-2xl font-extrabold text-charcoal  tracking-tight flex items-center gap-3">
             <ArrowRightLeft className="w-7 h-7 text-indigo-500" />
             Cashier Circulation Desk
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-muted  mt-1">
             Rapid student checkout, loan returns, and cash fine settlements.
           </p>
         </div>
@@ -214,14 +214,14 @@ export const LibraryCirculationPage: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-2 border-b border-slate-200/60 dark:border-white/10 pb-2">
+      <div className="flex items-center gap-2 border-b border-olive-500/15  pb-2">
         <button
           type="button"
           onClick={() => setActiveTab('issue')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
             activeTab === 'issue'
-              ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
-              : 'text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-800/50'
+              ? 'bg-olive-600 text-white shadow-md shadow-indigo-600/20'
+              : 'text-muted  hover:bg-white/75 '
           }`}
         >
           <ArrowRightLeft className="w-3.5 h-3.5" />
@@ -232,8 +232,8 @@ export const LibraryCirculationPage: React.FC = () => {
           onClick={() => setActiveTab('return')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
             activeTab === 'return'
-              ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
-              : 'text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-800/50'
+              ? 'bg-olive-600 text-white shadow-md shadow-indigo-600/20'
+              : 'text-muted  hover:bg-white/75 '
           }`}
         >
           <CheckCircle2 className="w-3.5 h-3.5" />
@@ -244,8 +244,8 @@ export const LibraryCirculationPage: React.FC = () => {
           onClick={() => setActiveTab('overdue')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
             activeTab === 'overdue'
-              ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
-              : 'text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-800/50'
+              ? 'bg-olive-600 text-white shadow-md shadow-indigo-600/20'
+              : 'text-muted  hover:bg-white/75 '
           }`}
         >
           <Clock className="w-3.5 h-3.5" />
@@ -258,8 +258,8 @@ export const LibraryCirculationPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Step 1: Select Student */}
           <GlassCard className="p-5 space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-200/50 dark:border-white/10 pb-2">
-              <h3 className="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider flex items-center gap-2">
+            <div className="flex items-center justify-between border-b border-olive-500/15  pb-2">
+              <h3 className="text-sm font-bold text-charcoal  uppercase tracking-wider flex items-center gap-2">
                 <User className="w-4 h-4 text-indigo-500" />
                 Step 1: Select Student
               </h3>
@@ -271,30 +271,30 @@ export const LibraryCirculationPage: React.FC = () => {
             </div>
 
             <div className="relative">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 type="text"
                 placeholder="Search student by name, roll number, or class..."
                 value={studentSearch}
                 onChange={(e) => setStudentSearch(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 rounded-xl text-xs bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white"
+                className="w-full pl-9 pr-4 py-2 rounded-xl text-xs bg-white/70  border border-olive-500/20  text-charcoal "
               />
             </div>
 
-            <div className="max-h-64 overflow-y-auto divide-y divide-slate-100 dark:divide-white/5">
+            <div className="max-h-64 overflow-y-auto divide-y divide-olive-500/10 ">
               {filteredStudents.slice(0, 8).map((s) => (
                 <div
                   key={s.id}
                   onClick={() => setSelectedStudent(s)}
                   className={`p-2.5 rounded-xl cursor-pointer transition-colors flex items-center justify-between ${
                     selectedStudent?.id === s.id
-                      ? 'bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-500/40'
-                      : 'hover:bg-white/50 dark:hover:bg-slate-800/50'
+                      ? 'bg-olive-500/15  border border-indigo-500/40'
+                      : 'hover:bg-white/75 '
                   }`}
                 >
                   <div>
-                    <p className="text-xs font-bold text-slate-800 dark:text-white">{s.name}</p>
-                    <p className="text-[11px] font-mono text-slate-400">
+                    <p className="text-xs font-bold text-charcoal ">{s.name}</p>
+                    <p className="text-[11px] font-mono text-muted">
                       Roll: {s.rollNumber} • {s.class} ({s.section})
                     </p>
                   </div>
@@ -308,8 +308,8 @@ export const LibraryCirculationPage: React.FC = () => {
 
           {/* Step 2: Select Book & Confirm */}
           <GlassCard className="p-5 space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-200/50 dark:border-white/10 pb-2">
-              <h3 className="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider flex items-center gap-2">
+            <div className="flex items-center justify-between border-b border-olive-500/15  pb-2">
+              <h3 className="text-sm font-bold text-charcoal  uppercase tracking-wider flex items-center gap-2">
                 <BookOpen className="w-4 h-4 text-emerald-500" />
                 Step 2: Select Book
               </h3>
@@ -321,34 +321,34 @@ export const LibraryCirculationPage: React.FC = () => {
             </div>
 
             <div className="relative">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 type="text"
                 placeholder="Search available books by title or author..."
                 value={bookSearch}
                 onChange={(e) => setBookSearch(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 rounded-xl text-xs bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white"
+                className="w-full pl-9 pr-4 py-2 rounded-xl text-xs bg-white/70  border border-olive-500/20  text-charcoal "
               />
             </div>
 
-            <div className="max-h-52 overflow-y-auto divide-y divide-slate-100 dark:divide-white/5">
+            <div className="max-h-52 overflow-y-auto divide-y divide-olive-500/10 ">
               {filteredBooks.slice(0, 8).map((b) => (
                 <div
                   key={b.id}
                   onClick={() => setSelectedBook(b)}
                   className={`p-2.5 rounded-xl cursor-pointer transition-colors flex items-center justify-between ${
                     selectedBook?.id === b.id
-                      ? 'bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-500/40'
-                      : 'hover:bg-white/50 dark:hover:bg-slate-800/50'
+                      ? 'bg-olive-500/15  border border-emerald-500/40'
+                      : 'hover:bg-white/75 '
                   }`}
                 >
                   <div>
-                    <p className="text-xs font-bold text-slate-800 dark:text-white">{b.title}</p>
-                    <p className="text-[11px] text-slate-400 font-mono">
+                    <p className="text-xs font-bold text-charcoal ">{b.title}</p>
+                    <p className="text-[11px] text-muted font-mono">
                       {b.author} • ISBN: {b.isbn}
                     </p>
                   </div>
-                  <span className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400">
+                  <span className="text-xs font-mono font-bold text-olive-800 ">
                     {b.availableCopies} left
                   </span>
                 </div>
@@ -356,16 +356,16 @@ export const LibraryCirculationPage: React.FC = () => {
             </div>
 
             {/* Due Date & Action */}
-            <div className="pt-2 border-t border-slate-200/50 dark:border-white/10 space-y-3">
+            <div className="pt-2 border-t border-olive-500/15  space-y-3">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                <label className="text-xs font-semibold text-charcoal ">
                   Return Due Date:
                 </label>
                 <input
                   type="date"
                   value={dueDate}
                   onChange={(e) => setDueDate(e.target.value)}
-                  className="px-3 py-1.5 rounded-xl text-xs bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white font-mono"
+                  className="px-3 py-1.5 rounded-xl text-xs bg-white/70  border border-olive-500/20  text-charcoal  font-mono"
                 />
               </div>
 
@@ -387,13 +387,13 @@ export const LibraryCirculationPage: React.FC = () => {
         <GlassCard className="p-5 space-y-4">
           <div className="flex flex-col sm:flex-row gap-3 items-center justify-between">
             <div className="relative flex-1 w-full">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
               <input
                 type="text"
                 placeholder="Search active loans by student name, roll number, or book..."
                 value={returnSearch}
                 onChange={(e) => setReturnSearch(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 rounded-xl text-xs bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white"
+                className="w-full pl-9 pr-4 py-2 rounded-xl text-xs bg-white/70  border border-olive-500/20  text-charcoal "
               />
             </div>
           </div>
@@ -401,7 +401,7 @@ export const LibraryCirculationPage: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-slate-200/60 dark:border-white/10 bg-slate-50/50 dark:bg-slate-900/30 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <tr className="border-b border-olive-500/15  bg-slate-50/50  text-xs font-semibold uppercase tracking-wider text-muted ">
                   <th className="py-3 px-4">Student</th>
                   <th className="py-3 px-4">Book Title</th>
                   <th className="py-3 px-4">Issue Date</th>
@@ -410,23 +410,23 @@ export const LibraryCirculationPage: React.FC = () => {
                   <th className="py-3 px-4 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200/40 dark:divide-white/5 text-sm">
+              <tbody className="divide-y divide-olive-500/10  text-sm">
                 {filteredActiveIssues.map((issue) => (
-                  <tr key={issue.id} className="hover:bg-white/40 dark:hover:bg-slate-800/40 transition-colors">
+                  <tr key={issue.id} className="hover:bg-white/60  transition-colors">
                     <td className="py-3 px-4">
-                      <p className="font-bold text-slate-800 dark:text-white">{issue.student?.name}</p>
-                      <p className="text-xs font-mono text-slate-400">
+                      <p className="font-bold text-charcoal ">{issue.student?.name}</p>
+                      <p className="text-xs font-mono text-muted">
                         {issue.student?.rollNumber} • {issue.student?.class}
                       </p>
                     </td>
                     <td className="py-3 px-4">
-                      <p className="font-semibold text-slate-700 dark:text-slate-200">{issue.book?.title}</p>
-                      <p className="text-xs font-mono text-slate-500">{issue.book?.isbn}</p>
+                      <p className="font-semibold text-charcoal ">{issue.book?.title}</p>
+                      <p className="text-xs font-mono text-muted">{issue.book?.isbn}</p>
                     </td>
-                    <td className="py-3 px-4 text-xs font-mono text-slate-500">
+                    <td className="py-3 px-4 text-xs font-mono text-muted">
                       {new Date(issue.issueDate).toLocaleDateString('en-IN')}
                     </td>
-                    <td className="py-3 px-4 text-xs font-mono text-slate-500">
+                    <td className="py-3 px-4 text-xs font-mono text-muted">
                       {new Date(issue.dueDate).toLocaleDateString('en-IN')}
                     </td>
                     <td className="py-3 px-4 text-center">
@@ -438,7 +438,7 @@ export const LibraryCirculationPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handleReturn(issue.id)}
-                        className="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 text-white hover:bg-emerald-500 transition-colors shadow-sm"
+                        className="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 text-white hover:bg-olive-500/150 transition-colors shadow-sm"
                       >
                         Check-In Book
                       </button>
@@ -455,10 +455,10 @@ export const LibraryCirculationPage: React.FC = () => {
       {activeTab === 'overdue' && (
         <GlassCard className="p-5 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider">
+            <h3 className="text-sm font-bold text-charcoal  uppercase tracking-wider">
               Cashier Desk: Collect Overdue Fines
             </h3>
-            <span className="text-xs font-mono text-slate-400">
+            <span className="text-xs font-mono text-muted">
               Rate: ₹2.00 / day
             </span>
           </div>
@@ -466,7 +466,7 @@ export const LibraryCirculationPage: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-slate-200/60 dark:border-white/10 bg-slate-50/50 dark:bg-slate-900/30 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <tr className="border-b border-olive-500/15  bg-slate-50/50  text-xs font-semibold uppercase tracking-wider text-muted ">
                   <th className="py-3 px-4">Student</th>
                   <th className="py-3 px-4">Book Title</th>
                   <th className="py-3 px-4">Due Date</th>
@@ -475,20 +475,20 @@ export const LibraryCirculationPage: React.FC = () => {
                   <th className="py-3 px-4 text-right">Cashier Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200/40 dark:divide-white/5 text-sm">
+              <tbody className="divide-y divide-olive-500/10  text-sm">
                 {overdueList.map((issue) => (
-                  <tr key={issue.id} className="hover:bg-white/40 dark:hover:bg-slate-800/40 transition-colors">
+                  <tr key={issue.id} className="hover:bg-white/60  transition-colors">
                     <td className="py-3 px-4">
-                      <p className="font-bold text-slate-800 dark:text-white">{issue.student?.name}</p>
-                      <p className="text-xs font-mono text-slate-400">{issue.student?.rollNumber}</p>
+                      <p className="font-bold text-charcoal ">{issue.student?.name}</p>
+                      <p className="text-xs font-mono text-muted">{issue.student?.rollNumber}</p>
                     </td>
-                    <td className="py-3 px-4 font-medium text-slate-700 dark:text-slate-200">
+                    <td className="py-3 px-4 font-medium text-charcoal ">
                       {issue.book?.title}
                     </td>
-                    <td className="py-3 px-4 text-xs font-mono text-rose-500">
+                    <td className="py-3 px-4 text-xs font-mono text-terracotta">
                       {new Date(issue.dueDate).toLocaleDateString('en-IN')}
                     </td>
-                    <td className="py-3 px-4 text-right font-mono font-bold text-rose-600 dark:text-rose-400">
+                    <td className="py-3 px-4 text-right font-mono font-bold text-terracotta ">
                       ₹{(issue.fineAmount || 0).toFixed(2)}
                     </td>
                     <td className="py-3 px-4 text-center">
@@ -501,12 +501,12 @@ export const LibraryCirculationPage: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => handlePayFine(issue)}
-                          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-500 transition-colors shadow-sm"
+                          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-olive-600 text-white hover:bg-olive-500/150 transition-colors shadow-sm"
                         >
                           Collect Fine (Cash)
                         </button>
                       ) : (
-                        <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center justify-end gap-1">
+                        <span className="text-xs font-semibold text-olive-800  flex items-center justify-end gap-1">
                           <CheckCircle2 className="w-3.5 h-3.5" />
                           Settled
                         </span>
@@ -524,30 +524,30 @@ export const LibraryCirculationPage: React.FC = () => {
       {isReceiptOpen && settledIssue && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
           <GlassCard className="w-full max-w-sm p-6 space-y-4 text-center">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto">
+            <div className="w-12 h-12 rounded-2xl bg-olive-500/150/20 text-olive-800  flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-6 h-6" />
             </div>
 
-            <h3 className="text-base font-bold text-slate-900 dark:text-white">
+            <h3 className="text-base font-bold text-charcoal ">
               Fine Payment Receipt
             </h3>
 
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-white/10 text-xs text-left space-y-2 font-mono">
+            <div className="p-4 rounded-xl bg-slate-50  border border-olive-500/15  text-xs text-left space-y-2 font-mono">
               <div className="flex justify-between">
-                <span className="text-slate-400">Student:</span>
-                <span className="text-slate-800 dark:text-white font-bold">{settledIssue.student?.name}</span>
+                <span className="text-muted">Student:</span>
+                <span className="text-charcoal  font-bold">{settledIssue.student?.name}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400">Roll:</span>
-                <span className="text-slate-800 dark:text-white">{settledIssue.student?.rollNumber}</span>
+                <span className="text-muted">Roll:</span>
+                <span className="text-charcoal ">{settledIssue.student?.rollNumber}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400">Book:</span>
-                <span className="text-slate-800 dark:text-white">{settledIssue.book?.title}</span>
+                <span className="text-muted">Book:</span>
+                <span className="text-charcoal ">{settledIssue.book?.title}</span>
               </div>
-              <div className="flex justify-between border-t border-slate-200 dark:border-white/10 pt-2 font-bold text-sm">
-                <span className="text-slate-700 dark:text-slate-300">Amount Paid:</span>
-                <span className="text-emerald-600 dark:text-emerald-400">₹{(settledIssue.fineAmount || 0).toFixed(2)}</span>
+              <div className="flex justify-between border-t border-olive-500/20  pt-2 font-bold text-sm">
+                <span className="text-charcoal ">Amount Paid:</span>
+                <span className="text-olive-800 ">₹{(settledIssue.fineAmount || 0).toFixed(2)}</span>
               </div>
             </div>
 

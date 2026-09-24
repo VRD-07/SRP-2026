@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Calendar, Layers, Search, Filter } from 'lucide-react';
+import { Plus, Edit2, Trash2, Calendar } from 'lucide-react';
 import { GlassCard } from '../../components/ui/GlassCard';
 import { GlassButton } from '../../components/ui/GlassButton';
 import { GlassBadge } from '../../components/ui/GlassBadge';
@@ -130,14 +130,14 @@ export const FeeStructuresPage: React.FC = () => {
       header: 'Fee Head',
       render: (item) => (
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-xs">
+          <div className="w-8 h-8 rounded-xl bg-olive-500/15 text-olive-800 flex items-center justify-center font-bold text-xs">
             {item.feeHead.substring(0, 2).toUpperCase()}
           </div>
           <div>
-            <span className="font-bold text-sm text-slate-900 dark:text-white block">
+            <span className="font-bold text-sm text-charcoal block">
               {item.feeHead} Fee
             </span>
-            <span className="text-[11px] text-slate-500">AY {item.academicYear}</span>
+            <span className="text-[11px] text-muted">AY {item.academicYear}</span>
           </div>
         </div>
       ),
@@ -147,8 +147,8 @@ export const FeeStructuresPage: React.FC = () => {
       header: 'Program & Batch',
       render: (item) => (
         <div>
-          <span className="font-bold text-slate-800 dark:text-slate-200 block">{item.class}</span>
-          <span className="text-xs text-slate-500">Batch {item.batch}</span>
+          <span className="font-bold text-charcoal block">{item.class}</span>
+          <span className="text-xs text-muted">Batch {item.batch}</span>
         </div>
       ),
     },
@@ -156,7 +156,7 @@ export const FeeStructuresPage: React.FC = () => {
       key: 'amount',
       header: 'Amount',
       render: (item) => (
-        <span className="font-bold text-slate-900 dark:text-white">
+        <span className="font-bold text-charcoal">
           ₹ {item.amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
         </span>
       ),
@@ -168,8 +168,8 @@ export const FeeStructuresPage: React.FC = () => {
         const isPast = new Date(item.dueDate) < new Date();
         return (
           <div className="flex items-center gap-1.5">
-            <Calendar className="w-3.5 h-3.5 text-slate-400" />
-            <span className={isPast ? 'text-rose-500 font-semibold text-xs' : 'text-slate-700 dark:text-slate-300 text-xs'}>
+            <Calendar className="w-3.5 h-3.5 text-muted" />
+            <span className={isPast ? 'text-terracotta font-semibold text-xs' : 'text-charcoal text-xs'}>
               {new Date(item.dueDate).toLocaleDateString('en-IN', { dateStyle: 'medium' })}
             </span>
           </div>
@@ -193,14 +193,14 @@ export const FeeStructuresPage: React.FC = () => {
         <div className="flex items-center justify-end gap-1.5">
           <button
             onClick={() => handleOpenEdit(item)}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-white/60 dark:hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-lg text-muted hover:text-olive-700 hover:bg-white/80 transition-colors cursor-pointer"
             title="Edit Structure"
           >
             <Edit2 className="w-4 h-4" />
           </button>
           <button
             onClick={() => handleDelete(item)}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-white/60 dark:hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-lg text-muted hover:text-terracotta hover:bg-white/80 transition-colors cursor-pointer"
             title="Delete Structure"
           >
             <Trash2 className="w-4 h-4" />
@@ -215,10 +215,10 @@ export const FeeStructuresPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h1 className="text-2xl font-extrabold text-charcoal tracking-tight">
             Fee Structure Configuration
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-muted mt-1">
             Configure fee heads, rate charts, and payment due schedules across academic cohorts.
           </p>
         </div>
@@ -294,7 +294,7 @@ export const FeeStructuresPage: React.FC = () => {
       >
         <form onSubmit={handleSubmit} className="space-y-4">
           {formError && (
-            <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-600 dark:text-rose-300 font-medium">
+            <div className="p-3 rounded-xl bg-terracotta/15 border border-terracotta/30 text-xs text-terracotta font-medium">
               {formError}
             </div>
           )}
@@ -368,7 +368,7 @@ export const FeeStructuresPage: React.FC = () => {
             />
           </div>
 
-          <div className="pt-3 border-t border-slate-200/50 dark:border-white/10 flex items-center justify-end gap-2">
+          <div className="pt-3 border-t border-olive-500/15 flex items-center justify-end gap-2">
             <GlassButton type="button" variant="secondary" onClick={() => setModalOpen(false)}>
               Cancel
             </GlassButton>

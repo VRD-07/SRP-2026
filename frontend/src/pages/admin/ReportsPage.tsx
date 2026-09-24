@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Download, FileSpreadsheet, Filter, Search, RotateCcw, Eye, FileText } from 'lucide-react';
+import { Download, RotateCcw, Eye } from 'lucide-react';
 import { GlassCard } from '../../components/ui/GlassCard';
 import { GlassButton } from '../../components/ui/GlassButton';
 import { GlassBadge } from '../../components/ui/GlassBadge';
@@ -48,7 +48,6 @@ export const ReportsPage: React.FC = () => {
 
       if (overviewRes.success) setReport(overviewRes.data);
       if (txRes.success) {
-        // filter by class if specified
         let list = txRes.data;
         if (filterClass) {
           list = list.filter((t) => t.student.class === filterClass);
@@ -87,7 +86,7 @@ export const ReportsPage: React.FC = () => {
       key: 'receiptNumber',
       header: 'Receipt #',
       render: (item) => (
-        <span className="font-mono font-bold text-xs text-indigo-600 dark:text-indigo-400">
+        <span className="font-mono font-bold text-xs text-olive-800">
           {item.receiptNumber}
         </span>
       ),
@@ -97,10 +96,10 @@ export const ReportsPage: React.FC = () => {
       header: 'Student & Roll',
       render: (item) => (
         <div>
-          <span className="font-bold text-xs text-slate-900 dark:text-white block">
+          <span className="font-bold text-xs text-charcoal block">
             {item.student.name}
           </span>
-          <span className="text-[11px] text-slate-500 font-mono">
+          <span className="text-[11px] text-muted font-mono">
             {item.student.rollNumber} • {item.student.class}
           </span>
         </div>
@@ -110,7 +109,7 @@ export const ReportsPage: React.FC = () => {
       key: 'feeHead',
       header: 'Fee Head',
       render: (item) => (
-        <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+        <span className="text-xs font-semibold text-charcoal">
           {item.feeAssignment.feeStructure.feeHead} Fee
         </span>
       ),
@@ -123,7 +122,7 @@ export const ReportsPage: React.FC = () => {
         return (
           <span
             className={`font-bold text-xs ${
-              isReversed ? 'text-rose-600 dark:text-rose-400 line-through' : 'text-slate-900 dark:text-white'
+              isReversed ? 'text-terracotta line-through' : 'text-charcoal'
             }`}
           >
             ₹ {item.amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
@@ -136,10 +135,10 @@ export const ReportsPage: React.FC = () => {
       header: 'Payment Mode',
       render: (item) => (
         <div>
-          <span className="font-semibold text-xs text-slate-800 dark:text-slate-200 block">
+          <span className="font-semibold text-xs text-charcoal block">
             {item.paymentMode}
           </span>
-          <span className="text-[10px] text-slate-500 truncate max-w-[100px] block">
+          <span className="text-[10px] text-muted truncate max-w-[100px] block">
             Ref: {item.referenceNumber}
           </span>
         </div>
@@ -149,7 +148,7 @@ export const ReportsPage: React.FC = () => {
       key: 'createdAt',
       header: 'Recorded Date',
       render: (item) => (
-        <div className="text-xs text-slate-600 dark:text-slate-400">
+        <div className="text-xs text-muted">
           {new Date(item.createdAt).toLocaleString('en-IN', {
             dateStyle: 'short',
             timeStyle: 'short',
@@ -161,7 +160,7 @@ export const ReportsPage: React.FC = () => {
       key: 'clerk',
       header: 'Recorded By',
       render: (item) => (
-        <span className="text-xs text-slate-600 dark:text-slate-400">
+        <span className="text-xs text-muted">
           {item.recordedByClerk.name}
         </span>
       ),
@@ -186,7 +185,7 @@ export const ReportsPage: React.FC = () => {
               setSelectedTx(item);
               setReceiptModalOpen(true);
             }}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-white/60 dark:hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-lg text-muted hover:text-olive-700 hover:bg-white/80 transition-colors cursor-pointer"
             title="View & Download PDF Receipt"
           >
             <Eye className="w-4 h-4" />
@@ -198,7 +197,7 @@ export const ReportsPage: React.FC = () => {
                 setSelectedTx(item);
                 setReversalModalOpen(true);
               }}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-white/60 dark:hover:bg-slate-800 transition-colors"
+              className="p-1.5 rounded-lg text-muted hover:text-terracotta hover:bg-white/80 transition-colors cursor-pointer"
               title="Reverse Transaction"
             >
               <RotateCcw className="w-4 h-4" />
@@ -214,10 +213,10 @@ export const ReportsPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h1 className="text-2xl font-extrabold text-charcoal tracking-tight">
             Financial Reports & Ledger Audit
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-muted mt-1">
             Real-time totals, filtered collections, transaction logs, and official CSV exports.
           </p>
         </div>
@@ -235,37 +234,37 @@ export const ReportsPage: React.FC = () => {
       {/* Summary KPI Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <GlassCard variant="default" className="p-4">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-muted block">
             Total Billed
           </span>
-          <span className="text-lg font-extrabold text-slate-900 dark:text-white">
+          <span className="text-lg font-extrabold text-charcoal">
             ₹ {(report?.kpis.totalAssigned || 0).toLocaleString('en-IN')}
           </span>
         </GlassCard>
 
         <GlassCard variant="default" className="p-4">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 block">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-olive-700 block">
             Net Collected
           </span>
-          <span className="text-lg font-extrabold text-emerald-600 dark:text-emerald-400">
+          <span className="text-lg font-extrabold text-olive-800">
             ₹ {(report?.kpis.totalCollected || 0).toLocaleString('en-IN')}
           </span>
         </GlassCard>
 
         <GlassCard variant="default" className="p-4">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 block">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-gold-700 block">
             Pending Dues
           </span>
-          <span className="text-lg font-extrabold text-amber-600 dark:text-amber-400">
+          <span className="text-lg font-extrabold text-gold-700">
             ₹ {(report?.kpis.totalPending || 0).toLocaleString('en-IN')}
           </span>
         </GlassCard>
 
         <GlassCard variant="default" className="p-4">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 block">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-terracotta block">
             Reversals
           </span>
-          <span className="text-lg font-extrabold text-rose-600 dark:text-rose-400">
+          <span className="text-lg font-extrabold text-terracotta">
             ₹ {(report?.kpis.totalReversedAmount || 0).toLocaleString('en-IN')}
           </span>
         </GlassCard>

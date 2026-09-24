@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { UserCheck, UserPlus, KeyRound, ShieldAlert, Power, CheckCircle, Search } from 'lucide-react';
-import { GlassCard } from '../../components/ui/GlassCard';
+import { UserCheck, UserPlus, KeyRound, Power } from 'lucide-react';
 import { GlassButton } from '../../components/ui/GlassButton';
 import { GlassBadge } from '../../components/ui/GlassBadge';
 import { GlassInput } from '../../components/ui/GlassInput';
@@ -97,12 +96,12 @@ export const ClerksPage: React.FC = () => {
       header: 'Cashier / Clerk Name',
       render: (item) => (
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-bold text-xs">
+          <div className="w-8 h-8 rounded-xl bg-spruce/15 text-spruce-700 flex items-center justify-center font-bold text-xs">
             {item.name.charAt(0).toUpperCase()}
           </div>
           <div>
-            <span className="font-bold text-sm text-slate-900 dark:text-white block">{item.name}</span>
-            <span className="text-xs text-slate-500">{item.email}</span>
+            <span className="font-bold text-sm text-charcoal block">{item.name}</span>
+            <span className="text-xs text-muted">{item.email}</span>
           </div>
         </div>
       ),
@@ -120,7 +119,7 @@ export const ClerksPage: React.FC = () => {
       key: 'transactions',
       header: 'Collections Recorded',
       render: (item) => (
-        <span className="font-bold text-xs text-slate-800 dark:text-slate-200">
+        <span className="font-bold text-xs text-charcoal">
           {item._count?.recordedTransactions || 0} Transactions
         </span>
       ),
@@ -147,17 +146,17 @@ export const ClerksPage: React.FC = () => {
               setFormError(null);
               setResetModalOpen(true);
             }}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-white/60 dark:hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-lg text-muted hover:text-olive-700 hover:bg-white/80 transition-colors cursor-pointer"
             title="Reset Password"
           >
             <KeyRound className="w-4 h-4" />
           </button>
           <button
             onClick={() => handleToggle(item)}
-            className={`p-1.5 rounded-lg transition-colors ${
+            className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
               item.isActive
-                ? 'text-slate-400 hover:text-rose-600 hover:bg-white/60 dark:hover:bg-slate-800'
-                : 'text-slate-400 hover:text-emerald-600 hover:bg-white/60 dark:hover:bg-slate-800'
+                ? 'text-muted hover:text-terracotta hover:bg-white/80'
+                : 'text-muted hover:text-olive-700 hover:bg-white/80'
             }`}
             title={item.isActive ? 'Deactivate Account' : 'Activate Account'}
           >
@@ -172,10 +171,10 @@ export const ClerksPage: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h1 className="text-2xl font-extrabold text-charcoal tracking-tight">
             Accounts Staff & Cashiers
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-muted mt-1">
             Manage fee collection desk permissions, deactivate accounts, and reset credentials.
           </p>
         </div>
@@ -210,7 +209,7 @@ export const ClerksPage: React.FC = () => {
       >
         <form onSubmit={handleCreate} className="space-y-4">
           {formError && (
-            <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-600 dark:text-rose-300 font-medium">
+            <div className="p-3 rounded-xl bg-terracotta/15 border border-terracotta/30 text-xs text-terracotta font-medium">
               {formError}
             </div>
           )}
@@ -242,7 +241,7 @@ export const ClerksPage: React.FC = () => {
             helperText="Minimum 6 characters"
           />
 
-          <div className="pt-3 border-t border-slate-200/50 dark:border-white/10 flex items-center justify-end gap-2">
+          <div className="pt-3 border-t border-olive-500/15 flex items-center justify-end gap-2">
             <GlassButton type="button" variant="secondary" onClick={() => setCreateModalOpen(false)}>
               Cancel
             </GlassButton>
@@ -263,7 +262,7 @@ export const ClerksPage: React.FC = () => {
       >
         <form onSubmit={handleResetPassword} className="space-y-4">
           {formError && (
-            <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-600 dark:text-rose-300 font-medium">
+            <div className="p-3 rounded-xl bg-terracotta/15 border border-terracotta/30 text-xs text-terracotta font-medium">
               {formError}
             </div>
           )}
@@ -278,7 +277,7 @@ export const ClerksPage: React.FC = () => {
             helperText="Minimum 6 characters"
           />
 
-          <div className="pt-3 border-t border-slate-200/50 dark:border-white/10 flex items-center justify-end gap-2">
+          <div className="pt-3 border-t border-olive-500/15 flex items-center justify-end gap-2">
             <GlassButton type="button" variant="secondary" onClick={() => setResetModalOpen(false)}>
               Cancel
             </GlassButton>

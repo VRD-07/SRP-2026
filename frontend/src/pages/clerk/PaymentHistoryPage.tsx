@@ -56,7 +56,7 @@ export const PaymentHistoryPage: React.FC = () => {
       key: 'receiptNumber',
       header: 'Receipt Voucher',
       render: (item) => (
-        <span className="font-mono font-bold text-xs text-indigo-600 dark:text-indigo-400">
+        <span className="font-mono font-bold text-xs text-olive-800 ">
           {item.receiptNumber}
         </span>
       ),
@@ -66,10 +66,10 @@ export const PaymentHistoryPage: React.FC = () => {
       header: 'Student & Roll No.',
       render: (item) => (
         <div>
-          <span className="font-bold text-xs text-slate-900 dark:text-white block">
+          <span className="font-bold text-xs text-charcoal  block">
             {item.student.name}
           </span>
-          <span className="text-[11px] text-slate-500 font-mono">
+          <span className="text-[11px] text-muted font-mono">
             {item.student.rollNumber} • {item.student.class}
           </span>
         </div>
@@ -79,7 +79,7 @@ export const PaymentHistoryPage: React.FC = () => {
       key: 'feeHead',
       header: 'Fee Head',
       render: (item) => (
-        <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+        <span className="text-xs font-semibold text-charcoal ">
           {item.feeAssignment.feeStructure.feeHead} Fee
         </span>
       ),
@@ -92,7 +92,7 @@ export const PaymentHistoryPage: React.FC = () => {
         return (
           <span
             className={`font-bold text-xs ${
-              isReversed ? 'text-rose-600 dark:text-rose-400 line-through' : 'text-slate-900 dark:text-white'
+              isReversed ? 'text-terracotta  line-through' : 'text-charcoal '
             }`}
           >
             ₹ {item.amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
@@ -105,10 +105,10 @@ export const PaymentHistoryPage: React.FC = () => {
       header: 'Mode & Ref',
       render: (item) => (
         <div>
-          <span className="font-semibold text-xs text-slate-800 dark:text-slate-200 block">
+          <span className="font-semibold text-xs text-charcoal  block">
             {item.paymentMode}
           </span>
-          <span className="text-[10px] text-slate-500 truncate max-w-[100px] block">
+          <span className="text-[10px] text-muted truncate max-w-[100px] block">
             Ref: {item.referenceNumber}
           </span>
         </div>
@@ -118,8 +118,8 @@ export const PaymentHistoryPage: React.FC = () => {
       key: 'date',
       header: 'Recorded On',
       render: (item) => (
-        <span className="text-xs text-slate-600 dark:text-slate-400">
-          {new Date(item.createdAt).toLocaleDateString('en-IN', {
+        <span className="text-xs text-muted ">
+          {new Date(item.createdAt).toLocaleString('en-IN', {
             dateStyle: 'short',
             timeStyle: 'short',
           })}
@@ -146,7 +146,7 @@ export const PaymentHistoryPage: React.FC = () => {
               setSelectedTx(item);
               setReceiptModalOpen(true);
             }}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-white/60 dark:hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-lg text-muted hover:text-olive-800 hover:bg-white/80  transition-colors"
             title="View & Download PDF Receipt"
           >
             <Eye className="w-4 h-4" />
@@ -158,7 +158,7 @@ export const PaymentHistoryPage: React.FC = () => {
                 setSelectedTx(item);
                 setReversalModalOpen(true);
               }}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-white/60 dark:hover:bg-slate-800 transition-colors"
+              className="p-1.5 rounded-lg text-muted hover:text-terracotta hover:bg-white/80  transition-colors"
               title="Initiate Reversal"
             >
               <RotateCcw className="w-4 h-4" />
@@ -172,10 +172,10 @@ export const PaymentHistoryPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        <h1 className="text-2xl font-extrabold text-charcoal  tracking-tight">
           Desk Payment History & Audit
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm text-muted  mt-1">
           Historical record of fee deposits collected by your cashier workstation. Download official vouchers or initiate reversals.
         </p>
       </div>

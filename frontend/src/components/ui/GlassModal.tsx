@@ -52,7 +52,7 @@ export const GlassModal: React.FC<GlassModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto animate-in fade-in duration-200">
       {/* Frosted Backdrop */}
       <div
-        className="fixed inset-0 bg-slate-950/40 backdrop-blur-md transition-opacity"
+        className="fixed inset-0 bg-charcoal/25 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
 
@@ -60,20 +60,20 @@ export const GlassModal: React.FC<GlassModalProps> = ({
       <GlassCard
         variant="elevated"
         className={clsx(
-          'relative w-full z-10 p-6 shadow-2xl border border-white/40 dark:border-white/15 my-8 overflow-hidden',
+          'relative w-full z-10 p-6 shadow-glassElevated border border-white/90 my-8 overflow-hidden',
           maxWidthStyles[maxWidth]
         )}
       >
-        <div className="flex items-start justify-between pb-4 border-b border-slate-200/50 dark:border-white/10">
+        <div className="flex items-start justify-between pb-4 border-b border-olive-500/15">
           <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white">{title}</h3>
+            <h3 className="text-lg font-bold text-charcoal">{title}</h3>
             {description && (
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{description}</p>
+              <p className="text-xs text-muted mt-0.5">{description}</p>
             )}
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/10 transition-colors"
+            className="p-1.5 rounded-xl text-muted hover:text-charcoal hover:bg-olive-500/10 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>

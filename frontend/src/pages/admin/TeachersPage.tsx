@@ -2,15 +2,11 @@ import React, { useState, useEffect } from 'react';
 import {
   Plus,
   Search,
-  UserSquare2,
   Edit2,
   KeyRound,
   UserCheck,
   UserX,
   AlertCircle,
-  BookOpen,
-  GraduationCap,
-  ShieldCheck,
   Check,
 } from 'lucide-react';
 import { GlassCard } from '../../components/ui/GlassCard';
@@ -60,7 +56,9 @@ export const TeachersPage: React.FC = () => {
     try {
       setLoading(true);
       const res = await teacherService.getAll({ search: search || undefined });
-      if (res.success) setTeachers(res.data);
+      if (res.success) {
+        setTeachers(res.data);
+      }
     } catch (err) {
       console.error('Failed to load teachers:', err);
     } finally {
@@ -78,83 +76,71 @@ export const TeachersPage: React.FC = () => {
   };
 
   const handleOpenCreate = () => {
-    setFormError(null);
-    const rand = Math.floor(Math.random() * 900 + 100);
     setName('');
     setEmail('');
-    setEmployeeId(`TCH-${rand}`);
+    setEmployeeId('');
     setSubjectsInput('');
-    setAssignedClasses([{ class: 'B.Tech CSE', section: 'A' }]);
+    setAssignedClasses([]);
     setPassword('Teacher@123');
+    setFormError(null);
     setCreateModalOpen(true);
   };
 
   const handleOpenEdit = (t: TeacherListItem) => {
-    setFormError(null);
     setEditingTeacher(t);
     setName(t.name);
     setEmail(t.email);
     setEmployeeId(t.employeeId);
-    setSubjectsInput(t.subjectsTaught.join(', '));
+    setSubjectsInput(t.subjectsTaught ? t.subjectsTaught.join(', ') : '');
     setAssignedClasses(t.classesAssigned || []);
+    setFormError(null);
     setEditModalOpen(true);
   };
 
   const handleOpenReset = (t: TeacherListItem) => {
     setTargetTeacher(t);
     setNewPassword('');
+    setFormError(null);
     setResetModalOpen(true);
   };
 
   const toggleClassAssignment = (item: ClassSectionAssignment) => {
-    const exists = assignedClasses.some(
-      (a) => a.class === item.class && a.section === item.section
-    );
-    if (exists) {
-      setAssignedClasses(
-        assignedClasses.filter(
-          (a) => !(a.class === item.class && a.section === item.section)
-        )
-      );
-    } else {
-      setAssignedClasses([...assignedClasses, item]);
-    }
+    setAssignedClasses((prev) => {
+      const exists = prev.some((a) => a.class === item.class && a.section === item.section);
+      if (exists) {
+        return prev.filter((a) => !(a.class === item.class && a.section === item.section));
+      } else {
+        return [...prev, item];
+      }
+    });
   };
 
   const handleCreateSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormError(null);
-
-    const subjects = subjectsInput
-      .split(',')
-      .map((s) => s.trim())
-      .filter(Boolean);
-
-    if (subjects.length === 0) {
-      setFormError('Please enter at least one subject');
-      return;
-    }
-
-    if (assignedClasses.length === 0) {
-      setFormError('Please assign at least one class and section');
-      return;
-    }
+    setSubmitting(true);
 
     try {
-      setSubmitting(true);
-      await teacherService.create({
+      const subjects = subjectsInput
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+      const res = await teacherService.create({
         name,
         email,
         employeeId,
+        password,
         subjectsTaught: subjects,
         classesAssigned: assignedClasses,
-        password,
       });
 
-      setCreateModalOpen(false);
-      fetchTeachers();
+      if (res.success) {
+        setCreateModalOpen(false);
+        fetchTeachers();
+      }
     } catch (err: any) {
-      setFormError(err.message || 'Failed to create teacher');
+      setFormError(err.message || 'Failed to create teacher account');
     } finally {
       setSubmitting(false);
     }
@@ -164,25 +150,15 @@ export const TeachersPage: React.FC = () => {
     e.preventDefault();
     if (!editingTeacher) return;
     setFormError(null);
-
-    const subjects = subjectsInput
-      .split(',')
-      .map((s) => s.trim())
-      .filter(Boolean);
-
-    if (subjects.length === 0) {
-      setFormError('Please enter at least one subject');
-      return;
-    }
-
-    if (assignedClasses.length === 0) {
-      setFormError('Please assign at least one class and section');
-      return;
-    }
+    setSubmitting(true);
 
     try {
-      setSubmitting(true);
-      await teacherService.update(editingTeacher.id, {
+      const subjects = subjectsInput
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+      const res = await teacherService.update(editingTeacher.id, {
         name,
         email,
         employeeId,
@@ -190,8 +166,10 @@ export const TeachersPage: React.FC = () => {
         classesAssigned: assignedClasses,
       });
 
-      setEditModalOpen(false);
-      fetchTeachers();
+      if (res.success) {
+        setEditModalOpen(false);
+        fetchTeachers();
+      }
     } catch (err: any) {
       setFormError(err.message || 'Failed to update teacher');
     } finally {
@@ -200,23 +178,27 @@ export const TeachersPage: React.FC = () => {
   };
 
   const handleToggleStatus = async (t: TeacherListItem) => {
+    const action = t.isActive ? 'deactivate' : 'activate';
+    if (!confirm(`Are you sure you want to ${action} ${t.name}?`)) return;
+
     try {
       await teacherService.updateStatus(t.id, !t.isActive);
       fetchTeachers();
     } catch (err: any) {
-      alert(`Status update failed: ${err.message}`);
+      alert(`Status toggle failed: ${err.message}`);
     }
   };
 
   const handleResetSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!targetTeacher || !newPassword) return;
+    if (!targetTeacher) return;
+    setFormError(null);
+    setSubmitting(true);
 
     try {
-      setSubmitting(true);
       await teacherService.resetPassword(targetTeacher.id, newPassword);
       setResetModalOpen(false);
-      alert(`Password successfully reset for ${targetTeacher.name}`);
+      alert(`Password updated successfully for ${targetTeacher.name}`);
     } catch (err: any) {
       alert(`Password reset failed: ${err.message}`);
     } finally {
@@ -229,7 +211,7 @@ export const TeachersPage: React.FC = () => {
       key: 'employeeId',
       header: 'Employee ID',
       render: (item) => (
-        <span className="font-mono font-bold text-xs text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-lg">
+        <span className="font-mono font-bold text-xs text-olive-800 bg-olive-500/15 px-2.5 py-1 rounded-lg">
           {item.employeeId}
         </span>
       ),
@@ -239,10 +221,10 @@ export const TeachersPage: React.FC = () => {
       header: 'Faculty Name',
       render: (item) => (
         <div>
-          <span className="font-bold text-sm text-slate-900 dark:text-white block">
+          <span className="font-bold text-sm text-charcoal block">
             {item.name}
           </span>
-          <span className="text-xs text-slate-500">{item.email}</span>
+          <span className="text-xs text-muted">{item.email}</span>
         </div>
       ),
     },
@@ -255,13 +237,13 @@ export const TeachersPage: React.FC = () => {
             item.classesAssigned.map((ca, idx) => (
               <span
                 key={idx}
-                className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/20"
+                className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-olive-500/15 text-olive-800 border border-olive-500/25"
               >
                 {ca.class} ({ca.section})
               </span>
             ))
           ) : (
-            <span className="text-xs text-slate-400 italic">No classes assigned</span>
+            <span className="text-xs text-muted italic">No classes assigned</span>
           )}
         </div>
       ),
@@ -274,7 +256,7 @@ export const TeachersPage: React.FC = () => {
           {item.subjectsTaught.map((sub, idx) => (
             <span
               key={idx}
-              className="text-[11px] text-slate-600 dark:text-slate-300 bg-white/60 dark:bg-slate-800/60 px-2 py-0.5 rounded-md border border-slate-200/50 dark:border-white/5"
+              className="text-[11px] text-charcoal bg-white/70 px-2 py-0.5 rounded-md border border-olive-500/15"
             >
               {sub}
             </span>
@@ -299,24 +281,24 @@ export const TeachersPage: React.FC = () => {
         <div className="flex items-center justify-end gap-1">
           <button
             onClick={() => handleOpenEdit(item)}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-white/60 dark:hover:bg-slate-800"
+            className="p-1.5 rounded-lg text-muted hover:text-olive-700 hover:bg-white/80 cursor-pointer"
             title="Edit Teacher & Class Assignments"
           >
             <Edit2 className="w-4 h-4" />
           </button>
           <button
             onClick={() => handleOpenReset(item)}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-white/60 dark:hover:bg-slate-800"
+            className="p-1.5 rounded-lg text-muted hover:text-gold-700 hover:bg-white/80 cursor-pointer"
             title="Reset Password"
           >
             <KeyRound className="w-4 h-4" />
           </button>
           <button
             onClick={() => handleToggleStatus(item)}
-            className={`p-1.5 rounded-lg ${
+            className={`p-1.5 rounded-lg cursor-pointer ${
               item.isActive
-                ? 'text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30'
-                : 'text-rose-600 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/30'
+                ? 'text-muted hover:text-terracotta hover:bg-terracotta/10'
+                : 'text-terracotta hover:text-olive-700 hover:bg-olive-500/15'
             }`}
             title={item.isActive ? 'Deactivate Teacher' : 'Activate Teacher'}
           >
@@ -332,10 +314,10 @@ export const TeachersPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-charcoal tracking-tight">
             Faculty & Teacher Management
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-muted mt-1">
             Manage teacher accounts, assign specific class & section combinations, and enforce RBAC permissions
           </p>
         </div>
@@ -384,7 +366,7 @@ export const TeachersPage: React.FC = () => {
       >
         <form onSubmit={handleCreateSubmit} className="space-y-4">
           {formError && (
-            <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-700 dark:text-rose-400 flex items-center gap-2">
+            <div className="p-3 rounded-xl bg-terracotta/15 border border-terracotta/30 text-xs text-terracotta flex items-center gap-2">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               <span>{formError}</span>
             </div>
@@ -435,7 +417,7 @@ export const TeachersPage: React.FC = () => {
 
           {/* Class & Section Assignment Matrix */}
           <div>
-            <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-2">
+            <label className="text-xs font-bold text-charcoal block mb-2">
               Assign Classes & Sections (Strict Attendance Boundary):
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -448,23 +430,23 @@ export const TeachersPage: React.FC = () => {
                     key={idx}
                     type="button"
                     onClick={() => toggleClassAssignment(item)}
-                    className={`p-2.5 rounded-xl text-left border transition-all flex items-center justify-between ${
+                    className={`p-2.5 rounded-xl text-left border transition-all flex items-center justify-between cursor-pointer ${
                       isSelected
-                        ? 'bg-indigo-500/15 border-indigo-500 text-indigo-700 dark:text-indigo-300 font-bold shadow-sm'
-                        : 'bg-white/40 dark:bg-slate-800/40 border-slate-200/50 dark:border-white/5 text-slate-600 dark:text-slate-400'
+                        ? 'bg-olive-500/15 border-olive-600 text-olive-800 font-bold shadow-xs'
+                        : 'bg-white/50 border-olive-500/15 text-charcoal hover:bg-white/70'
                     }`}
                   >
                     <span className="text-xs">
                       {item.class} <span className="text-[11px] opacity-75">Sec {item.section}</span>
                     </span>
-                    {isSelected && <Check className="w-3.5 h-3.5 text-indigo-600" />}
+                    {isSelected && <Check className="w-3.5 h-3.5 text-olive-700" />}
                   </button>
                 );
               })}
             </div>
           </div>
 
-          <div className="flex justify-end gap-3 pt-3 border-t border-slate-200/40 dark:border-white/10">
+          <div className="flex justify-end gap-3 pt-3 border-t border-olive-500/15">
             <GlassButton variant="secondary" type="button" onClick={() => setCreateModalOpen(false)}>
               Cancel
             </GlassButton>
@@ -485,7 +467,7 @@ export const TeachersPage: React.FC = () => {
       >
         <form onSubmit={handleEditSubmit} className="space-y-4">
           {formError && (
-            <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-700 dark:text-rose-400 flex items-center gap-2">
+            <div className="p-3 rounded-xl bg-terracotta/15 border border-terracotta/30 text-xs text-terracotta flex items-center gap-2">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               <span>{formError}</span>
             </div>
@@ -522,7 +504,7 @@ export const TeachersPage: React.FC = () => {
           />
 
           <div>
-            <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-2">
+            <label className="text-xs font-bold text-charcoal block mb-2">
               Classes & Sections Assigned:
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -535,23 +517,23 @@ export const TeachersPage: React.FC = () => {
                     key={idx}
                     type="button"
                     onClick={() => toggleClassAssignment(item)}
-                    className={`p-2.5 rounded-xl text-left border transition-all flex items-center justify-between ${
+                    className={`p-2.5 rounded-xl text-left border transition-all flex items-center justify-between cursor-pointer ${
                       isSelected
-                        ? 'bg-indigo-500/15 border-indigo-500 text-indigo-700 dark:text-indigo-300 font-bold shadow-sm'
-                        : 'bg-white/40 dark:bg-slate-800/40 border-slate-200/50 dark:border-white/5 text-slate-600 dark:text-slate-400'
+                        ? 'bg-olive-500/15 border-olive-600 text-olive-800 font-bold shadow-xs'
+                        : 'bg-white/50 border-olive-500/15 text-charcoal hover:bg-white/70'
                     }`}
                   >
                     <span className="text-xs">
                       {item.class} <span className="text-[11px] opacity-75">Sec {item.section}</span>
                     </span>
-                    {isSelected && <Check className="w-3.5 h-3.5 text-indigo-600" />}
+                    {isSelected && <Check className="w-3.5 h-3.5 text-olive-700" />}
                   </button>
                 );
               })}
             </div>
           </div>
 
-          <div className="flex justify-end gap-3 pt-3 border-t border-slate-200/40 dark:border-white/10">
+          <div className="flex justify-end gap-3 pt-3 border-t border-olive-500/15">
             <GlassButton variant="secondary" type="button" onClick={() => setEditModalOpen(false)}>
               Cancel
             </GlassButton>

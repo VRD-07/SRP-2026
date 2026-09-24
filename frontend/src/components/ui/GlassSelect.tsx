@@ -20,7 +20,7 @@ export const GlassSelect = React.forwardRef<HTMLSelectElement, GlassSelectProps>
     return (
       <div className="w-full space-y-1.5">
         {label && (
-          <label htmlFor={selectId} className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+          <label htmlFor={selectId} className="block text-xs font-semibold uppercase tracking-wider text-charcoal">
             {label}
           </label>
         )}
@@ -30,30 +30,30 @@ export const GlassSelect = React.forwardRef<HTMLSelectElement, GlassSelectProps>
             ref={ref}
             className={clsx(
               'w-full px-3.5 py-2.5 text-sm rounded-xl appearance-none transition-all duration-150 ease-out cursor-pointer',
-              'bg-white/60 dark:bg-slate-800/60 backdrop-blur-md',
-              'text-slate-900 dark:text-slate-100',
-              'border border-slate-300/60 dark:border-white/10',
-              'focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 dark:focus:border-indigo-400 focus:bg-white/80 dark:focus:bg-slate-800/80',
+              'bg-white/70 backdrop-blur-md',
+              'text-charcoal',
+              'border border-olive-500/20',
+              'focus:outline-none focus:ring-2 focus:ring-olive-500/20 focus:border-olive-600 focus:bg-white/95',
               'disabled:opacity-50 disabled:cursor-not-allowed pr-10',
-              error && 'border-rose-500/70 focus:border-rose-500 focus:ring-rose-500/30',
+              error && 'border-terracotta/70 focus:border-terracotta focus:ring-terracotta/20',
               className
             )}
             {...props}
           >
             {options.map((opt) => (
-              <option key={opt.value} value={opt.value} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">
+              <option key={opt.value} value={opt.value} className="bg-white text-charcoal">
                 {opt.label}
               </option>
             ))}
           </select>
-          <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+          <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-muted">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
             </svg>
           </div>
         </div>
-        {error && <p className="text-xs text-rose-500 font-medium pl-1">{error}</p>}
-        {helperText && !error && <p className="text-xs text-slate-500 dark:text-slate-400 pl-1">{helperText}</p>}
+        {error && <p className="text-xs text-terracotta font-medium pl-1">{error}</p>}
+        {helperText && !error && <p className="text-xs text-muted pl-1">{helperText}</p>}
       </div>
     );
   }

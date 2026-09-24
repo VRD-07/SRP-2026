@@ -28,8 +28,8 @@ export function GlassTable<T>({
   if (isLoading) {
     return (
       <GlassCard className="p-12 text-center">
-        <div className="inline-flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
-          <div className="w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+        <div className="inline-flex items-center gap-3 text-sm text-muted">
+          <div className="w-5 h-5 border-2 border-olive-600 border-t-transparent rounded-full animate-spin"></div>
           Loading records from database...
         </div>
       </GlassCard>
@@ -39,7 +39,7 @@ export function GlassTable<T>({
   if (data.length === 0) {
     return (
       <GlassCard className="p-12 text-center">
-        <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{emptyMessage}</p>
+        <p className="text-sm font-medium text-muted">{emptyMessage}</p>
       </GlassCard>
     );
   }
@@ -47,10 +47,10 @@ export function GlassTable<T>({
   return (
     <div>
       {/* Desktop & Tablet Table View */}
-      <div className="hidden md:block overflow-x-auto rounded-2xl border border-white/50 dark:border-white/10 glass-panel shadow-sm">
+      <div className="hidden md:block overflow-x-auto rounded-2xl border border-white/65 glass-panel shadow-sm">
         <table className="w-full text-left text-sm border-collapse">
           <thead>
-            <tr className="border-b border-slate-200/60 dark:border-white/10 bg-slate-100/50 dark:bg-slate-800/40 text-xs uppercase tracking-wider font-semibold text-slate-600 dark:text-slate-300">
+            <tr className="border-b border-olive-500/15 bg-olive-50/70 text-xs uppercase tracking-wider font-semibold text-muted">
               {columns.map((col) => (
                 <th key={col.key} className={clsx('px-4 py-3.5', col.className)}>
                   {col.header}
@@ -58,14 +58,14 @@ export function GlassTable<T>({
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-200/50 dark:divide-white/5">
+          <tbody className="divide-y divide-olive-500/10">
             {data.map((item) => (
               <tr
                 key={keyExtractor(item)}
-                className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors duration-150"
+                className="hover:bg-white/60 transition-colors duration-150"
               >
                 {columns.map((col) => (
-                  <td key={col.key} className={clsx('px-4 py-3.5 text-slate-800 dark:text-slate-200', col.className)}>
+                  <td key={col.key} className={clsx('px-4 py-3.5 text-charcoal', col.className)}>
                     {col.render ? col.render(item) : (item as any)[col.key]}
                   </td>
                 ))}
@@ -78,13 +78,13 @@ export function GlassTable<T>({
       {/* Mobile Stacked Glass Cards View */}
       <div className="md:hidden space-y-3">
         {data.map((item) => (
-          <GlassCard key={keyExtractor(item)} variant="default" className="p-4 space-y-2.5">
+          <GlassCard key={keyExtractor(item)} variant="default" className="p-4 space-y-2.5 bg-white/70 border border-white/80">
             {columns.map((col) => (
               <div key={col.key} className="flex items-start justify-between text-xs gap-3">
-                <span className="font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 min-w-[90px]">
+                <span className="font-semibold uppercase tracking-wider text-muted min-w-[90px]">
                   {col.header}
                 </span>
-                <div className="text-right text-slate-900 dark:text-slate-100 font-medium break-all">
+                <div className="text-right text-charcoal font-medium break-all">
                   {col.render ? col.render(item) : (item as any)[col.key]}
                 </div>
               </div>
